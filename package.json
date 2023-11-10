@@ -1,0 +1,67 @@
+{
+    "name": "shopbanhang",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@itseasy21/react-elastic-carousel": "^0.12.3",
+        "@react-navigation/native": "^6.1.9",
+        "@tanstack/react-query": "^5.8.1",
+        "@tanstack/react-query-devtools": "^5.8.1",
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@tippyjs/react": "^4.2.6",
+        "axios": "^1.6.0",
+        "bootstrap": "^5.3.2",
+        "carousel": "^0.0.3",
+        "classnames": "^2.3.2",
+        "dotenv": "^16.3.1",
+        "gitignore": "^0.7.0",
+        "normalize.css": "^8.0.1",
+        "react": "^18.2.0",
+        "react-bootstrap": "^2.9.1",
+        "react-dom": "^18.2.0",
+        "react-icons": "^4.11.0",
+        "react-responsive-carousel": "^3.2.23",
+        "react-router-dom": "^6.17.0",
+        "react-scripts": "5.0.1",
+        "react-slick": "^0.29.0",
+        "react-tippy": "^1.4.0",
+        "react-toastify": "8.2.0",
+        "slick-carousel": "^1.8.1",
+        "swiper": "^11.0.3",
+        "tippy.js": "^6.3.7",
+        "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+        "start": " react-app-rewired start",
+        "build": " react-app-rewired build",
+        "test": " react-app-rewired test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^6.4.0",
+        "babel-plugin-module-resolver": "^5.0.0",
+        "customize-cra": "^1.0.0",
+        "react-app-rewired": "^2.2.1",
+        "sass": "^1.69.5"
+    }
+}

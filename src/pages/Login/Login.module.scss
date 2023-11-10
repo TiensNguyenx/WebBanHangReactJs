@@ -1,0 +1,49 @@
+.container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 50px 0;
+}
+.input-box input {
+    width: 400px;
+    padding: 15px;
+    border-radius: 40px;
+}
+.icon {
+    position: absolute;
+    right: 18px;
+    top: 10px;
+
+    font-size: 2rem;
+}
+.input-box {
+    position: relative;
+}
+.remember-forgot {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.btn {
+    width: 400px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 40px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.register-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}

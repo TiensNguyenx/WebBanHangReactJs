@@ -1,0 +1,31 @@
+.footer-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+.footer-list {
+    width: 83.333%;
+}
+
+.footer-item {
+    display: flex;
+    margin: 40px 0;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+}
+.col-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.col-item {
+    font-size: 1.4rem;
+    line-height: 26px;
+}
+.col-icon {
+    width: 33px;
+}

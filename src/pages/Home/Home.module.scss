@@ -1,0 +1,23 @@
+.wrapper {
+    background-color: #f0f0f0;
+
+    width: 83.333%;
+}
+.titleProduct {
+    height: 44px;
+    background-color: #c8191f;
+    border-radius: 10px 10px 0px 0px;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    width: 368px;
+    margin-top: 20px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}

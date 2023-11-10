@@ -1,0 +1,148 @@
+.container {
+    width: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 70px;
+}
+.wrapper {
+    width: 83.333%;
+    margin-top: 54px;
+    display: flex;
+    padding: 20px;
+}
+.container-empty {
+    width: 100%;
+    padding: 50px 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+}
+.wrapper-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    justify-content: center;
+    background-color: white;
+    width: 83.333%;
+    img {
+        width: 336px;
+        height: 336px;
+    }
+}
+.btn-empty {
+    margin-top: 20px;
+    padding: 8px;
+    border-radius: 3px;
+    background-color: rgb(20, 53, 195);
+
+    color: rgb(255, 255, 255);
+}
+.product {
+    flex: 3;
+
+    background-color: white;
+}
+.product-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: hsl(0, 0%, 94%);
+    padding-bottom: 16px;
+}
+.lable {
+    display: flex;
+    font-size: 1.4rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #f0f0f0;
+}
+.item-name {
+    display: flex;
+    align-items: center;
+    width: 333.71px;
+}
+.item-wrapper {
+    font-size: 1.4rem;
+}
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.name {
+    font-size: 1.2rem;
+    & p {
+        margin-bottom: 0;
+    }
+}
+.item-name img {
+    width: 80px;
+    height: 80px;
+}
+.old-price {
+    text-decoration: line-through;
+}
+.quantity {
+    display: flex;
+    margin-right: 60px;
+}
+.delete-all {
+    color: red;
+    cursor: pointer;
+}
+.delete {
+    &:hover {
+        color: red;
+        cursor: pointer;
+    }
+    margin-top: 8px;
+    margin-left: 24px;
+}
+.pay {
+    flex: 1;
+    background-color: white;
+}
+.minus button {
+    padding: 5px 10px;
+}
+.plus button {
+    padding: 5px 10px;
+}
+.number {
+    width: 26px;
+}
+.pay-end {
+    font-size: 1.5rem;
+}
+.select-promotion {
+    font-size: 1.4rem;
+    color: #1990ff;
+    cursor: pointer;
+}
+.promotion {
+    padding: 16px;
+}
+.confirm-pay {
+    padding: 16px;
+    background-color: white;
+    margin-top: 16px;
+}
+.btn-ctn {
+    cursor: pointer;
+    border-radius: 4px;
+
+    line-height: 1rem;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(20, 53, 195);
+    border-color: rgb(20, 53, 195);
+    color: rgb(255, 255, 255);
+    width: 100%;
+    padding: 16px;
+    margin-top: 1rem;
+}
