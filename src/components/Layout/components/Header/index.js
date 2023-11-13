@@ -9,6 +9,7 @@ import { BsChatDots } from "react-icons/bs";
 import { AiOutlineDown } from "react-icons/ai"
 import { BsCartCheck } from "react-icons/bs"
 import { BiUserCircle } from "react-icons/bi"
+import { BsNewspaper } from "react-icons/bs"
 import ModalConfirmLogout from '../ModalConfirmLogout/ModalConfirmLogout';
 import { useState } from 'react';
 
@@ -37,10 +38,12 @@ function Header() {
                     <div className={cx('search')}> <input style={{ height: '100%', width: '100%' }} placeholder='Nhập tên sản phẩm, mã sản phẩm, từ khóa cần tìm kiếm...' spellCheck={false}></input></div>
                 </div>
                 <div className={cx('list-item')} >
-                    <div className={cx('item')} >
-                        <button className={cx('icon')}>  <GrNotification style={{ width: '2rem', height: '2rem' }} /></button>
-                        <span className={cx('subtiltle')}>Thông báo</span>
-                    </div >
+                    <Link to="/news">
+                        <div className={cx('item')} >
+                            <button className={cx('icon')}>  <BsNewspaper style={{ width: '2rem', height: '2rem' }} /></button>
+                            <span className={cx('subtiltle')}>Tin tức</span>
+                        </div >
+                    </Link>
 
                     <Link to="/cart">
                         <div className={cx('item')} >
@@ -55,7 +58,7 @@ function Header() {
                     </div>
                     {sessionStorage.getItem('name') ? (
                         <div className={cx('item')} >
-                            <Link >
+                            <div >
 
 
                                 <div className={cx('whenlogin')}>
@@ -65,7 +68,7 @@ function Header() {
                                     <div>
                                         <ul className={cx('nav')}>
                                             <li className={cx('subnav')}><button> <span className={cx('icon-subnav')}><BiUserCircle /></span>Thông tin tài khoản</button></li>
-                                            <Link to='/cart'>      <li className={cx('subnav')}><button><span className={cx('icon-subnav')}><BsCartCheck /></span>Quản lý đơn hàng</button></li></Link>
+                                            <Link to='/cart'>      <li className={cx('subnav')}><button><span className={cx('icon-subnav')}><BsCartCheck /></span>Quản lý giỏ hàng</button></li></Link>
                                             <li className={cx('subnav')}><button><span className={cx('icon-subnav')}><GrNotification /></span>Thông báo</button></li>
                                             <li className={cx('subnav')}><button onClick={handleLogout} > <span className={cx('icon-subnav', 'last-icon')}><GrLogout /></span>Đăng xuất</button></li>
                                         </ul>
@@ -74,7 +77,7 @@ function Header() {
 
 
 
-                            </Link>
+                            </div>
 
 
                         </div>

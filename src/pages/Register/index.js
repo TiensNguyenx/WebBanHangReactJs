@@ -6,6 +6,8 @@ import Footer from '~/components/Layout/components/Footer';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { MdEmail } from 'react-icons/md';
+import { BsTelephoneFill } from 'react-icons/bs';
 const cx = classNames.bind(styles)
 
 
@@ -68,25 +70,25 @@ function Register() {
             <div className={cx('wrapper')}>
                 <div className={cx('form')}>
                     <form action=''>
-                        <h1 style={{ textAlign: 'center' }}>Register</h1>
+                        <h1 style={{ textAlign: 'center' }}>Đăng ký</h1>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
-                            <input type='text' placeholder='Your Name' required onChange={(e) => setName(e.target.value)} />
+                            <input type='text' placeholder='Họ tên' required onChange={(e) => setName(e.target.value)} />
                             <FaUserAlt className={cx('icon')} />
                         </div>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
                             <input type='text' placeholder='Email' required onChange={(e) => setEmail(e.target.value)} />
-                            <FaUserAlt className={cx('icon')} />
+                            <MdEmail className={cx('icon')} />
                         </div>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
-                            <input type='text' placeholder='Phone' required onChange={(e) => setPhone(e.target.value)} />
-                            <FaUserAlt className={cx('icon')} />
+                            <input type='text' placeholder='Số điện thoại' required onChange={(e) => setPhone(e.target.value)} />
+                            <BsTelephoneFill className={cx('icon')} />
                         </div>
                         <div className={cx('input-box', 'password')} style={{ marginTop: '8px' }}>
-                            <input type='password' placeholder='Password' required onChange={(e) => setPassword(e.target.value)} />
+                            <input type='password' placeholder='Mật khẩu' required onChange={(e) => setPassword(e.target.value)} />
                             <FaLock className={cx('icon')} />
                         </div>
                         <div className={cx('input-box', 'confirm-password')} style={{ marginTop: '8px' }}>
-                            <input type='password' placeholder='Confirm Password' required onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <input type='password' placeholder='Nhập lại mật khẩu' required onChange={(e) => setConfirmPassword(e.target.value)} />
                             <FaLock className={cx('icon')} />
                         </div>
                         <div className={cx('message')} style={{
@@ -98,14 +100,12 @@ function Register() {
                         }}>
                             <p></p>
                         </div>
-                        <div className={cx('remember-forgot')}>
-                            <div>     <a href='/'>Forgot password</a></div>
-                        </div>
-                        <button type='submit' className={cx('btn')} onClick={handleRegister}>Register</button>
+
+                        <button type='submit' className={cx('btn')} onClick={handleRegister}>Đăng ký</button>
                         <div className={cx('register-link')}>
-                            <p style={{ marginRight: '5px', cursor: 'pointer' }}>Have an account?
+                            <p style={{ marginRight: '5px', cursor: 'pointer' }}>Đã có tài khoản?
                             </p>
-                            <Link to='/login'>   <div><div href='/' style={{ color: 'red', fontWeight: '600' }} >Login</div></div></Link>
+                            <Link to='/login'>   <div><div href='/' style={{ color: 'red', fontWeight: '600' }} >Đăng nhập</div></div></Link>
                         </div>
                     </form>
                 </div>

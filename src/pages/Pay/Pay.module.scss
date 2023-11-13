@@ -1,0 +1,141 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+.container {
+    width: 83.333%;
+    padding: 70px 0;
+}
+.checkout {
+    flex: 1.5;
+    margin-right: 15px;
+}
+.information {
+    display: flex;
+    flex-direction: column;
+}
+.ship-input {
+    border-bottom: 1px solid #e9ecee;
+    width: 320px;
+    & input {
+        width: 100%;
+        padding: 15px;
+
+        font-size: 1.3rem;
+        line-height: 18px;
+    }
+}
+.product-img {
+    & img {
+        width: 100px;
+        height: 100px;
+    }
+}
+.product-wrapper {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e9ecee;
+    background-color: white;
+}
+.product-information {
+    margin-top: 5px;
+    flex: 1;
+}
+.client-information {
+    background-color: white;
+}
+.client-title {
+    color: #212b36;
+
+    line-height: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    & h2 {
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+}
+.price {
+    display: flex;
+    align-items: center;
+}
+.new-price {
+    font-size: 1.7rem;
+    color: #d70018;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+.old-price {
+    font-size: 1.5rem;
+    color: #a5a5a5;
+    text-decoration: line-through;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+.title {
+    text-align: center;
+    & h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+}
+.recei-wrapper {
+    background-color: white;
+}
+.width-100 {
+    width: 100%;
+}
+.select-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.select-container {
+    width: 320px;
+    & input {
+        width: 100%;
+    }
+    border-bottom: 1px solid #e9ecee;
+}
+.lable {
+    color: #919eab;
+    font-size: 1.1rem;
+    line-height: 18px;
+    opacity: 1;
+    top: 0;
+}
+.note-store {
+    width: 100%;
+    border-bottom: 1px solid #e9ecee;
+}
+.product-title {
+    color: #212b36;
+
+    margin-bottom: 10px;
+    text-transform: uppercase;
+
+    & h2 {
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+}
+.recei-title {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.total-price {
+    margin-top: 15px;
+    background-color: white;
+    padding: 20px;
+}
+.btn-pay {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(20, 53, 195);
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+}

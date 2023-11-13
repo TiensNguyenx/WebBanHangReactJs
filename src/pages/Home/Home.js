@@ -14,7 +14,7 @@ function Home() {
 
 
 
-    const productApi = 'http://localhost:3002/api/product/getAllProduct'
+    const productApi = 'http://localhost:3000/product'
 
     const [products, setProducts] = useState([])
 
@@ -23,7 +23,7 @@ function Home() {
         fetch(productApi)
             .then(response => response.json())
             .then((data) => {
-                setProducts(data.data)
+                setProducts(data)
             })
     }, [])
 
@@ -45,7 +45,7 @@ function Home() {
                             <Product
                                 key={index}
                                 id={item.id}
-                                uptitle={item.name}
+                                uptitle={item.uptitle}
                                 downtitle={item.downtitle}
                                 oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.oldprice)}
                                 newprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.newprice)}

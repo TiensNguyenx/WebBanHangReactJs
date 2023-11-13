@@ -1,6 +1,6 @@
 import styles from './Login.module.scss'
 import classNames from 'classnames/bind';
-import { FaUserAlt } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 import { FaLock } from 'react-icons/fa';
 import Footer from '~/components/Layout/components/Footer';
 import { Link } from 'react-router-dom';
@@ -65,24 +65,24 @@ function Login() {
             <div className={cx('wrapper')}>
                 <div className={cx('form')}>
                     <form action=''>
-                        <h1 style={{ textAlign: 'center' }}>Login</h1>
+                        <h1 style={{ textAlign: 'center' }}>Đăng Nhập</h1>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
-                            <input type='text' placeholder='Username' required value={username} onChange={(e) => setUsername(e.target.value)} />
-                            <FaUserAlt className={cx('icon')} />
+                            <input type='text' placeholder='Email' required value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <MdEmail className={cx('icon')} />
                         </div>
                         <div className={cx('input-box')} style={{ marginTop: '8px' }}>
-                            <input type='password' placeholder='Password' required value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type='password' placeholder='Mật khẩu' required value={password} onChange={(e) => setPassword(e.target.value)} />
                             <FaLock className={cx('icon')} />
                         </div>
                         <div className={cx('remember-forgot')}>
-                            <label><input type='checkbox' />Remember me</label>
-                            <div>     <a href='/'>Forgot password</a></div>
+                            <label><input type='checkbox' />Lưu mật khẩu</label>
+                            <div>     <a href='/'> Quên mật khẩu</a></div>
                         </div>
-                        <button style={{ marginTop: '20px' }} type='submit' className={cx('btn')} onClick={handleLogin}>Login</button>
+                        <button style={{ marginTop: '20px' }} type='submit' className={cx('btn')} onClick={handleLogin}>Đămg Nhập</button>
                         <div className={cx('register-link')}>
-                            <p style={{ marginRight: '5px', cursor: 'pointer' }}>Don't have an account?
+                            <p style={{ marginRight: '5px', cursor: 'pointer' }}>Chưa có tài khoản?
                             </p>
-                            <Link to='/register'>   <div><div style={{ color: 'red', fontWeight: '600' }} >Register</div></div></Link>
+                            <Link to='/register'>   <div><div style={{ color: 'red', fontWeight: '600' }} >Đăng ký</div></div></Link>
                         </div>
                     </form>
                 </div>

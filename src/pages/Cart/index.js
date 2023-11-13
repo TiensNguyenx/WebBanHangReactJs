@@ -94,7 +94,6 @@ function Cart() {
     if (carts.length > 0) {
         return (
             <div>
-
                 <div className={cx('container')}>
                     <div className={cx('wrapper')}>
                         <div className={cx('product')}>
@@ -205,7 +204,7 @@ function Cart() {
                                 <div className={cx('pay-end')}><p>Tổng tạm tính</p><p></p></div>
                                 <div className={cx('pay-end')}><p>Tổng tiền</p> </div>
                                 <div className={cx('pay-end')}>(Đã bao gồm VAT)</div>
-                                <button className={cx('btn-ctn')}>TIẾP TỤC</button>
+                                <Link to="/pay">    <button className={cx('btn-ctn')}>TIẾP TỤC</button></Link>
                             </div>
                         </div>
                     </div>
