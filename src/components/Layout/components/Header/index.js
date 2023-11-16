@@ -70,7 +70,7 @@ function Header() {
                                 <div className={cx('whenlogin')}>
 
                                     {/* <button className={cx('icon')}> <AiOutlineUser style={{ width: '2rem', height: '2rem' }} /></button> */}
-                                    <div className={cx('avatar-user')}>   <img src='https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg' alt='avatar' />   <span className={cx('username')} > {user.email} </span></div>
+                                    <div className={cx('avatar-user')}>   <img src='https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg' alt='avatar' />   <span className={cx('username')} > {user.name} </span></div>
                                     <div>
                                         <ul className={cx('nav')}>
                                             <li className={cx('subnav')}><button> <span className={cx('icon-subnav')}><BiUserCircle /></span>Thông tin tài khoản</button></li>

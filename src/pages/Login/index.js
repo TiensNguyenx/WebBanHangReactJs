@@ -22,10 +22,11 @@ function Login() {
     const [error, setError] = useState('');
     const [loadingApi, setLoadingApi] = useState(false);
     const navigate = useNavigate();
-    const { loginContext } = useContext(UserContext);
+    const { loginContext, user } = useContext(UserContext);
+
     useEffect(() => {
-        let token = localStorage.getItem('token');
-        if (token) {
+
+        if (user.token) {
             navigate('/')
         }
     })
@@ -65,9 +66,9 @@ function Login() {
             )
             .then((data) => {
                 if (data.status === "success") {
-                    // localStorage.setItem('token', data.access_token)
-                   
-                    loginContext(email, data.access_token);
+                    localStorage.setItem('token', data.access_token)
+
+                    loginContext(data.access_token);
                     setTimeout(() => {
 
                         toast.success('Đăng nhập thành công');

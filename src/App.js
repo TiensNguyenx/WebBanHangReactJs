@@ -14,9 +14,11 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      loginContext(localStorage.getItem('email'), localStorage.getItem('token'))
+      loginContext(localStorage.getItem('token'))
     }
+
   }, [])
+  console.log(user.email)
   return (
     <>
       <Router>

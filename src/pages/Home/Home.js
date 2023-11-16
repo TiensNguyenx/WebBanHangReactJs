@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 const cx = classNames.bind(styles)
 
 function Home() {
-    const productApi = 'http://localhost:3002/api/product/getAllProduct'
+    const productApi = 'http://localhost:3002/api/product/get-all'
     const [products, setProducts] = useState([])
     useEffect(() => {
         fetch(productApi)

@@ -32,11 +32,11 @@ function Card() {
     const [isShowModalAddCart, setIsShowModalAddCart] = useState(false);
     const [isShowModalLogin, setIsShowModalLogin] = useState(false);
     const userId = sessionStorage.getItem('id')
-    useEffect(() => {
-        fetch('http://localhost:3000/recommends')
-            .then(res => res.json())
-            .then(data => setRecommends(data))
-    }, [check])
+    // useEffect(() => {
+    //     fetch('http://localhost:3000/recommends')
+    //         .then(res => res.json())
+    //         .then(data => setRecommends(data))
+    // }, [check])
     const handleClose = () => {
         setIsShowModalAddCart(false);
         setIsShowModalLogin(false);

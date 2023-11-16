@@ -85,11 +85,11 @@ function Cart() {
             setCount(0)
         }
     }, [count])
-    useEffect(() => {
-        fetch('http://localhost:3000/carts')
-            .then(res => res.json())
-            .then(data => setCarts(data))
-    }, [check])
+    // useEffect(() => {
+    //     fetch('http://localhost:3000/carts')
+    //         .then(res => res.json())
+    //         .then(data => setCarts(data))
+    // }, [check])
 
     if (carts.length > 0) {
         return (
