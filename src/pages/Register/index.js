@@ -52,7 +52,7 @@ function Register() {
                     if (data.status === 'success') {
                         toast.success('Đăng ký thành công')
                         console.log(data)
-                        navigate("/");
+                        navigate("/login");
                     }
                     else {
                         toast.error('Đăng ký thất bại')

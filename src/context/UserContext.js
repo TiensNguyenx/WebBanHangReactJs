@@ -45,13 +45,15 @@ const UserProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
-        // localStorage.removeItem('email');
+       
         setUser((user) => ({
             email: '',
             auth: false,
         }));
     };
+    const registerCpntext = () => {
 
+    }
     return (
         <UserContext.Provider value={{ user, loginContext, logout }}>
             {children}

@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/bundle';
 import { useState, useEffect } from "react";
 
+import Pagination from 'react-bootstrap/Pagination';
 const cx = classNames.bind(styles)
 
 function Home() {
@@ -18,7 +19,9 @@ function Home() {
                 setProducts(data.data)
             })
     }, [])
+    const handlePageClick = (data) => {
 
+    }
     return (
         <div className={cx('wrapper')}>
             <div id="sp" className={cx('titleProduct')}>SẢN PHẨM KHUYẾN MÃI HOT NHẤT</div>
@@ -45,13 +48,32 @@ function Home() {
 
                             />
 
-
                         )
                     })
 
                 }
 
             </div>
+            <div>
+
+            </div>
+            <Pagination size="lg">
+         
+                <Pagination.Prev />
+                <Pagination.Item>{1}</Pagination.Item>
+                <Pagination.Ellipsis />
+
+                <Pagination.Item>{10}</Pagination.Item>
+                <Pagination.Item>{11}</Pagination.Item>
+                <Pagination.Item active>{12}</Pagination.Item>
+                <Pagination.Item>{13}</Pagination.Item>
+                <Pagination.Item disabled>{14}</Pagination.Item>
+
+                <Pagination.Ellipsis />
+                <Pagination.Item>{20}</Pagination.Item>
+                <Pagination.Next />
+            
+            </Pagination>
         </div>
     );
 }
