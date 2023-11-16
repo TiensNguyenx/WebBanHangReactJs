@@ -8,6 +8,9 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { MdEmail } from 'react-icons/md';
 import { BsTelephoneFill } from 'react-icons/bs';
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
+import 'react-phone-number-input/style.css'
 const cx = classNames.bind(styles)
 
 
@@ -18,16 +21,15 @@ function Register() {
     const [name, setName] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [phone, setPhone] = useState('');
+    const [errorPhone, setErrorPhone] = useState('');
+    const [isShowPassword, setIsShowPassword] = useState(false);
+    const [isShowConfirmPassWord, setIsShowConfirmPassword] = useState(false);
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+    const navigate = useNavigate();
     function handleRegister(event) {
-
-
-        var confirmPassword = document.querySelector('.confirm-password input').value;
-
-        // var message = document.querySelector('.message p')
-
-
         try {
-            fetch('http://localhost:3002/sign-up', {
+            fetch('http://localhost:3002/api/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,34 +38,67 @@ function Register() {
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        alert('The input is required or The input is email or The password is equal confirmPassword')
+                        return res.json();
                     } else if (res.status === 404) {
                         alert('Hệ thống lỗi');
                     } else if (res.status === 500) {
-                        alert('User đã tồn tại');
+                        alert('Email đã tồn tại');
                     } else if (res.status === 501) {
                         alert('Vui lòng nhập thông tin');
                     }
                 })
 
                 .then((data) => {
-
-
-                    console.log(data)
-
-
+                    if (data.status === 'success') {
+                        toast.success('Đăng ký thành công')
+                        console.log(data)
+                        navigate("/");
+                    }
+                    else {
+                        toast.error('Đăng ký thất bại')
+                    }
                 })
         } catch (error) {
             console.error('Lỗi đăng ký:', error.message);
         }
-        toast.success('Đăng ký thành công')
 
         event.preventDefault();
 
 
 
     }
+    function handleOnChangeConfirmPassword(event) {
+        setConfirmPassword(event.target.value);
+        if (event.target.value !== password) {
+            setErrorConfirmPassword('Password is not match');
+        } else {
+            setErrorConfirmPassword('');
+        }
+    }
+    function handleOnChangePhone(event) {
+        function isValidPhone(phone) {
+            return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(phone);
+        }
+        if (!isValidPhone(event.target.value)) {
+            setErrorPhone('Phone is invalid');
+        } else {
+            setErrorPhone('');
+        }
 
+        setPhone(event.target.value);
+    }
+    function handleOnChangeEmail(event) {
+        function isValidEmail(email) {
+            return /\S+@\S+\.\S+/.test(email);
+        }
+        if (!isValidEmail(event.target.value)) {
+            setErrorEmail('Email is invalid');
+        } else {
+            setErrorEmail('');
+        }
+
+        setEmail(event.target.value);
+    }
     return (
         <div className={cx('container')}>
 
@@ -76,20 +111,25 @@ function Register() {
                             <FaUserAlt className={cx('icon')} />
                         </div>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
-                            <input type='text' placeholder='Email' required onChange={(e) => setEmail(e.target.value)} />
+                            <input type='text' placeholder='Email' required onChange={handleOnChangeEmail} />
+                            {errorEmail && <p style={{ color: 'red' }}>{errorEmail}</p>}
                             <MdEmail className={cx('icon')} />
                         </div>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
-                            <input type='text' placeholder='Số điện thoại' required onChange={(e) => setPhone(e.target.value)} />
+                            <input placeholder="Enter phone number" value={phone} onChange={handleOnChangePhone} />
+                            {errorPhone && <p style={{ color: 'red' }}>{errorPhone}</p>}
                             <BsTelephoneFill className={cx('icon')} />
                         </div>
                         <div className={cx('input-box', 'password')} style={{ marginTop: '8px' }}>
-                            <input type='password' placeholder='Mật khẩu' required onChange={(e) => setPassword(e.target.value)} />
+                            <input type={isShowPassword === true ? 'text' : 'password'} placeholder='Mật khẩu' required onChange={(e) => setPassword(e.target.value)} />
                             <FaLock className={cx('icon')} />
+                            <div className={cx('icon-eye')} onClick={() => setIsShowPassword(!isShowPassword)}>{isShowPassword ? <AiFillEye /> : <AiFillEyeInvisible />}</div>
                         </div>
                         <div className={cx('input-box', 'confirm-password')} style={{ marginTop: '8px' }}>
-                            <input type='password' placeholder='Nhập lại mật khẩu' required onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <input type={isShowConfirmPassWord === true ? 'text' : 'password'} placeholder='Nhập lại mật khẩu' required onChange={handleOnChangeConfirmPassword} />
                             <FaLock className={cx('icon')} />
+                            {errorConfirmPassword && <p style={{ color: 'red' }}>{errorConfirmPassword}</p>}
+                            <div className={cx('icon-eye')} onClick={() => setIsShowConfirmPassword(!isShowConfirmPassWord)}>{isShowConfirmPassWord ? <AiFillEye /> : <AiFillEyeInvisible />}</div>
                         </div>
                         <div className={cx('message')} style={{
                             color: 'red',
@@ -98,10 +138,10 @@ function Register() {
                             marginTop: '10px',
                             cursor: 'pointer'
                         }}>
-                            <p></p>
+
                         </div>
 
-                        <button type='submit' className={cx('btn')} onClick={handleRegister}>Đăng ký</button>
+                        <button type='submit' className={cx('btn', email && password ? 'active' : '')} disabled={email && name && phone && password && confirmPassword && !errorEmail && !errorPhone && !errorConfirmPassword ? false : true} onClick={handleRegister}>Đăng ký</button>
                         <div className={cx('register-link')}>
                             <p style={{ marginRight: '5px', cursor: 'pointer' }}>Đã có tài khoản?
                             </p>

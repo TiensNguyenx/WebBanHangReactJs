@@ -15,15 +15,20 @@
 }
 .input-box input {
     width: 400px;
-    padding: 15px;
+    padding: 15px 15px 15px 40px;
     border-radius: 40px;
 }
 .icon {
     position: absolute;
-    right: 18px;
+    right: 367px;
     top: 16px;
-
     font-size: 2rem;
+}
+.icon-eye {
+    position: absolute;
+    font-size: 2.3rem;
+    right: 16px;
+    top: 9px;
 }
 .input-box {
     position: relative;
@@ -36,14 +41,37 @@
 .btn {
     width: 400px;
     padding: 15px;
-    background-color: white;
-    border-radius: 40px;
-    font-size: 1.4rem;
+    color: rgba(22, 24, 35, 0.34);
+    background-color: rgba(22, 24, 35, 0.06);
+    border-radius: 10px;
+    font-size: 1.6rem;
     font-weight: 600;
-    cursor: pointer;
 }
 .register-link {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+}
+.active {
+    background-color: #e0052b;
+    color: white;
+}
+button[disabled='disabled'],
+button:disabled {
+    cursor: not-allowed;
+}
+.spinner {
+    animation: spin infinite 1s linear;
+
+    /*You can increase or decrease the timer (5s) to 
+     increase or decrease the speed of the spinner*/
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

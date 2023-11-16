@@ -6,6 +6,7 @@ import Pay from "~/pages/Pay";
 import { HeaderOnly } from "~/components/Layout";
 import Register from "~/pages/Register";
 import News from "~/pages/News/News";
+import Chat from "~/pages/Chat";
 const publicRoutes = [
     {
         path: '/',
@@ -39,6 +40,11 @@ const publicRoutes = [
     {
         path: '/news',
         component: News,
+        layout: HeaderOnly
+    },
+    {
+        path: '/chat',
+        component: Chat,
         layout: HeaderOnly
     }
 

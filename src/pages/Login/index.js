@@ -4,61 +4,89 @@ import { MdEmail } from 'react-icons/md';
 import { FaLock } from 'react-icons/fa';
 import Footer from '~/components/Layout/components/Footer';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useEffect, useContext } from 'react';
+import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles)
 
 
 function Login() {
 
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [users, setUsers] = useState([]);
-    const [check, setCheck] = useState(false);
-
-    useEffect(() => {
-        fetch('http://localhost:3000/users')
-            .then(res => res.json())
-            .then(data => setUsers(data))
-    }, [])
+    const [isShowPassword, setIsShowPassword] = useState(false);
+    const [error, setError] = useState('');
+    const [loadingApi, setLoadingApi] = useState(false);
     const navigate = useNavigate();
+    const { loginContext } = useContext(UserContext);
+    useEffect(() => {
+        let token = localStorage.getItem('token');
+        if (token) {
+            navigate('/')
+        }
+    })
+    const handleChange = event => {
+        function isValidEmail(email) {
+            return /\S+@\S+\.\S+/.test(email);
+        }
+        if (!isValidEmail(event.target.value)) {
+            setError('Email is invalid');
+        } else {
+            setError('');
+        }
+
+        setEmail(event.target.value);
+    };
 
     function handleLogin(event) {
 
-        // select * from user where email = useremail and pass = password 
-        fetch('http://localhost:3000/users')
-            .then(res => res.json())
-            .then(data => {
-                if (data) {
-                    setUsers(data)
+        if (!email || !password) {
+            toast.error('Vui lòng nhập đầy đủ thông tin')
+            return
+        }
+        setLoadingApi(true);
+        fetch('http://localhost:3002/api/user/sign-in', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        })
+            .then((res) => {
+                if (res.status === 200) {
 
+                    return res.json()
+                }
+            }
+            )
+            .then((data) => {
+                if (data.status === "success") {
+                    // localStorage.setItem('token', data.access_token)
+                   
+                    loginContext(email, data.access_token);
+                    setTimeout(() => {
+
+                        toast.success('Đăng nhập thành công');
+                        setLoadingApi(false);
+                        navigate("/");
+                    }, 1000)
+                }
+                else {
+                    setTimeout(() => {
+                        toast.error(data.message);
+                        setLoadingApi(false);
+                    }, 1000)
                 }
             })
-        const user = users.find((user) => user.username === username && user.password === password);
-        const ktra = users.includes(user, 0)
-        if (ktra) {
-            toast.success('Đăng nhập thành công')
-            sessionStorage.setItem('id', user.id);
-            sessionStorage.setItem('name', user.username);
-            sessionStorage.setItem('img', user.img);
-            navigate("/");
 
-
-        }
-        else {
-            toast.error('Đăng nhập thất bại')
-        }
 
 
         event.preventDefault();
-
     }
-
-
-
-
     return (
         <div className={cx('container')}>
 
@@ -67,18 +95,21 @@ function Login() {
                     <form action=''>
                         <h1 style={{ textAlign: 'center' }}>Đăng Nhập</h1>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
-                            <input type='text' placeholder='Email' required value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <input id='email' type='email' placeholder='Email' required value={email} onChange={handleChange} />
+                            {error && <p style={{ color: 'red' }}>{error}</p>}
                             <MdEmail className={cx('icon')} />
                         </div>
                         <div className={cx('input-box')} style={{ marginTop: '8px' }}>
-                            <input type='password' placeholder='Mật khẩu' required value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type={isShowPassword === true ? 'text' : 'password'} placeholder='Mật khẩu' required value={password} onChange={(e) => setPassword(e.target.value)} />
                             <FaLock className={cx('icon')} />
+                            <div className={cx('icon-eye')} onClick={() => setIsShowPassword(!isShowPassword)}>{isShowPassword ? <AiFillEye /> : <AiFillEyeInvisible />}</div>
+
                         </div>
                         <div className={cx('remember-forgot')}>
                             <label><input type='checkbox' />Lưu mật khẩu</label>
                             <div>     <a href='/'> Quên mật khẩu</a></div>
                         </div>
-                        <button style={{ marginTop: '20px' }} type='submit' className={cx('btn')} onClick={handleLogin}>Đămg Nhập</button>
+                        <button style={{ marginTop: '20px' }} type='submit' className={cx('btn', email && password && !error ? 'active' : '')} disabled={email && password && !error ? false : true} onClick={handleLogin}>   {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />} &nbsp; Đăng Nhập</button>
                         <div className={cx('register-link')}>
                             <p style={{ marginRight: '5px', cursor: 'pointer' }}>Chưa có tài khoản?
                             </p>
@@ -88,7 +119,7 @@ function Login() {
                 </div>
             </div >
             <Footer></Footer>
-        </div>
+        </div >
     )
 }
 

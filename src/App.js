@@ -1,14 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import { DefaultLayout } from "./components/Layout";
-import { Fragment } from "react";
+import { Fragment, useContext, useEffect } from "react";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import 'swiper/css';
 import 'swiper/css/bundle';
 import { ToastContainer, } from 'react-toastify';
+import { UserContext } from "./context/UserContext";
 function App() {
+  const { user, loginContext } = useContext(UserContext)
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      loginContext(localStorage.getItem('email'), localStorage.getItem('token'))
+    }
+  }, [])
   return (
     <>
       <Router>

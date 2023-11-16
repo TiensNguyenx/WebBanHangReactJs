@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 import styles from './DefaultLayout.module.scss'
 import classNames from 'classnames/bind';
 import { sliderimg } from '~/assets/images';
-// import SliderHeader from '../components/Slider/SliderHeader';
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';

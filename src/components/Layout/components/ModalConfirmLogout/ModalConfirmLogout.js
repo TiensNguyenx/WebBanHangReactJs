@@ -3,11 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classNames from 'classnames/bind';
+import { useContext } from 'react';
+import { UserContext } from '~/context/UserContext';
 const cx = classNames.bind()
 function ModalConfirmLogout({ show, handleClose }) {
+    const { logout } = useContext(UserContext);
     function handleLogout() {
-        sessionStorage.removeItem('id');
-        sessionStorage.removeItem('name');
+        logout();
+
         window.location.reload();
     }
     return (

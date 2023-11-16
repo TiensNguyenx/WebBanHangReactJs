@@ -93,7 +93,7 @@
     background-color: white;
     flex-direction: column;
     position: absolute;
-    padding: 15px;
+    padding: 15px 10px;
     top: 68px;
     z-index: 3;
     width: 224px;
@@ -119,9 +119,12 @@
 }
 .subnav {
     padding: 8px;
+    &:hover {
+        background-color: #f0f0f0;
+    }
 }
 .subnav button {
-    background-color: white;
+    background-color: transparent;
 }
 .icon-subnav {
     margin-right: 10px;

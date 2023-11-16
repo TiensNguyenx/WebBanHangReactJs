@@ -11,14 +11,18 @@ import { BsCartCheck } from "react-icons/bs"
 import { BiUserCircle } from "react-icons/bi"
 import { BsNewspaper } from "react-icons/bs"
 import ModalConfirmLogout from '../ModalConfirmLogout/ModalConfirmLogout';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles)
 
 function Header() {
+
+    const { user } = useContext(UserContext);
     const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
 
     const handleLogout = () => {
+
         setIsShowModalConfirm(true);
     }
     function handleClose() {
@@ -52,11 +56,13 @@ function Header() {
                         </div>
                     </Link>
 
-                    <div className={cx('item')}>
-                        <button className={cx('icon')}>  <BsChatDots style={{ width: '2rem', height: '2rem' }} /></button>
-                        <span className={cx('subtiltle')}>Liên hệ</span>
-                    </div>
-                    {sessionStorage.getItem('name') ? (
+                    <Link to="chat">
+                        <div className={cx('item')}>
+                            <button className={cx('icon')}>  <BsChatDots style={{ width: '2rem', height: '2rem' }} /></button>
+                            <span className={cx('subtiltle')}>Liên hệ</span>
+                        </div>
+                    </Link>
+                    {user && user.auth === true ? (
                         <div className={cx('item')} >
                             <div >
 
@@ -64,7 +70,7 @@ function Header() {
                                 <div className={cx('whenlogin')}>
 
                                     {/* <button className={cx('icon')}> <AiOutlineUser style={{ width: '2rem', height: '2rem' }} /></button> */}
-                                    <div className={cx('avatar-user')}>     <img src={sessionStorage.getItem('img')} alt='avatar' />   <span className={cx('username')} > {sessionStorage.getItem('name')} </span></div>
+                                    <div className={cx('avatar-user')}>   <img src='https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg' alt='avatar' />   <span className={cx('username')} > {user.email} </span></div>
                                     <div>
                                         <ul className={cx('nav')}>
                                             <li className={cx('subnav')}><button> <span className={cx('icon-subnav')}><BiUserCircle /></span>Thông tin tài khoản</button></li>
