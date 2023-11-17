@@ -39,22 +39,22 @@ function Cart() {
         setDataUserDelete(item)
         setCheck(!check)
     }
-    function handleDeleteAll() {
+    // function handleDeleteAll() {
 
-        carts.map((item) => {
+    //     carts.map((item) => {
 
-            return (
+    //         return (
 
-                axios.delete(`http://localhost:3000/carts/${item.id}`)
-                    .then(res => {
-                        console.log(res.status);
+    //             axios.delete(`http://localhost:3000/carts/${item.id}`)
+    //                 .then(res => {
+    //                     console.log(res.status);
 
-                    })
-            )
+    //                 })
+    //         )
 
-        })
+    //     })
 
-    }
+    // }
 
 
     function processMinus(id) {
@@ -100,7 +100,7 @@ function Cart() {
                             <div className={cx('product-header')}>
 
                                 <h1>Giỏ hàng</h1>
-                                <div className={cx('delete-all')} onClick={handleDeleteAll}>Xóa tất cả</div>
+                                {/* <div className={cx('delete-all')} onClick={handleDeleteAll}>Xóa tất cả</div> */}
 
                             </div>
                             <div style={{ padding: '16px' }}>

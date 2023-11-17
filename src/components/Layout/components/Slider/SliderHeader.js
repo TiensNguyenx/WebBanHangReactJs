@@ -12,9 +12,9 @@ const SliderHeader = ({ data }) => {
     };
     return (
         <Slider {...settings}>
-            {data.map((image) => {
+            {data.map((image, index) => {
                 return (
-                    <div> <img src={image.linkImg} alt='' /></div>
+                    <div key={index}> <img src={image.linkImg} alt='' /></div>
                 )
             })}
         </Slider>

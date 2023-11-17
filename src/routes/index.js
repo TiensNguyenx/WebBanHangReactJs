@@ -18,7 +18,7 @@ const publicRoutes = [
         layout: HeaderOnly
     },
     {
-        path: '/product',
+        path: '/card',
         component: Product,
         layout: HeaderOnly
     },

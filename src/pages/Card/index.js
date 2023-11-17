@@ -9,57 +9,60 @@ import { useState } from 'react';
 import { BsCartPlus } from 'react-icons/bs';
 import ModalLoginForAddCart from '~/components/Layout/components/ModalLoginForAddCart/ModalLoginForAddCart';
 import ModalConfirmAddCart from '~/components/Layout/components/ModalConfirmAddCart/ModalConfirmAddCart';
+import { useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { UserContext } from '~/context/UserContext';
 const cx = classNames.bind(styles)
 
 function Card() {
+    const { user } = useContext(UserContext);
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
-    const uptitle = urlParams.get('uptitle');
-    const downtitle = urlParams.get('downtitle');
-    const oldprice = urlParams.get('oldprice');
-    const newprice = urlParams.get('newprice');
-    const cpu = urlParams.get('cpu');
-    const ram = urlParams.get('ram');
-    const disk = urlParams.get('disk');
-    const operation = urlParams.get('operation');
-    const screen = urlParams.get('screen');
-    const vga = urlParams.get('vga');
-    const src = urlParams.get('src');
+    const [product, setProduct] = useState({})
     const [recommends, setRecommends] = useState([])
     const [check, setCheck] = useState(false)
     const [dataAddCart, setDataAddCart] = useState({})
     const [isShowModalAddCart, setIsShowModalAddCart] = useState(false);
     const [isShowModalLogin, setIsShowModalLogin] = useState(false);
-    const userId = sessionStorage.getItem('id')
-    // useEffect(() => {
-    //     fetch('http://localhost:3000/recommends')
-    //         .then(res => res.json())
-    //         .then(data => setRecommends(data))
-    // }, [check])
+    const location = useLocation();
+
+    useEffect(() => {
+        // Đây là nơi để thực hiện các hành động khi URL thay đổi
+        console.log('URL changed:', location.pathname);
+        // Gọi các hàm render lại trang hoặc thực hiện các công việc cần thiết
+    }, [location]);
+    useEffect(() => {
+        fetch(`http://localhost:3002/api/product/get-details/${id}`)
+            .then(res => res.json())
+            .then(data => setProduct(data.data))
+
+    }, [id])
+    console.log(id)
     const handleClose = () => {
         setIsShowModalAddCart(false);
         setIsShowModalLogin(false);
     }
 
-    const data =
-    {
-        userId,
-        id,
-        uptitle,
-        downtitle,
-        oldprice,
-        newprice,
-        screen,
-        cpu,
-        vga,
-        disk,
-        ram,
-        operation,
-        src
-    }
+    // const data =
+    // {
+    //     userId,
+    //     id,
+    //     uptitle,
+    //     downtitle,
+    //     oldprice,
+    //     newprice,
+    //     screen,
+    //     cpu,
+    //     vga,
+    //     disk,
+    //     ram,
+    //     operation,
+    //     src
+    // }
+
     const handleAddCart = (data) => {
-        if (userId) {
+        if (user) {
             setIsShowModalAddCart(true);
             setDataAddCart(data)
             setCheck(!check)
@@ -77,7 +80,7 @@ function Card() {
 
                     <div className={cx('product-container')}>
                         <div className={cx('header')}>
-                            <div className={cx('title')}>{`${uptitle}${downtitle}`}</div>
+                            <div className={cx('title')}>{`${product.name}${product.description}`}</div>
                             <div className={cx('status')}>
                                 <div className={cx('rate')}><AiFillStar /><AiFillStar /><AiFillStar /><AiFillStar /><AiFillStar /></div>
                                 <div className={cx('storage')} >Tình Trạng: Còn Hàng</div>
@@ -87,24 +90,24 @@ function Card() {
                         <div className={cx('info')}>
                             <div className={cx('item')}>
                                 <div className={cx('img')}>
-                                    <img style={{ width: '80%', height: '80%' }} src={src} alt='' />
+                                    <img style={{ width: '80%', height: '80%' }} src={product.image} alt='' />
                                 </div>
                                 <div className={cx('col')}>
                                     <div className={cx('col-left')}>
-                                        <li className={cx('cpu')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>CPU: </span>{cpu} </li>
-                                        <li className={cx('hard-disk')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>Ổ cứng:</span> {disk} </li>
-                                        <li className={cx('monitor')}><span style={{ fontWeight: '700' }}>Màn hình: </span  >{screen}</li>
+                                        <li className={cx('cpu')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>CPU: </span>{ } </li>
+                                        <li className={cx('hard-disk')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>Ổ cứng:</span> { } </li>
+                                        <li className={cx('monitor')}><span style={{ fontWeight: '700' }}>Màn hình: </span  >{ }</li>
                                     </div>
                                     <div className={cx('col-right')}>
-                                        <li className={cx('ram')} style={{ marginBottom: '5px' }} ><span style={{ fontWeight: '700' }}>RAM: </span>{ram}</li>
-                                        <li className={cx('vga')} style={{ marginBottom: '5px' }}><span style={{ fontWeight: '700' }}>VGA: </span>{vga}</li>
-                                        <li className={cx('operating')} ><span style={{ fontWeight: '700' }}>Hệ Điều Hành: </span> {operation}</li>
+                                        <li className={cx('ram')} style={{ marginBottom: '5px' }} ><span style={{ fontWeight: '700' }}>RAM: </span>{ }</li>
+                                        <li className={cx('vga')} style={{ marginBottom: '5px' }}><span style={{ fontWeight: '700' }}>VGA: </span>{ }</li>
+                                        <li className={cx('operating')} ><span style={{ fontWeight: '700' }}>Hệ Điều Hành: </span> { }</li>
                                     </div>
                                 </div>
                             </div>
                             <div className={cx('price')}>
-                                <div className={cx('oldprice')}><span >Giá chính hãng: </span><span style={{ fontSize: '2.2rem', fontWeight: '700', textDecoration: 'line-through', marginLeft: '4px' }}>{oldprice}</span></div>
-                                <div className={cx('newprice')}><span>Giá Khuyến Mãi: </span><span style={{ fontSize: '3.8rem', color: '#c8191f', marginLeft: '4px', fontWeight: '700' }}>{newprice}</span></div>
+                                <div className={cx('oldprice')}><span >Giá chính hãng: </span><span style={{ fontSize: '2.2rem', fontWeight: '700', textDecoration: 'line-through', marginLeft: '4px' }}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.old_price)}</span></div>
+                                <div className={cx('newprice')}><span>Giá Khuyến Mãi: </span><span style={{ fontSize: '3.8rem', color: '#c8191f', marginLeft: '4px', fontWeight: '700' }}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.new_price)}</span></div>
                                 <div className={cx('gift')}>
                                     <div className={cx('title-gift')}>Khuyến mãi quà tặng</div>
                                     <p className={cx('content-gift')}>Balo Acer SUV Chính Hãng</p>
@@ -114,7 +117,7 @@ function Card() {
                                     <p className={cx('content-gift')} >Trả góp lãi suất ưu đãi thông qua cổng MPOS áp dụng cho thẻ tín dụng: Citibank, Eximbank, HSBC, MSB, Techcombank, Nam Á, Shinhan bank, TP bank, Seabank, Kiên Long bank, OCB, VIB, ACB, MB, Vietcombank, SHB...</p>
                                 </div>
                                 <div className={cx('buy')}>
-                                    <button className={cx('buy-btn')} onClick={() => { handleAddCart(data) }}><div style={{ marginBottom: '5px', marginRight: '6px' }}><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
+                                    <button className={cx('buy-btn')} onClick={() => { handleAddCart() }}><div style={{ marginBottom: '5px', marginRight: '6px' }}><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
 
                                     <button className={cx('buy-btn')}>Mua Ngay</button>
                                 </div>

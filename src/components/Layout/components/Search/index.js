@@ -2,7 +2,7 @@
 import { FaSearch } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import { MdOutlineClear } from "react-icons/md";
-import Tippy from '@tippyjs/react/headless';
+
 import HeadlessTippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '../Popper';
 import SearchResult from '../SearchResult';
@@ -18,7 +18,7 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
     const debounced = useDebounce(searchValue, 500)
-
+    const [check, setCheck] = useState(false)
     const inputRef = useRef();
     const handleClear = () => {
         setSearchValue('')
@@ -55,9 +55,12 @@ function Search() {
                             <h4 className={cx('search-title')}>
                                 Kết quả tìm kiếm
                             </h4>
-                            {serachResult.map((data) => {
+                            {serachResult.map((data, index) => {
                                 return (
-                                    <SearchResult key={data._id} data={data} />
+                                    <div onClick={() => setCheck(!check)} key={index}>
+                                        <SearchResult key={data._id} data={data} />
+
+                                    </div>
                                 )
                             })}
 

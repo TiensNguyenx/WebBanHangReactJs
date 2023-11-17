@@ -1,6 +1,6 @@
 import React from 'react';
 import { jwtDecode } from "jwt-decode";
-import { useState } from 'react';
+
 // @function  UserContext
 const UserContext = React.createContext({ email: '', auth: false });
 
@@ -8,14 +8,13 @@ const UserContext = React.createContext({ email: '', auth: false });
 // Create function to provide UserContext
 const UserProvider = ({ children }) => {
     const [user, setUser] = React.useState({ email: '', auth: false });
-    const [idUser, setIdUser] = useState('')
     const loginContext = (token) => {
-     
+
         localStorage.setItem('token', token)
         if (token) {
             const decoded = jwtDecode(token);
-        
-            if (decoded.payload.id) {
+
+            if (decoded.payload?.id) {
                 fetch(`http://localhost:3002/api/user/get-detail/${decoded.payload.id}`, {
                     headers: {
                         token: `Beare ${token}`
@@ -44,15 +43,12 @@ const UserProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
-       
+
         setUser((user) => ({
             email: '',
             auth: false,
         }));
     };
-    const registerCpntext = () => {
-
-    }
     return (
         <UserContext.Provider value={{ user, loginContext, logout }}>
             {children}

@@ -12,11 +12,9 @@ function Product({ id, uptitle, downtitle, oldprice, newprice, src, cpu, ram, di
 
         <div className={cx('Product', myClass)}>
 
-            <Link to={`/product?id=${id}&uptitle=${uptitle}&downtitle=${downtitle}&oldprice=${oldprice}&newprice=${newprice}&src=${encodeURIComponent(src)}
-            &cpu=${encodeURIComponent(cpu)}&ram=${encodeURIComponent(ram)}&disk=${encodeURIComponent(disk)}&operation=${encodeURIComponent(operation)}&screen=${encodeURIComponent(screen)}&vga=${encodeURIComponent(vga)}
-            `} onClick={() => {
-                    window.scroll({ top: 0 });
-                }}>
+            <Link to={`/card?&id=${id}`} onClick={() => {
+                window.scroll({ top: 0 });
+            }}>
                 <div className={cx('item')}>
 
                     <img style={{ width: '100%', margin: 'auto', height: '200px', objectFit: 'contain' }} src={src} alt="" />
