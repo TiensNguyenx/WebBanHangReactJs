@@ -4,27 +4,68 @@ import Product from "~/components/Layout/components/Product";
 import 'swiper/css';
 import 'swiper/css/bundle';
 import { useState, useEffect } from "react";
-
-import Pagination from 'react-bootstrap/Pagination';
+import ReactPaginate from 'react-paginate';
+import './pagination.css'
 const cx = classNames.bind(styles)
 
 function Home() {
-    const productApi = 'http://localhost:3002/api/product/get-all'
+
+
     const [products, setProducts] = useState([])
+    const [totalProduct, setTotalProduct] = useState(0)
+    const [toltalPage, setTotalPage] = useState(0)
+    const [page, setPage] = useState(0)
+    const [sortBy, setSortBy] = useState('')
+    const [sortType, setSortType] = useState('')
+   
+
+
     useEffect(() => {
-        fetch(productApi)
+
+        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=5`)
             .then(response => response.json())
             .then((data) => {
-                console.log(data)
+
+                setTotalProduct(data.total)
+                setTotalPage(data.totalPage)
                 setProducts(data.data)
             })
-    }, [])
-    const handlePageClick = (data) => {
 
+    }, [page])
+
+    const handlePageClick = (event) => {
+        setPage(+event.selected)
+
+
+    }
+    const handleSort = (sortBy, sortType) => {
+        setSortBy(sortBy)
+        setSortType(sortType)
+        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=5&sort=${sortType}&sort=${sortBy}`)
+            .then(response => response.json())
+            .then((data) => {
+
+                setTotalProduct(data.total)
+                setTotalPage(data.totalPage)
+                setProducts(data.data)
+            })
     }
     return (
         <div className={cx('wrapper')}>
-            <div id="sp" className={cx('titleProduct')}>SẢN PHẨM KHUYẾN MÃI HOT NHẤT</div>
+            <div className={cx('header')}>
+                <div id="sp" className={cx('titleProduct')}>SẢN PHẨM KHUYẾN MÃI HOT NHẤT</div>
+                <div className={cx('sort')}>
+                    <div className={cx('sort-title')}>Sắp xếp theo <i className={cx('fa-solid fa-sort-down ', 'icon-sort')} style={{ color: '#c8191f' }}></i></div>
+                    <ul className={cx('sort-list')}>
+                        <li className={cx('sort-item')}>Mới nhất</li>
+                        <li className={cx('sort-item')} onClick={() => handleSort('new_price', 'asc')}>Giá tăng dần</li>
+                        <li className={cx('sort-item')} onClick={() => handleSort('new_price', 'desc')}>Giá giảm dần</li>
+                        <li className={cx('sort-item')} onClick={() => handleSort('name', 'asc')}>Tên từ A-Z</li>
+                        <li className={cx('sort-item')} onClick={() => handleSort('name', 'desc')}>Tên từ Z-A</li>
+
+                    </ul>
+                </div>
+            </div>
             <div className={cx('container')}>
                 {
                     products.map((item, index) => {
@@ -54,26 +95,33 @@ function Home() {
                 }
 
             </div>
-            <div>
+            <div className={cx('pagination')}>
+
+                <ReactPaginate
+                    style={{ fontSize: '2em' }}
+                    breakLabel="..."
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={toltalPage}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                />
+
 
             </div>
-            <Pagination size="lg">
-         
-                <Pagination.Prev />
-                <Pagination.Item>{1}</Pagination.Item>
-                <Pagination.Ellipsis />
-
-                <Pagination.Item>{10}</Pagination.Item>
-                <Pagination.Item>{11}</Pagination.Item>
-                <Pagination.Item active>{12}</Pagination.Item>
-                <Pagination.Item>{13}</Pagination.Item>
-                <Pagination.Item disabled>{14}</Pagination.Item>
-
-                <Pagination.Ellipsis />
-                <Pagination.Item>{20}</Pagination.Item>
-                <Pagination.Next />
-            
-            </Pagination>
         </div>
     );
 }

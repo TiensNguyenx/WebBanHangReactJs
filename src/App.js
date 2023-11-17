@@ -18,7 +18,7 @@ function App() {
     }
 
   }, [])
-  console.log(user.email)
+
   return (
     <>
       <Router>

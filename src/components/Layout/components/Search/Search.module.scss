@@ -1,0 +1,46 @@
+.icon-search {
+    position: absolute;
+    top: 1px;
+    right: 0px;
+    padding: 5px 20px;
+    text-align: center;
+    border: 1.5px solid #fff;
+    cursor: pointer;
+    color: #ffffff;
+    background: #e5101d;
+    border-radius: 3px;
+}
+.icon-loading {
+    position: absolute;
+    top: 6px;
+    right: 75px;
+    animation: spinner 1s linear infinite;
+}
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.icon-clear {
+    position: absolute;
+    top: 6px;
+    right: 75px;
+    cursor: pointer;
+}
+.search {
+    width: 500px;
+    height: 38.5px;
+    margin-left: -7px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+    input {
+        font-size: 1.4rem;
+    }
+}
+.search-result {
+    width: 500px;
+}

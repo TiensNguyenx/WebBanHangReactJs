@@ -14,8 +14,7 @@ const UserProvider = ({ children }) => {
         localStorage.setItem('token', token)
         if (token) {
             const decoded = jwtDecode(token);
-            console.log(decoded)
-            console.log(decoded.payload.id)
+        
             if (decoded.payload.id) {
                 fetch(`http://localhost:3002/api/user/get-detail/${decoded.payload.id}`, {
                     headers: {

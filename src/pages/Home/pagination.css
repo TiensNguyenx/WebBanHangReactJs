@@ -1,0 +1,7 @@
+.pagination {
+    --bs-pagination-font-size: 1.8rem !important;
+    --bs-pagination-padding-x: 1.5rem !important;
+    --bs-pagination-padding-y: 0.5rem !important;
+    justify-content: center;
+    margin: 15px 0;
+}

@@ -22,3 +22,55 @@
     flex-wrap: wrap;
     width: 100%;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 30px;
+}
+.sort {
+    position: relative;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 19px;
+        z-index: 2;
+        width: 169px;
+        height: 24px;
+        right: -56px;
+        cursor: pointer;
+    }
+    &:hover .sort-list {
+        display: block;
+    }
+}
+.sort-list {
+    position: absolute;
+    top: 30px;
+    background-color: white;
+    width: 170px;
+    display: none;
+    cursor: pointer;
+    z-index: 3;
+    padding: 15px 10px;
+    border-radius: 5px;
+}
+.sort-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sort-item {
+    padding: 5px;
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}
+.icon-sort {
+    position: absolute;
+    right: -16px;
+    top: 1px;
+    cursor: pointer;
+}

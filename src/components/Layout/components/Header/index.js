@@ -7,12 +7,16 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GrNotification, GrLogout } from "react-icons/gr";
 import { BsChatDots } from "react-icons/bs";
 import { AiOutlineDown } from "react-icons/ai"
+
 import { BsCartCheck } from "react-icons/bs"
 import { BiUserCircle } from "react-icons/bi"
 import { BsNewspaper } from "react-icons/bs"
+
 import ModalConfirmLogout from '../ModalConfirmLogout/ModalConfirmLogout';
 import { useContext, useState } from 'react';
 import { UserContext } from '~/context/UserContext';
+import Search from '../Search';
+
 
 const cx = classNames.bind(styles)
 
@@ -28,6 +32,7 @@ function Header() {
     function handleClose() {
         setIsShowModalConfirm(false);
     }
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -37,10 +42,9 @@ function Header() {
                 <div className={cx('input')} >
 
                     <div className={cx('btn-list')} ><span style={{ fontSize: '1.5rem' }}>Tất cả danh mục  </span>  <div ><AiOutlineDown /></div></div>
-
-
-                    <div className={cx('search')}> <input style={{ height: '100%', width: '100%' }} placeholder='Nhập tên sản phẩm, mã sản phẩm, từ khóa cần tìm kiếm...' spellCheck={false}></input></div>
+                    <Search />
                 </div>
+
                 <div className={cx('list-item')} >
                     <Link to="/news">
                         <div className={cx('item')} >
