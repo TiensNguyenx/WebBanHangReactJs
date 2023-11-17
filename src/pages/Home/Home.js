@@ -17,7 +17,7 @@ function Home() {
     const [page, setPage] = useState(0)
     const [sortBy, setSortBy] = useState('')
     const [sortType, setSortType] = useState('')
-   
+
 
 
     useEffect(() => {
@@ -74,7 +74,7 @@ function Home() {
 
                             <Product
                                 key={index}
-                                id={item.id}
+                                id={item._id}
                                 uptitle={item.name}
                                 downtitle={item.description}
                                 oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.old_price)}

@@ -5,7 +5,7 @@ import Sidebar from '~/components/Layout/components/Sidebar';
 import { AiFillStar } from 'react-icons/ai'
 import Product from '~/components/Layout/components/Product';
 import Footer from '~/components/Layout/components/Footer';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BsCartPlus } from 'react-icons/bs';
 import ModalLoginForAddCart from '~/components/Layout/components/ModalLoginForAddCart/ModalLoginForAddCart';
 import ModalConfirmAddCart from '~/components/Layout/components/ModalConfirmAddCart/ModalConfirmAddCart';
