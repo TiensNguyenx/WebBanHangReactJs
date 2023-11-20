@@ -28,7 +28,7 @@ function Register() {
     const [isShowConfirmPassWord, setIsShowConfirmPassword] = useState(false);
     const [errorEmail, setErrorEmail] = useState('');
     const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
-    const { loginContext, setUser, user } = useContext(UserContext);
+    const { loginContext, setUser, toastCustom } = useContext(UserContext);
     const navigate = useNavigate();
 
 
@@ -57,12 +57,12 @@ function Register() {
                 .then((data) => {
 
                     if (data.status === 'success') {
-                        toast.success('Đăng ký thành công')
+                        toast.success('Đăng ký thành công', { ...toastCustom })
                         navigate('/')
 
                     }
                     else {
-                        toast.error(data.message)
+                        toast.error(data.message, { ...toastCustom })
                     }
                 })
         } catch (error) {

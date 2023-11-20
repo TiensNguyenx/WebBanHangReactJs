@@ -79,8 +79,18 @@ const UserProvider = ({ children }) => {
             auth: false,
         }));
     };
+    const toastCustom = {
+        position: "top-right",
+        autoClose: 300,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    }
     return (
-        <UserContext.Provider value={{ user, loginContext, logout, setUser, handleAddCartContext, lengthCart, getLengthCartContext, decreaseLength, increaseLength, resetLength }}>
+        <UserContext.Provider value={{ user, loginContext, logout, setUser, handleAddCartContext, lengthCart, getLengthCartContext, decreaseLength, increaseLength, resetLength, toastCustom }}>
             {children}
         </UserContext.Provider>
     );

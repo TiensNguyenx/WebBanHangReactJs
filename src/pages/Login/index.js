@@ -22,7 +22,7 @@ function Login() {
     const [error, setError] = useState('');
     const [loadingApi, setLoadingApi] = useState(false);
     const navigate = useNavigate();
-    const { loginContext, user } = useContext(UserContext);
+    const { loginContext, user, toastCustom } = useContext(UserContext);
 
     useEffect(() => {
 
@@ -42,11 +42,10 @@ function Login() {
 
         setEmail(event.target.value);
     };
-
     function handleLogin(event) {
 
         if (!email || !password) {
-            toast.error('Vui lòng nhập đầy đủ thông tin')
+            toast.error('Vui lòng nhập đầy đủ thông tin', { ...toastCustom })
             return
         }
         setLoadingApi(true);
@@ -72,14 +71,16 @@ function Login() {
                     loginContext(data.access_token);
                     setTimeout(() => {
 
-                        toast.success('Đăng nhập thành công');
+                        toast.success('Đăng nhập thành công', {
+                            ...toastCustom
+                        });
                         setLoadingApi(false);
                         navigate("/");
                     }, 1000)
                 }
                 else {
                     setTimeout(() => {
-                        toast.error(data.message);
+                        toast.error(data.message, { ...toastCustom });
                         setLoadingApi(false);
                     }, 1000)
                 }

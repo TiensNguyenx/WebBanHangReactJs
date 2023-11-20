@@ -9,17 +9,17 @@ import { deleteAllProductService } from '~/Services';
 import { toast } from 'react-toastify'
 const cx = classNames.bind()
 function ModalConfirmDeleteAll({ show, handleClose, dataDelete }) {
-    const { resetLength } = useContext(UserContext);
+    const { resetLength, toastCustom } = useContext(UserContext);
     const handleDeleteItem = async () => {
         const res = await deleteAllProductService(dataDelete)
 
         if (res.data.status === 'success') {
-            toast.success('Xóa sản phẩm thành công')
+            toast.success('Xóa sản phẩm thành công', { ...toastCustom })
             handleClose()
             resetLength()
         }
         else {
-            toast.error('Xóa sản phẩm thất bại, vui lòng thử lại')
+            toast.error('Xóa sản phẩm thất bại, vui lòng thử lại', { ...toastCustom })
             handleClose()
         }
 

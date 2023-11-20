@@ -5,11 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { toast } from 'react-toastify';
 import classNames from 'classnames/bind';
 import { UserContext } from '~/context/UserContext';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 const cx = classNames.bind()
 function ModalConfirmAddCart({ show, handleClose }) {
-    const { user, handleAddCartContext, increaseLength } = useContext(UserContext);
+    const { user, handleAddCartContext, increaseLength, toastCustom } = useContext(UserContext);
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const productID = urlParams.get('id')
@@ -18,13 +18,15 @@ function ModalConfirmAddCart({ show, handleClose }) {
         let res = await handleAddCartContext(user.id, productID)
 
         if (res.data.status === 'success') {
-            toast.success('Thêm vào giỏ hàng thành công')
+            toast.success('Thêm vào giỏ hàng thành công', {
+                ...toastCustom
+            })
             handleClose()
             increaseLength()
 
         }
         else {
-            toast.error('Thêm vào giỏ hàng thất bại, vui lòng thử lại')
+            toast.error('Thêm vào giỏ hàng thất bại, vui lòng thử lại', { ...toastCustom })
             handleClose()
         }
 

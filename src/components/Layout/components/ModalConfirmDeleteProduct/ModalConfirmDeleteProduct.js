@@ -10,17 +10,17 @@ import { useContext } from 'react';
 const cx = classNames.bind()
 
 function ModalConfirmDeleteProduct({ show, handleClose, dataDelete }) {
-    const { decreaseLength } = useContext(UserContext);
+    const { decreaseLength, toastCustom } = useContext(UserContext);
     const handleDeleteItem = async () => {
 
         let res = await deleteProductService(dataDelete.idCart, dataDelete.idProduct)
 
         if (res.data.status === 'success') {
-            toast.success('Xóa sản phẩm thành công')
+            toast.success('Xóa sản phẩm thành công', { ...toastCustom })
             handleClose()
         }
         else {
-            toast.error('Xóa sản phẩm thất bại, vui lòng thử lại')
+            toast.error('Xóa sản phẩm thất bại, vui lòng thử lại', { ...toastCustom })
             handleClose()
         }
         decreaseLength()
