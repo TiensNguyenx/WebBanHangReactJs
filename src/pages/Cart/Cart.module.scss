@@ -41,8 +41,9 @@
 }
 .product {
     flex: 3;
-
+    padding: 16px;
     background-color: white;
+    border-radius: 8px;
 }
 .product-header {
     display: flex;
@@ -101,6 +102,7 @@
 }
 .pay {
     flex: 1;
+    border-radius: 8px;
     background-color: white;
 }
 .minus button {
@@ -124,9 +126,16 @@
     padding: 16px;
 }
 .confirm-pay {
+}
+.pay-wrapper {
+    display: flex;
     padding: 16px;
     background-color: white;
     margin-top: 16px;
+    justify-content: space-between;
+}
+.pay-price {
+    margin-top: 22px;
 }
 .btn-ctn {
     cursor: pointer;
@@ -142,7 +151,12 @@
     background-color: rgb(20, 53, 195);
     border-color: rgb(20, 53, 195);
     color: rgb(255, 255, 255);
-    width: 100%;
+    width: 90%;
     padding: 16px;
     margin-top: 1rem;
+}
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
 }

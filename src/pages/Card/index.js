@@ -22,15 +22,13 @@ function Card() {
     const [product, setProduct] = useState({})
     const [recommends, setRecommends] = useState([])
     const [check, setCheck] = useState(false)
-    const [dataAddCart, setDataAddCart] = useState({})
+
     const [isShowModalAddCart, setIsShowModalAddCart] = useState(false);
     const [isShowModalLogin, setIsShowModalLogin] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
-        // Đây là nơi để thực hiện các hành động khi URL thay đổi
-        console.log('URL changed:', location.pathname);
-        // Gọi các hàm render lại trang hoặc thực hiện các công việc cần thiết
+
     }, [location]);
     useEffect(() => {
         fetch(`http://localhost:3002/api/product/get-details/${id}`)
@@ -38,40 +36,27 @@ function Card() {
             .then(data => setProduct(data.data))
 
     }, [id])
-    console.log(id)
+
     const handleClose = () => {
         setIsShowModalAddCart(false);
         setIsShowModalLogin(false);
+        setCheck(!check)
+
     }
 
-    // const data =
-    // {
-    //     userId,
-    //     id,
-    //     uptitle,
-    //     downtitle,
-    //     oldprice,
-    //     newprice,
-    //     screen,
-    //     cpu,
-    //     vga,
-    //     disk,
-    //     ram,
-    //     operation,
-    //     src
-    // }
 
-    const handleAddCart = (data) => {
-        if (user) {
+    const handleAddCart = () => {
+        if (user.id) {
             setIsShowModalAddCart(true);
-            setDataAddCart(data)
             setCheck(!check)
+
         }
         else {
             setIsShowModalLogin(true);
         }
 
     }
+
     return (
         <div >
             <div className={cx('container')}>
@@ -117,7 +102,7 @@ function Card() {
                                     <p className={cx('content-gift')} >Trả góp lãi suất ưu đãi thông qua cổng MPOS áp dụng cho thẻ tín dụng: Citibank, Eximbank, HSBC, MSB, Techcombank, Nam Á, Shinhan bank, TP bank, Seabank, Kiên Long bank, OCB, VIB, ACB, MB, Vietcombank, SHB...</p>
                                 </div>
                                 <div className={cx('buy')}>
-                                    <button className={cx('buy-btn')} onClick={() => { handleAddCart() }}><div style={{ marginBottom: '5px', marginRight: '6px' }}><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
+                                    <button className={cx('buy-btn')} onClick={() => handleAddCart()}><div style={{ marginBottom: '5px', marginRight: '6px' }}><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
 
                                     <button className={cx('buy-btn')}>Mua Ngay</button>
                                 </div>
@@ -193,7 +178,7 @@ function Card() {
             <ModalConfirmAddCart
                 show={isShowModalAddCart}
                 handleClose={handleClose}
-                dataAddCart={dataAddCart}
+
             />
             <ModalLoginForAddCart
                 show={isShowModalLogin}

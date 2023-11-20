@@ -5,12 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import classNames from 'classnames/bind';
 import { useContext } from 'react';
 import { UserContext } from '~/context/UserContext';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind()
 function ModalConfirmLogout({ show, handleClose }) {
     const { logout } = useContext(UserContext);
+    const navigate = useNavigate();
     function handleLogout() {
         logout();
-
+        navigate("/");
         window.location.reload();
     }
     return (

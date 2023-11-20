@@ -11,6 +11,8 @@ import { BsTelephoneFill } from 'react-icons/bs';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import 'react-phone-number-input/style.css'
+import { useContext } from 'react';
+import { UserContext } from '~/context/UserContext';
 const cx = classNames.bind(styles)
 
 
@@ -26,7 +28,11 @@ function Register() {
     const [isShowConfirmPassWord, setIsShowConfirmPassword] = useState(false);
     const [errorEmail, setErrorEmail] = useState('');
     const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+    const { loginContext, setUser, user } = useContext(UserContext);
     const navigate = useNavigate();
+
+
+
     function handleRegister(event) {
         try {
             fetch('http://localhost:3002/api/user/sign-up', {
@@ -49,24 +55,56 @@ function Register() {
                 })
 
                 .then((data) => {
+
                     if (data.status === 'success') {
                         toast.success('Đăng ký thành công')
-                        console.log(data)
-                        navigate("/login");
+                        navigate('/')
+
                     }
                     else {
-                        toast.error('Đăng ký thất bại')
+                        toast.error(data.message)
                     }
                 })
         } catch (error) {
             console.error('Lỗi đăng ký:', error.message);
         }
+        setTimeout(() => {
+            fetch('http://localhost:3002/api/user/sign-in', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+                .then((res) => {
+                    if (res.status === 200) {
 
+                        return res.json()
+                    }
+                }
+                )
+                .then((data) => {
+                    if (data.status === "success") {
+                        localStorage.setItem('token', data.access_token)
+
+                        loginContext(data.access_token);
+                        setUser((user) => ({
+                            email: data.data.email,
+                            auth: true,
+                            name: data.data.name,
+                            id: data.data._id
+                        }));
+
+                    }
+
+                })
+        }, 1000)
         event.preventDefault();
 
 
 
     }
+
     function handleOnChangeConfirmPassword(event) {
         setConfirmPassword(event.target.value);
         if (event.target.value !== password) {

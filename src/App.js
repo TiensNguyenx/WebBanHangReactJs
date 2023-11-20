@@ -11,7 +11,7 @@ import { ToastContainer, } from 'react-toastify';
 import { UserContext } from "./context/UserContext";
 function App() {
   const { user, loginContext } = useContext(UserContext)
-
+ 
   useEffect(() => {
     if (localStorage.getItem('token')) {
       loginContext(localStorage.getItem('token'))

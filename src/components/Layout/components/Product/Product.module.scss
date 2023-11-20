@@ -12,7 +12,7 @@
 .item {
     display: flex;
     flex-direction: column;
-
+    padding-top: 10px;
     background-color: white;
 }
 .downtitle {
@@ -21,6 +21,10 @@
     text-overflow: ellipsis;
     width: 100%;
     margin-top: 5px;
+}
+.uptitle {
+    height: 21px;
+    overflow: hidden;
 }
 .uptitle,
 .downtitle {
@@ -45,4 +49,19 @@
 }
 .content {
     margin-left: 13px;
+}
+.img-product {
+    width: 90%;
+    margin: auto;
+    height: 200px;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.01);
+    }
+}
+.item:hover {
+    transform: scale(1.05); /* Tăng kích thước khi hover */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* Thêm đổ bóng khi hover */
 }

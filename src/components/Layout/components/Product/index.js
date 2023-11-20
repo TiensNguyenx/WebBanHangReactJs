@@ -17,7 +17,7 @@ function Product({ id, uptitle, downtitle, oldprice, newprice, src, cpu, ram, di
             }}>
                 <div className={cx('item')}>
 
-                    <img style={{ width: '100%', margin: 'auto', height: '200px', objectFit: 'contain' }} src={src} alt="" />
+                    <img  className={cx('img-product')} src={src} alt="" />
 
 
                     <div className={cx('content')}>

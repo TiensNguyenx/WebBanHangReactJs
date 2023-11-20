@@ -4,6 +4,7 @@ import Product from "~/components/Layout/components/Product";
 import 'swiper/css';
 import 'swiper/css/bundle';
 import { useState, useEffect } from "react";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import ReactPaginate from 'react-paginate';
 import './pagination.css'
 const cx = classNames.bind(styles)
@@ -17,12 +18,13 @@ function Home() {
     const [page, setPage] = useState(0)
     const [sortBy, setSortBy] = useState('')
     const [sortType, setSortType] = useState('')
+    const [saveSort, setSaveSort] = useState('')
 
 
 
     useEffect(() => {
 
-        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=5`)
+        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=10`)
             .then(response => response.json())
             .then((data) => {
 
@@ -38,10 +40,10 @@ function Home() {
 
 
     }
-    const handleSort = (sortBy, sortType) => {
+    const handleSort = (sortBy, sortType, sortActive) => {
         setSortBy(sortBy)
         setSortType(sortType)
-        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=5&sort=${sortType}&sort=${sortBy}`)
+        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=10&sort=${sortType}&sort=${sortBy}`)
             .then(response => response.json())
             .then((data) => {
 
@@ -49,6 +51,7 @@ function Home() {
                 setTotalPage(data.totalPage)
                 setProducts(data.data)
             })
+        setSaveSort(sortActive)
     }
     return (
         <div className={cx('wrapper')}>
@@ -58,10 +61,10 @@ function Home() {
                     <div className={cx('sort-title')}>Sắp xếp theo <i className={cx('fa-solid fa-sort-down ', 'icon-sort')} style={{ color: '#c8191f' }}></i></div>
                     <ul className={cx('sort-list')}>
                         <li className={cx('sort-item')}>Mới nhất</li>
-                        <li className={cx('sort-item')} onClick={() => handleSort('new_price', 'asc')}>Giá tăng dần</li>
-                        <li className={cx('sort-item')} onClick={() => handleSort('new_price', 'desc')}>Giá giảm dần</li>
-                        <li className={cx('sort-item')} onClick={() => handleSort('name', 'asc')}>Tên từ A-Z</li>
-                        <li className={cx('sort-item')} onClick={() => handleSort('name', 'desc')}>Tên từ Z-A</li>
+                        <li className={cx('sort-item', saveSort === 'sortPriceAsc' && 'active-sort')} onClick={() => handleSort('new_price', 'asc', 'sortPriceAsc')}>Giá tăng dần</li>
+                        <li className={cx('sort-item', saveSort === 'sortPriceDesc' && 'active-sort')} onClick={() => handleSort('new_price', 'desc', 'sortPriceDesc')}>Giá giảm dần</li>
+                        <li className={cx('sort-item', saveSort === 'sortNameAsc' && 'active-sort')} onClick={() => handleSort('name', 'asc', 'sortNameAsc')}>Tên từ A-Z</li>
+                        <li className={cx('sort-item', saveSort === 'sortNameDesc' && 'active-sort')} onClick={() => handleSort('name', 'desc', 'sortNameDesc')}>Tên từ Z-A</li>
 
                     </ul>
                 </div>
@@ -100,11 +103,11 @@ function Home() {
                 <ReactPaginate
                     style={{ fontSize: '2em' }}
                     breakLabel="..."
-                    nextLabel="next >"
+                    nextLabel={<MdNavigateNext />}
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={5}
                     pageCount={toltalPage}
-                    previousLabel="< previous"
+                    previousLabel={<MdNavigateBefore />}
                     renderOnZeroPageCount={null}
 
                     pageClassName="page-item"
@@ -122,7 +125,7 @@ function Home() {
 
 
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -65,6 +65,7 @@ function Login() {
             }
             )
             .then((data) => {
+
                 if (data.status === "success") {
                     localStorage.setItem('token', data.access_token)
 
@@ -88,6 +89,7 @@ function Login() {
 
         event.preventDefault();
     }
+
     return (
         <div className={cx('container')}>
 

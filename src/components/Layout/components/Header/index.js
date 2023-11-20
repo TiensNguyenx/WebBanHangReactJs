@@ -13,7 +13,7 @@ import { BiUserCircle } from "react-icons/bi"
 import { BsNewspaper } from "react-icons/bs"
 
 import ModalConfirmLogout from '../ModalConfirmLogout/ModalConfirmLogout';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '~/context/UserContext';
 import Search from '../Search';
 
@@ -22,9 +22,8 @@ const cx = classNames.bind(styles)
 
 function Header() {
 
-    const { user } = useContext(UserContext);
+    const { user, lengthCart, getLengthCartContext } = useContext(UserContext);
     const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
-
     const handleLogout = () => {
 
         setIsShowModalConfirm(true);
@@ -32,6 +31,9 @@ function Header() {
     function handleClose() {
         setIsShowModalConfirm(false);
     }
+
+    getLengthCartContext()
+
 
     return (
         <header className={cx('wrapper')}>
@@ -54,9 +56,10 @@ function Header() {
                     </Link>
 
                     <Link to="/cart">
-                        <div className={cx('item')} >
+                        <div className={cx('item', 'custom-item')} >
                             <button className={cx('icon')}> <AiOutlineShoppingCart style={{ width: '2rem', height: '2rem' }} /></button>
                             <span className={cx('subtiltle')}>Giỏ hàng</span>
+                            {user && user.auth === true ? (<div className={cx('count-cart')}>{lengthCart}</div>) : ''}
                         </div>
                     </Link>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { jwtDecode } from "jwt-decode";
-
+import axios from 'axios';
 // @function  UserContext
 const UserContext = React.createContext({ email: '', auth: false });
 
@@ -8,6 +8,7 @@ const UserContext = React.createContext({ email: '', auth: false });
 // Create function to provide UserContext
 const UserProvider = ({ children }) => {
     const [user, setUser] = React.useState({ email: '', auth: false });
+    const [lengthCart, setLengthCart] = React.useState(0);
     const loginContext = (token) => {
 
         localStorage.setItem('token', token)
@@ -29,7 +30,7 @@ const UserProvider = ({ children }) => {
 
                     )
                     .then((data) => {
-                        console.log(data.data._id)
+
                         setUser((user) => ({
                             email: data.data.email,
                             auth: true,
@@ -41,8 +42,37 @@ const UserProvider = ({ children }) => {
         }
     };
 
+
+    const getLengthCartContext = async () => {
+        if (user.id) {
+            axios.get(`http://localhost:3002/api/cart/get-details-cart/${user.id}`)
+                .then((res) => {
+                    if (res.data.status === 'success') {
+                        setLengthCart(res.data.data.totalItems)
+                    }
+                })
+        }
+    }
+    const decreaseLength = () => {
+        setLengthCart(lengthCart - 1)
+    }
+    const increaseLength = () => {
+        setLengthCart(lengthCart + 1)
+    }
+    const resetLength = () => {
+        setLengthCart(0)
+    }
+    const handleAddCartContext = (idUser, idProduct) => {
+        return axios.post(`http://localhost:3002/api/cart/add-to-cart`, {
+            newCart: {
+                userID: idUser,
+                productID: idProduct,
+            }
+        })
+    }
     const logout = () => {
         localStorage.removeItem('token');
+
 
         setUser((user) => ({
             email: '',
@@ -50,11 +80,10 @@ const UserProvider = ({ children }) => {
         }));
     };
     return (
-        <UserContext.Provider value={{ user, loginContext, logout }}>
+        <UserContext.Provider value={{ user, loginContext, logout, setUser, handleAddCartContext, lengthCart, getLengthCartContext, decreaseLength, increaseLength, resetLength }}>
             {children}
         </UserContext.Provider>
     );
 };
 
 export { UserContext, UserProvider };
-
