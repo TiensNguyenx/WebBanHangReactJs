@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     justify-content: center;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
 }
 .containner {
     width: 83.333%;
@@ -22,12 +22,12 @@
     }
 }
 .main-post {
-    background-color: white;
+    background-color: var(--white-background);
     padding: 20px 15px;
     flex: 2;
 }
 .recent-post {
-    background-color: white;
+    background-color: var(--white-background);
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
@@ -101,7 +101,7 @@
 }
 .promote-wrapper {
     padding: 20px 15px 5px 15px;
-    background-color: white;
+    background-color: var(--white-background);
 }
 .right-column {
     margin-left: 20px;

@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
 }
 .container {
     width: 83.333%;
@@ -37,14 +37,14 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid #e9ecee;
-    background-color: white;
+    background-color: var(--white-background);
 }
 .product-information {
     margin-top: 5px;
     flex: 1;
 }
 .client-information {
-    background-color: white;
+    background-color: var(--white-background);
 }
 .client-title {
     color: #212b36;
@@ -109,19 +109,19 @@
 }
 .shipping-title {
     padding: 10px 0px 10px 20px;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
     text-align: center;
 }
 .store-title {
     padding: 10px 0px 10px 20px;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
     text-align: center;
 }
 .store {
-    background-color: white;
+    background-color: var(--white-background);
 }
 .shipping {
-    background-color: white;
+    background-color: var(--white-background);
 }
 .lable-input {
     color: black;
@@ -148,7 +148,7 @@
 }
 .total-price {
     margin-top: 15px;
-    background-color: white;
+    background-color: var(--white-background);
     padding: 20px;
 }
 .btn-pay {
@@ -156,13 +156,13 @@
     width: 100%;
     justify-content: center;
     text-align: center;
-    background-color: #a5a5a5;
+    background-color: var(disabled-btn);
     color: white;
     padding: 0.7rem 1rem;
     border-radius: 4px;
 }
 .active {
-    background-color: rgb(20, 53, 195);
+    background-color: var(--background-color-button);
 }
 .spinner {
     animation: spin infinite 1s linear;

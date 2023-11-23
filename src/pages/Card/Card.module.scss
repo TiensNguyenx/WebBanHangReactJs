@@ -1,6 +1,6 @@
 .product-container {
     margin-top: 20px;
-    background-color: white;
+    background-color: var(--white-background);
     padding: 20px 0 50px 0;
 }
 .wrapper {
@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
     padding-bottom: 20px;
 }
 .title {
@@ -113,7 +113,7 @@
     font-size: 1.7rem;
     flex: 1;
     margin-right: 10px;
-    background-color: white;
+    background-color: var(--white-background);
     color: #c8191f;
     display: flex;
     justify-content: center;
@@ -136,7 +136,7 @@
 }
 .re-container {
     margin-top: 20px;
-    background-color: white;
+    background-color: var(--white-background);
 }
 .footer {
     width: 100%;

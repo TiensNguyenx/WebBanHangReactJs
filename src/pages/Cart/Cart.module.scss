@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
     display: flex;
     justify-content: center;
     padding-bottom: 70px;
@@ -14,7 +14,7 @@
 .container-empty {
     width: 100%;
     padding: 50px 0;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
     display: flex;
     justify-content: center;
 }
@@ -24,7 +24,7 @@
     align-items: center;
     padding: 20px 0;
     justify-content: center;
-    background-color: white;
+    background-color: var(--white-background);
     width: 83.333%;
     img {
         width: 336px;
@@ -35,14 +35,14 @@
     margin-top: 20px;
     padding: 8px;
     border-radius: 3px;
-    background-color: rgb(20, 53, 195);
+    background-color: var(--background-color-button);
 
     color: rgb(255, 255, 255);
 }
 .product {
     flex: 3;
     padding: 16px;
-    background-color: white;
+    background-color: var(--white-background);
     border-radius: 8px;
 }
 .product-header {
@@ -103,7 +103,7 @@
 .pay {
     flex: 1;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--white-background);
 }
 .minus button {
     padding: 5px 10px;
@@ -130,7 +130,7 @@
 .pay-wrapper {
     display: flex;
     padding: 16px;
-    background-color: white;
+    background-color: var(--white-background);
     margin-top: 16px;
     justify-content: space-between;
 }
@@ -148,7 +148,7 @@
     -webkit-box-pack: center;
     justify-content: center;
     text-align: center;
-    background-color: rgb(20, 53, 195);
+    background-color: var(--background-color-button);
     border-color: rgb(20, 53, 195);
     color: rgb(255, 255, 255);
     width: 90%;

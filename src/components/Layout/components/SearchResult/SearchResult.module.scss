@@ -3,7 +3,7 @@
     cursor: pointer;
     padding: 5px 0;
     &:hover {
-        background-color: #f0f0f0;
+        background-color: var(--primary);
     }
 }
 .img {

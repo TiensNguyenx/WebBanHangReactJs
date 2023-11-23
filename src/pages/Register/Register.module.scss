@@ -1,5 +1,5 @@
 .container {
-    background-color: white;
+    background-color: var(--white-background);
     display: flex;
     flex-direction: column;
 
@@ -11,7 +11,7 @@
     padding: 50px 0;
     align-items: center;
     width: 100%;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
 }
 .input-box input {
     width: 400px;
@@ -35,7 +35,7 @@
 .btn {
     width: 400px;
     padding: 15px;
-    background-color: white;
+    background-color: var(--white-background);
     border-radius: 40px;
     font-size: 1.4rem;
     font-weight: 600;

@@ -1,5 +1,5 @@
 .container {
-    background-color: white;
+    background-color: var(--white-background);
     display: flex;
     flex-direction: column;
 
@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: #f0f0f0;
+    background-color: var(--primary);
     padding: 50px 0;
 }
 .input-box input {
@@ -62,7 +62,6 @@ button:disabled {
 }
 .spinner {
     animation: spin infinite 1s linear;
-
 }
 
 @keyframes spin {

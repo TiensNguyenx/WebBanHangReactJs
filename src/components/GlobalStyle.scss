@@ -2,7 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 :root {
-    --primary: #fe2c55;
+    --primary: #f0f0f0;
+    --white-background: rgb(255, 255, 255);
+    --disabled-btn: #a5a5a5;
+    --background-color-button: rgb(20, 53, 195);
+    --black-color: rgb(0, 0, 0);
 }
 * {
     box-sizing: border-box;

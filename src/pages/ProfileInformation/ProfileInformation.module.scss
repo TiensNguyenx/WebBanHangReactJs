@@ -1,5 +1,5 @@
 .wrapper {
-    background-color: #f0f0f0;
+    background-color: var(--primary);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -68,14 +68,14 @@
         opacity: 1;
         padding: 7px 50px;
         border-radius: 5px;
-        background-color: #a5a5a5;
+        background-color: var(disabled-btn);
         color: rgb(228, 229, 240);
         cursor: pointer;
     }
 }
 .active {
     button {
-        background-color: rgb(20, 53, 195);
+        background-color: var(--background-color-button);
     }
 }
 button[disabled='disabled'],

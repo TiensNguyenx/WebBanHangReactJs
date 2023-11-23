@@ -1,5 +1,5 @@
 .wrapper {
-    background-color: #f0f0f0;
+    background-color: var(--primary);
 
     width: 83.333%;
 }
@@ -48,7 +48,7 @@
 .sort-list {
     position: absolute;
     top: 30px;
-    background-color: white;
+    background-color: var(--white-background);
     width: 170px;
     display: none;
     cursor: pointer;
@@ -65,7 +65,7 @@
 .sort-item {
     padding: 5px;
     &:hover {
-        background-color: #f0f0f0;
+        background-color: var(--primary);
     }
 }
 .icon-sort {
