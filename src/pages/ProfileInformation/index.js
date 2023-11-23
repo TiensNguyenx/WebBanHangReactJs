@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import Footer from "~/components/Layout/components/Footer";
-import styles from "./ProfileInformation.module.scss";
+import styles from './ProfileInformation.module.scss'
 
 import { FaRegCircleUser } from "react-icons/fa6";
 import { BsCalendar2Check } from "react-icons/bs";
@@ -19,6 +19,8 @@ function ProfileInformation() {
     const [phone, setPhone] = useState(localStorage.getItem('phone'))
     const [onChangeEmail, setOnChangeEmail] = useState(false)
     const { toastCustom } = useContext(UserContext)
+    const [errorPhone, setErrorPhone] = useState('')
+    const [errorEmail, setErrorEmail] = useState('')
     const userId = localStorage.getItem('idUser')
 
     const handleUpdateUser = () => {
@@ -76,15 +78,35 @@ function ProfileInformation() {
     }
     const handleOnChangEmail = (e) => {
         setOnChangeEmail(true)
-        setEmail(e.target.value)
+        function isValidEmail(email) {
+            return /\S+@\S+\.\S+/.test(email);
+        }
+        if (!isValidEmail(e.target.value)) {
+            setErrorEmail('Email is invalid');
+        } else {
+
+            setErrorEmail('');
+        }
+        setEmail(e.target.value);
+
+
+
     }
     const handleOnChangeName = (e) => {
 
         setName(e.target.value)
     }
     const handleOnChangePhone = (e) => {
+        function isValidPhone(phone) {
+            return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(phone);
+        }
+        if (!isValidPhone(e.target.value)) {
+            setErrorPhone('Phone is invalid');
+        } else {
+            setErrorPhone('');
+        }
 
-        setPhone(e.target.value)
+        setPhone(e.target.value);
     }
     return (
         <div>
@@ -135,13 +157,15 @@ function ProfileInformation() {
                             </div>
                             <div className={cx('user-input')}><p>Enail</p>
                                 <input value={email} onChange={handleOnChangEmail} type="text" />
+                                {errorEmail && <p style={{ color: 'red' }}>{errorEmail}</p>}
                             </div>
                             <div className={cx('user-input')} ><p>Số điện thoại</p>
                                 <input value={phone} onChange={handleOnChangePhone} type="text" />
+                                {errorPhone && <p style={{ color: 'red' }}>{errorPhone}</p>}
                             </div>
 
-                            <div className={cx('update-btn')}>
-                                <button onClick={handleUpdateUser}>Cập nhật</button>
+                            <div className={cx('update-btn', !errorEmail && !errorPhone ? 'active' : '')}>
+                                <button onClick={handleUpdateUser} disabled={!errorEmail && !errorPhone ? false : true}>Cập nhật</button>
                             </div>
                         </div>
                     </div>
@@ -149,7 +173,7 @@ function ProfileInformation() {
 
             </div>
             <Footer />
-        </div>
+        </div >
 
     );
 }

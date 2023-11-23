@@ -13,7 +13,7 @@ import { BiUserCircle } from "react-icons/bi"
 import { BsNewspaper } from "react-icons/bs"
 
 import ModalConfirmLogout from '../ModalConfirmLogout/ModalConfirmLogout';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '~/context/UserContext';
 import Search from '../Search';
 

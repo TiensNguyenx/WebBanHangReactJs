@@ -41,7 +41,9 @@ const minusProductService = (idCart, idProduct) => {
         }
     })
 };
-
+const getRecommnedProductService = (page) => {
+    return axios.get(`http://localhost:3002/api/product/get-all?page=${page}&limit=5`)
+}
 const orderProductService = (fullName, addressUser, email, phoneString, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop) => {
     const idUser = localStorage.getItem('idUser')
 
@@ -83,4 +85,4 @@ const orderProductService = (fullName, addressUser, email, phoneString, noteUser
 
 
 }
-export { renderCartService, deleteProductService, deleteAllProductService, plustProductService, minusProductService, orderProductService, updateUserService }; 
+export { renderCartService, deleteProductService, deleteAllProductService, plustProductService, minusProductService, orderProductService, updateUserService, getRecommnedProductService }; 

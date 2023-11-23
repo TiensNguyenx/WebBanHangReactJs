@@ -68,9 +68,17 @@
         opacity: 1;
         padding: 7px 50px;
         border-radius: 5px;
-        background-color: rgb(20, 53, 195);
-
+        background-color: #a5a5a5;
         color: rgb(228, 229, 240);
         cursor: pointer;
     }
+}
+.active {
+    button {
+        background-color: rgb(20, 53, 195);
+    }
+}
+button[disabled='disabled'],
+button:disabled {
+    cursor: not-allowed;
 }

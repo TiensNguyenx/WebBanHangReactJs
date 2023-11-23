@@ -54,3 +54,7 @@
     right: 16px;
     top: 9px;
 }
+button[disabled='disabled'],
+button:disabled {
+    cursor: not-allowed;
+}

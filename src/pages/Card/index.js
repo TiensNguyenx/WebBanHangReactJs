@@ -14,6 +14,7 @@ import { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
 import { Link } from 'react-router-dom';
+import { getRecommnedProductService } from '~/Services'
 const cx = classNames.bind(styles)
 
 function Card() {
@@ -45,27 +46,31 @@ function Card() {
 
 
     }
-
-
+    const renderRecoomend = async () => {
+        const res = await getRecommnedProductService(1)
+        console.log(res.data.data)
+        setRecommends(res.data.data)
+    }
+    useEffect(() => {
+        renderRecoomend()
+    }, [])
     const handleAddCart = () => {
         if (user.id) {
             setIsShowModalAddCart(true);
-
-
         }
         else {
-            setIsShowModalLogin(false);
+            setIsShowModalLogin(true);
         }
 
     }
     const handleBuy = () => {
-        if (user.id) {
-            setIsShowModalLoginForBuy(false);
+        if (!user.id) {
+            setIsShowModalLoginForBuy(true);
 
         }
-        else {
-            setIsShowModalLoginForBuy(true);
-        }
+        // else {
+        //     setIsShowModalLoginForBuy(true);
+        // }
     }
     return (
         <div >
@@ -114,7 +119,7 @@ function Card() {
                                 <div className={cx('buy')}>
                                     <button className={cx('add-btn')} onClick={() => handleAddCart()}><div ><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
 
-                                    <Link to={isShowModalLoginForBuy ? '/' : '/pay'} className={cx('wrapper-buy-btn')}> <button className={cx('buy-btn')} onClick={handleBuy}>Mua Ngay</button></Link>
+                                    <button className={cx('buy-btn')} onClick={handleBuy}>Mua Ngay</button>
                                 </div>
                             </div>
                             <div className={cx('location')}>
@@ -157,18 +162,18 @@ function Card() {
 
                                         <div style={{ width: '20%' }} key={index}>
                                             <Product key={index}
-                                                id={item.id}
-                                                uptitle={item.uptitle}
-                                                downtitle={item.downtitle}
-                                                oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.oldprice)}
-                                                newprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.newprice)}
-                                                vga={item.vga}
-                                                screen={item.screen}
-                                                operation={item.operation}
-                                                disk={item.disk}
-                                                ram={item.ram}
-                                                cpu={item.cpu}
-                                                src={item.src}
+                                                id={item._id}
+                                                uptitle={item.name}
+                                                downtitle={item.description}
+                                                oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.old_price)}
+                                                newprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.new_price)}
+                                                // vga={item.vga}
+                                                // screen={item.screen}
+                                                // operation={item.operation}
+                                                // disk={item.disk}
+                                                // ram={item.ram}
+                                                // cpu={item.cpu}
+                                                src={item.image}
                                                 recommend={true}
                                             />
                                         </div>

@@ -32,6 +32,7 @@ function Pay() {
     const [errorPhone, setErrorPhone] = useState('')
     const [idCart, setIdCart] = useState('')
     const [loadingApi, setLoadingApi] = useState(false)
+    const [checkTerm, setCheckTerm] = useState(false)
     const navigate = useNavigate();
 
     const handleOrder = async () => {
@@ -137,13 +138,33 @@ function Pay() {
                                     <div style={{ padding: '20px' }}>
 
                                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                                            <div className={cx('ship-input')} style={{ marginBottom: 0 }}><label className={cx('lable-input')}>Nhập họ và tên (bắt buộc)</label><input style={{ paddingTop: '0' }} required onChange={(e) => setFullname(e.target.value)} /></div>
-                                            <div className={cx('ship-input')} style={{ marginBottom: 0 }}> <label className={cx('lable-input')}>Nhập số điện thoại (bắt buộc)</label><input style={{ paddingTop: '0' }} required onChange={handleChangePhone} />{errorPhone && <p style={{ color: 'red', fontSize: '1.5rem' }}>{errorPhone}</p>}</div>
+                                            <div className={cx('ship-input')} style={{ marginBottom: 0 }}><label className={cx('lable-input')}>Nhập họ và tên (bắt buộc)</label>
+                                                <input style={{ paddingTop: '0' }} required onChange={(e) => setFullname(e.target.value)} />
+                                            </div>
+                                            <div className={cx('ship-input')} style={{ marginBottom: 0 }}>
+                                                <label className={cx('lable-input')}>Nhập số điện thoại (bắt buộc)</label>
+                                                <input style={{ paddingTop: '0' }} required onChange={handleChangePhone} />
+                                                {errorPhone && <p style={{ color: 'red', fontSize: '1.5rem' }}>{errorPhone}</p>}
+                                            </div>
                                         </div>
-                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}>Nhập địa chỉ</label> <input required onChange={(e) => setAddressUser(e.target.value)} /></div>
-                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}> Nhập Email </label> <input onChange={handleChangeEmail} />   {errorEmail && <p style={{ color: 'red', fontSize: '1.5rem' }}>{errorEmail}</p>}</div>
-                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}>Nhập ghi chú (nếu có) </label> <input onChange={(e) => setNoteUser(e.target.value)} /></div>
-                                        <div className={cx('width-100')} style={{ paddingTop: '15px', paddingBottom: '15px', display: 'flex', alignItems: 'center' }} > <input type="checkbox" required style={{ width: '16px', height: '16px', marginRight: '5px' }}></input>{loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}<span style={{ fontSize: '1.3rem', margin: '0px' }}>Nhấn "Thanh toán" đồng nghĩa với việc bạn đọc và đồng ý tuân theo <a href="fb.com" style={{ color: "#3366cc", textDecoration: 'underline' }}  >Điều khoản và Điều kiện</a></span></div>
+                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}>Nhập địa chỉ</label>
+                                            <input required onChange={(e) => setAddressUser(e.target.value)} />
+                                        </div>
+                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}> Nhập Email </label>
+                                            <input onChange={handleChangeEmail} />
+                                            {errorEmail && <p style={{ color: 'red', fontSize: '1.5rem' }}>{errorEmail}</p>}
+                                        </div>
+                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}>Nhập ghi chú (nếu có) </label>
+                                            <input onChange={(e) => setNoteUser(e.target.value)} />
+                                        </div>
+                                        <div className={cx('width-100')} style={{ paddingTop: '15px', paddingBottom: '15px', display: 'flex', alignItems: 'center' }} >
+                                            <input type="checkbox" required style={{ width: '16px', height: '16px', marginRight: '5px' }}></input>
+                                            <span style={{ fontSize: '1.3rem', margin: '0px' }} onClick={() => setCheckTerm(true)}>
+                                                Nhấn "Thanh toán" đồng nghĩa với việc bạn đọc và đồng ý tuân theo
+                                                <a href="fb.com" style={{ color: "#3366cc", textDecoration: 'underline' }}  >
+                                                    Điều khoản và Điều kiện</a>
+                                            </span>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -226,7 +247,13 @@ function Pay() {
                                 <div className={cx('price')}>    <p>Tổng tạm tính</p> <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(temporaryPrice)}</p></div>
                                 <div className={cx('price')}> <p>Phí vận chuyển</p> <p>30.000 đ</p></div>
                                 <div className={cx('price')}>   <p>Thành tiền</p><p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)}</p></div>
-                                <div style={{ display: 'flex', justifyContent: 'center' }} onClick={handleOrder}><button className={cx('btn-pay', fullName && phone && email && !errorEmail && !errorPhone ? 'active' : '')} disabled={fullName && phone && email && !errorEmail && !errorPhone ? false : true}>THANH TOÁN</button></div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }} onClick={handleOrder}>
+                                    <button className={cx('btn-pay', fullName && phone && email && checkTerm && !errorEmail && !errorPhone ? 'active' : '')}
+                                        disabled={fullName && phone && email && !errorEmail && !errorPhone ? false : true}>
+                                        {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
+                                        THANH TOÁN
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
