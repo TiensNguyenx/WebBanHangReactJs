@@ -14,7 +14,6 @@ const UserProvider = ({ children }) => {
         localStorage.setItem('token', token)
         if (token) {
             const decoded = jwtDecode(token);
-
             if (decoded.payload?.id) {
                 fetch(`http://localhost:3002/api/user/get-detail/${decoded.payload.id}`, {
                     headers: {
@@ -31,12 +30,20 @@ const UserProvider = ({ children }) => {
                     )
                     .then((data) => {
 
-                        setUser((user) => ({
-                            email: data.data.email,
-                            auth: true,
-                            name: data.data.name,
-                            id: data.data._id
-                        }));
+                        if (data) {
+                            setUser((user) => ({
+                                email: data.data.email,
+                                auth: true,
+                                name: data.data.name,
+                                id: data.data._id,
+                                phone: data.data.phone,
+                            }));
+                            localStorage.setItem('idUser', data.data._id)
+                            localStorage.setItem('name', data.data.name)
+                            localStorage.setItem('phone', data.data.phone)
+                            localStorage.setItem('email', data.data.email)
+
+                        }
                     })
             }
         }
@@ -72,6 +79,10 @@ const UserProvider = ({ children }) => {
     }
     const logout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('idUser');
+        localStorage.removeItem('name');
+        localStorage.removeItem('phone');
+        localStorage.removeItem('email');
 
 
         setUser((user) => ({

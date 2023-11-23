@@ -1,8 +1,7 @@
 import classNames from "classnames/bind";
 import styles from './Home.module.scss'
 import Product from "~/components/Layout/components/Product";
-import 'swiper/css';
-import 'swiper/css/bundle';
+
 import { useState, useEffect } from "react";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import ReactPaginate from 'react-paginate';

@@ -4,7 +4,7 @@ import { FaUserAlt } from 'react-icons/fa';
 import { FaLock } from 'react-icons/fa';
 import Footer from '~/components/Layout/components/Footer';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { MdEmail } from 'react-icons/md';
 import { BsTelephoneFill } from 'react-icons/bs';
@@ -28,10 +28,14 @@ function Register() {
     const [isShowConfirmPassWord, setIsShowConfirmPassword] = useState(false);
     const [errorEmail, setErrorEmail] = useState('');
     const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
-    const { loginContext, setUser, toastCustom } = useContext(UserContext);
+    const { loginContext, toastCustom, user } = useContext(UserContext);
     const navigate = useNavigate();
 
-
+    useEffect(() => {
+        if (user.id) {
+            navigate('/')
+        }
+    })
 
     function handleRegister(event) {
         try {
@@ -43,15 +47,7 @@ function Register() {
                 body: JSON.stringify({ name, email, password, confirmPassword, phone }),
             })
                 .then((res) => {
-                    if (res.status === 200) {
-                        return res.json();
-                    } else if (res.status === 404) {
-                        alert('Hệ thống lỗi');
-                    } else if (res.status === 500) {
-                        alert('Email đã tồn tại');
-                    } else if (res.status === 501) {
-                        alert('Vui lòng nhập thông tin');
-                    }
+                    return res.json()
                 })
 
                 .then((data) => {
@@ -88,12 +84,6 @@ function Register() {
                         localStorage.setItem('token', data.access_token)
 
                         loginContext(data.access_token);
-                        setUser((user) => ({
-                            email: data.data.email,
-                            auth: true,
-                            name: data.data.name,
-                            id: data.data._id
-                        }));
 
                     }
 

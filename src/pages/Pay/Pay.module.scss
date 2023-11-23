@@ -19,10 +19,10 @@
 .ship-input {
     border-bottom: 1px solid #e9ecee;
     width: 320px;
+    margin-bottom: 10px;
     & input {
         width: 100%;
-        padding: 15px;
-
+        padding: 5px 0;
         font-size: 1.3rem;
         line-height: 18px;
     }
@@ -59,7 +59,7 @@
 }
 .price {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
 }
 .new-price {
     font-size: 1.7rem;
@@ -81,29 +81,51 @@
         font-weight: 700;
     }
 }
-.recei-wrapper {
-    background-color: white;
-}
 .width-100 {
     width: 100%;
 }
-.select-wrapper {
-    display: flex;
-    justify-content: space-between;
-}
+
 .select-container {
-    width: 320px;
+    margin-bottom: 10px;
+    width: 100%;
     & input {
         width: 100%;
     }
     border-bottom: 1px solid #e9ecee;
 }
-.lable {
-    color: #919eab;
-    font-size: 1.1rem;
-    line-height: 18px;
-    opacity: 1;
-    top: 0;
+.select-method {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    div {
+        flex: 1;
+        cursor: pointer;
+    }
+}
+
+.active {
+    background-color: rgb(20, 53, 195) !important;
+    color: white;
+}
+.shipping-title {
+    padding: 10px 0px 10px 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+.store-title {
+    padding: 10px 0px 10px 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+.store {
+    background-color: white;
+}
+.shipping {
+    background-color: white;
+}
+.lable-input {
+    color: black;
+    font-size: 1.4rem;
 }
 .note-store {
     width: 100%;
@@ -134,8 +156,22 @@
     width: 100%;
     justify-content: center;
     text-align: center;
-    background-color: rgb(20, 53, 195);
+    background-color: #a5a5a5;
     color: white;
     padding: 0.7rem 1rem;
     border-radius: 4px;
+}
+.active {
+    background-color: rgb(20, 53, 195);
+}
+.spinner {
+    animation: spin infinite 1s linear;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

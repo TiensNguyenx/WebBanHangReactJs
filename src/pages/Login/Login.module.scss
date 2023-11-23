@@ -63,8 +63,6 @@ button:disabled {
 .spinner {
     animation: spin infinite 1s linear;
 
-    /*You can increase or decrease the timer (5s) to 
-     increase or decrease the speed of the spinner*/
 }
 
 @keyframes spin {

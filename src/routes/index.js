@@ -7,6 +7,11 @@ import { HeaderOnly } from "~/components/Layout";
 import Register from "~/pages/Register";
 import News from "~/pages/News/News";
 import Chat from "~/pages/Chat";
+import Profile from "~/pages/Profile";
+import ProfileNoti from "~/pages/ProfileNoti";
+import ProfileOrder from "~/pages/ProfileOrder";
+import ProfilePassword from "~/pages/ProfilePassWord";
+import ProfileInformation from "~/pages/ProfileInformation";
 const publicRoutes = [
     {
         path: '/',
@@ -45,6 +50,35 @@ const publicRoutes = [
     {
         path: '/chat',
         component: Chat,
+        layout: HeaderOnly
+    },
+    {
+        path: '/profile',
+        component: Profile,
+        layout: HeaderOnly
+
+    },
+    {
+        path: '/noti',
+        component: ProfileNoti,
+        layout: HeaderOnly
+
+    },
+    {
+        path: '/order',
+        component: ProfileOrder,
+        layout: HeaderOnly
+
+    },
+    {
+        path: '/password',
+        component: ProfilePassword,
+        layout: HeaderOnly
+
+    },
+    {
+        path: '/information',
+        component: ProfileInformation,
         layout: HeaderOnly
     }
 

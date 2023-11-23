@@ -9,9 +9,11 @@ import { useState } from 'react';
 import { BsCartPlus } from 'react-icons/bs';
 import ModalLoginForAddCart from '~/components/Layout/components/ModalLoginForAddCart/ModalLoginForAddCart';
 import ModalConfirmAddCart from '~/components/Layout/components/ModalConfirmAddCart/ModalConfirmAddCart';
+import ModalLoginForBuy from '~/components/Layout/components/ModalLoginForBuy/ModalLoginForBuy';
 import { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles)
 
 function Card() {
@@ -21,8 +23,7 @@ function Card() {
     const id = urlParams.get('id');
     const [product, setProduct] = useState({})
     const [recommends, setRecommends] = useState([])
-    const [check, setCheck] = useState(false)
-
+    const [isShowModalLoginForBuy, setIsShowModalLoginForBuy] = useState(false);
     const [isShowModalAddCart, setIsShowModalAddCart] = useState(false);
     const [isShowModalLogin, setIsShowModalLogin] = useState(false);
     const location = useLocation();
@@ -40,7 +41,8 @@ function Card() {
     const handleClose = () => {
         setIsShowModalAddCart(false);
         setIsShowModalLogin(false);
-        setCheck(!check)
+        setIsShowModalLoginForBuy(false);
+
 
     }
 
@@ -48,15 +50,23 @@ function Card() {
     const handleAddCart = () => {
         if (user.id) {
             setIsShowModalAddCart(true);
-            setCheck(!check)
+
 
         }
         else {
-            setIsShowModalLogin(true);
+            setIsShowModalLogin(false);
         }
 
     }
+    const handleBuy = () => {
+        if (user.id) {
+            setIsShowModalLoginForBuy(false);
 
+        }
+        else {
+            setIsShowModalLoginForBuy(true);
+        }
+    }
     return (
         <div >
             <div className={cx('container')}>
@@ -102,9 +112,9 @@ function Card() {
                                     <p className={cx('content-gift')} >Trả góp lãi suất ưu đãi thông qua cổng MPOS áp dụng cho thẻ tín dụng: Citibank, Eximbank, HSBC, MSB, Techcombank, Nam Á, Shinhan bank, TP bank, Seabank, Kiên Long bank, OCB, VIB, ACB, MB, Vietcombank, SHB...</p>
                                 </div>
                                 <div className={cx('buy')}>
-                                    <button className={cx('buy-btn')} onClick={() => handleAddCart()}><div style={{ marginBottom: '5px', marginRight: '6px' }}><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
+                                    <button className={cx('add-btn')} onClick={() => handleAddCart()}><div ><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
 
-                                    <button className={cx('buy-btn')}>Mua Ngay</button>
+                                    <Link to={isShowModalLoginForBuy ? '/' : '/pay'} className={cx('wrapper-buy-btn')}> <button className={cx('buy-btn')} onClick={handleBuy}>Mua Ngay</button></Link>
                                 </div>
                             </div>
                             <div className={cx('location')}>
@@ -145,7 +155,7 @@ function Card() {
                                     return (
 
 
-                                        <div style={{ width: '20%' }} key={index} onClick={() => setCheck(!check)}>
+                                        <div style={{ width: '20%' }} key={index}>
                                             <Product key={index}
                                                 id={item.id}
                                                 uptitle={item.uptitle}
@@ -182,6 +192,10 @@ function Card() {
             />
             <ModalLoginForAddCart
                 show={isShowModalLogin}
+                handleClose={handleClose}
+            />
+            <ModalLoginForBuy
+                show={isShowModalLoginForBuy}
                 handleClose={handleClose}
             />
         </div>

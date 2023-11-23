@@ -1,7 +1,23 @@
 import axios from 'axios';
+
+
+
 const renderCartService = (userId) => {
     return axios.get(`http://localhost:3002/api/cart/get-details-cart/${userId}`)
 };
+const updateUserService = (userId, name, email, phone) => {
+    return axios.put(`http://localhost:3002/api/user/update-user/${userId}`, {
+        headers: {
+            token: `Bearer ${localStorage.getItem('token')}`
+        },
+        body: {
+            name,
+            email,
+            phone
+        }
+    }
+    )
+}
 const deleteProductService = (idCart, idProduct) => {
     return axios.delete(`http://localhost:3002/api/cart/delete-item/${idCart}`, {
         data: {
@@ -25,4 +41,46 @@ const minusProductService = (idCart, idProduct) => {
         }
     })
 };
-export { renderCartService, deleteProductService, deleteAllProductService, plustProductService, minusProductService }; 
+
+const orderProductService = (fullName, addressUser, email, phoneString, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop) => {
+    const idUser = localStorage.getItem('idUser')
+
+    const phone = parseInt(phoneString, 10)
+
+    if (addressShipping === '') {
+
+        return axios.post(`http://localhost:3002/api/order/create/${idUser}`,
+
+            {
+                fullName,
+                addressUser,
+                email,
+                phone,
+                shippingMethod,
+                addressShop,
+                cityShop,
+
+            }
+        )
+    }
+    else {
+
+        return axios.post(`http://localhost:3002/api/order/create/${idUser}`,
+            {
+                fullName,
+                phone,
+                addressShipping,
+                cityShipping,
+                noteShipping,
+                email,
+                noteUser,
+                shippingMethod,
+                addressUser
+
+            }
+        )
+    }
+
+
+}
+export { renderCartService, deleteProductService, deleteAllProductService, plustProductService, minusProductService, orderProductService, updateUserService }; 

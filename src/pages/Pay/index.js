@@ -1,27 +1,121 @@
 import classNames from "classnames/bind"
 import styles from './Pay.module.scss'
 import Footer from "~/components/Layout/components/Footer";
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import { useEffect, useState } from "react";
+
+import { useState, useContext, useEffect } from "react";
+import { orderProductService } from '../../Services'
+import { UserContext } from "~/context/UserContext";
+import { renderCartService, deleteAllProductService } from "~/Services";
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 const cx = classNames.bind(styles)
 
 function Pay() {
-    const [carts, setCarts] = useState([])
+    const { user, toastCustom, resetLength } = useContext(UserContext)
+    const [fullName, setFullname] = useState('')
+    const [addressUser, setAddressUser] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState(0)
+    const [noteUser, setNoteUser] = useState('')
+    const [addressShipping, setAddressShipping] = useState('')
+    const [cityShipping, setCityShipping] = useState('')
+    const [noteShipping, setNoteShipping] = useState('')
+    const [addressShop, setAddressShop] = useState('')
+    const [cityShop, setCityShop] = useState('')
+    const [isShipping, setIsShipping] = useState(false)
+    const [checkedHome, setCheckedHome] = useState(true)
+    const [checkedShipping, setCheckedShipping] = useState(false)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [temporaryPrice, setTemporaryPrice] = useState(0)
+    const [errorEmail, setErrorEmail] = useState('')
+    const [errorPhone, setErrorPhone] = useState('')
+    const [idCart, setIdCart] = useState('')
+    const [loadingApi, setLoadingApi] = useState(false)
+    const navigate = useNavigate();
+
+    const handleOrder = async () => {
+        setLoadingApi(true)
+        let shippingMethod
+        if (isShipping) {
+            shippingMethod = 'giao hang tan noi'
+        }
+        else {
+            shippingMethod = 'nhan tai cua hang'
+
+        }
+        const res = await orderProductService(fullName, addressUser, email, phone, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop)
+        if (res.data.status === 'success') {
+            toast.success('Đặt hàng thành công', { ...toastCustom })
+            const res = await deleteAllProductService(idCart)
+            console.log(res)
+            resetLength()
+            navigate('/')
+        }
+
+    }
+
+
     useEffect(() => {
-        fetch('http://localhost:3000/carts')
-            .then(res => res.json())
-            .then(data => setCarts(data))
-    }, [])
-    const country = [
-        'TP Huế', 'Đà Nẵng', 'Hà Nội', 'TP Hồ Chí Minh', 'Đà Lạt'
-    ]
-    const dataWards = [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    ]
-    const address = [
-        "152 Hàm Nghi, Quận Thanh Khê, Đà Nẵng", "52 Nguyễn Văn Linh, Quận Hải Châu, Đà Nẵng", "48 Hùng Vương, TP Huế, Thừa Thiên Huế"
-    ]
+        if (!user.id) {
+            navigate('/')
+        }
+    })
+
+
+    const renderCart = async () => {
+        if (user.id) {
+            const res = await renderCartService(user.id)
+            console.log(res)
+            if (res.data.status === 'success') {
+                setIdCart(res.data.data._id)
+                setTemporaryPrice(res.data.data.itemsPrice)
+                setTotalPrice(res.data.data.totalPrice)
+
+
+            }
+        }
+    }
+    const handleTabHome = () => {
+
+        setCheckedHome(true)
+        setCheckedShipping(false)
+        setIsShipping(false)
+
+    }
+    const handleTabShip = () => {
+
+        setCheckedShipping(true)
+        setCheckedHome(false)
+        setIsShipping(true)
+
+    }
+    function handleChangeEmail(event) {
+        function isValidEmail(email) {
+            return /\S+@\S+\.\S+/.test(email);
+        }
+        if (!isValidEmail(event.target.value)) {
+            setErrorEmail('Email is invalid');
+        } else {
+            setErrorEmail('');
+        }
+
+        setEmail(event.target.value);
+
+    }
+    function handleChangePhone(event) {
+        function isValidPhone(phone) {
+            return /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(phone);
+        }
+        if (!isValidPhone(event.target.value)) {
+            setErrorPhone('Phone is invalid');
+        } else {
+            setErrorPhone('');
+        }
+
+        setPhone(event.target.value);
+    }
+    renderCart()
     return (
         <>
             <div className={cx('wrapper')}>
@@ -42,14 +136,14 @@ function Pay() {
 
                                     <div style={{ padding: '20px' }}>
 
-                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                            <div className={cx('ship-input')}><input style={{ paddingTop: '0' }} placeholder="Nhập họ và tên (bắt buộc) " required></input></div>
-                                            <div className={cx('ship-input')}> <input style={{ paddingTop: '0' }} placeholder="Nhập số điện thoại (bắt buộc)" required></input></div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                            <div className={cx('ship-input')} style={{ marginBottom: 0 }}><label className={cx('lable-input')}>Nhập họ và tên (bắt buộc)</label><input style={{ paddingTop: '0' }} required onChange={(e) => setFullname(e.target.value)} /></div>
+                                            <div className={cx('ship-input')} style={{ marginBottom: 0 }}> <label className={cx('lable-input')}>Nhập số điện thoại (bắt buộc)</label><input style={{ paddingTop: '0' }} required onChange={handleChangePhone} />{errorPhone && <p style={{ color: 'red', fontSize: '1.5rem' }}>{errorPhone}</p>}</div>
                                         </div>
-                                        <div className={cx('ship-input', 'width-100')}> <input placeholder="Nhập địa chỉ" required></input></div>
-                                        <div className={cx('ship-input', 'width-100')}> <input placeholder="Nhập Email (không bắt buộc)"></input></div>
-                                        <div className={cx('ship-input', 'width-100')}><input placeholder="Nhập ghi chú (không bắt buộc)"></input></div>
-                                        <div className={cx('width-100')} style={{ paddingTop: '15px', paddingBottom: '15px', display: 'flex', alignItems: 'center' }} > <input type="checkbox" required style={{ width: '16px', height: '16px', marginRight: '5px' }}></input><span style={{ fontSize: '1.3rem', margin: '0px' }}>Nhấn "Thanh toán" đồng nghĩa với việc bạn đọc và đồng ý tuân theo <a href="fb.com" style={{ color: "#3366cc", textDecoration: 'underline' }}  >Điều khoản và Điều kiện</a></span></div>
+                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}>Nhập địa chỉ</label> <input required onChange={(e) => setAddressUser(e.target.value)} /></div>
+                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}> Nhập Email </label> <input onChange={handleChangeEmail} />   {errorEmail && <p style={{ color: 'red', fontSize: '1.5rem' }}>{errorEmail}</p>}</div>
+                                        <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}>Nhập ghi chú (nếu có) </label> <input onChange={(e) => setNoteUser(e.target.value)} /></div>
+                                        <div className={cx('width-100')} style={{ paddingTop: '15px', paddingBottom: '15px', display: 'flex', alignItems: 'center' }} > <input type="checkbox" required style={{ width: '16px', height: '16px', marginRight: '5px' }}></input>{loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}<span style={{ fontSize: '1.3rem', margin: '0px' }}>Nhấn "Thanh toán" đồng nghĩa với việc bạn đọc và đồng ý tuân theo <a href="fb.com" style={{ color: "#3366cc", textDecoration: 'underline' }}  >Điều khoản và Điều kiện</a></span></div>
                                     </div>
 
                                 </div>
@@ -59,147 +153,67 @@ function Pay() {
                                     <h2>THÔNG TIN NHẬN HÀNG</h2>
                                 </div>
                                 <div className={cx('recei-wrapper')}>
-                                    <Tabs
-                                        defaultActiveKey="home"
-                                        id="fill-tab-example"
-                                        className="mb-3"
-                                        fill
-                                        variant='pills'
-                                    >
-                                        <Tab eventKey="home" title=" Nhận tại cửa hàng">
-                                            <div style={{ padding: '20px' }}>
+                                    <div className={cx('select-method')}>
+                                        <div className={cx('store-title', checkedHome ? 'active' : '')} onClick={handleTabHome} >Nhận tại cửa hàng</div>
+                                        <div className={cx('shipping-title', checkedShipping ? 'active' : '')} onClick={handleTabShip}> Giao hàng tận nơi</div>
 
-                                                <div className={cx('select-wrapper')} >
-                                                    <div className={cx('select-container')}>
-                                                        <label className={cx('lable')}>TỈNH/THẢNH PHỐ</label>
-                                                        <input list="data-country" />
-                                                        <datalist id="data-country">
+                                    </div>
 
-                                                            <select className={cx('select')} >
-                                                                {country.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
+                                    {isShipping ? (
+                                        <div style={{ padding: '20px' }} className={cx('shipping')}>
 
-                                                        </datalist>
-                                                    </div>
-                                                    <div className={cx('select-container')}>
-                                                        <label className={cx('lable')} >QUẬN HUYỆN</label>
-                                                        <input list="data-wards" />
-                                                        <datalist id="data-wards">
+                                            <div className={cx('select-wrapper')} >
+                                                <div className={cx('select-container')}>
+                                                    <label className={cx('lable-input')}>TỈNH/THẢNH PHỐ</label>
+                                                    <input onChange={(e) => { setCityShipping(e.target.value) }} />
 
-                                                            <select className={cx('select')} >
-                                                                {dataWards.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
-
-                                                        </datalist>
-                                                    </div>
                                                 </div>
-                                                <div className={cx('select-wrapper')} style={{ display: 'flex', flexDirection: 'column' }} >
-                                                    <div className={cx('select-container')} style={{ width: '100%' }}>
-                                                        <label className={cx('lable')} >CỬA HÀNG</label>
-                                                        <input list="data-ađdress" />
-                                                        <datalist id="data-ađdress">
 
-                                                            <select className={cx('select')} >
-                                                                {address.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
-
-                                                        </datalist>
-                                                    </div>
-                                                    <div >
-                                                        <label style={{ fontWeight: '500', fontSize: '1.2rem' }}>Ghi chú khác (nếu có)</label>
-                                                        <div> <input className={cx('note-store')}></input></div>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </Tab>
-                                        <Tab eventKey="profile" title="Giao hàng tận nơi">
-                                            <div style={{ padding: '20px' }}>
+                                            <div className={cx('select-wrapper')} style={{ display: 'flex' }} >
 
-                                                <div className={cx('select-wrapper')} >
-                                                    <div className={cx('select-container')}>
-                                                        <label className={cx('lable')}>TỈNH/THẢNH PHỐ</label>
-                                                        <input list="data-country" />
-                                                        <datalist id="data-country">
+                                                <div className={cx('select-container')} >
+                                                    <label className={cx('lable-input')} >Số nhà/tên đường</label>
+                                                    <input onChange={(e) => setAddressShipping(e.target.value)} />
 
-                                                            <select className={cx('select')} >
-                                                                {country.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
-
-                                                        </datalist>
-                                                    </div>
-                                                    <div className={cx('select-container')}>
-                                                        <label className={cx('lable')} >QUẬN HUYỆN</label>
-                                                        <input list="data-wards" />
-                                                        <datalist id="data-wards">
-
-                                                            <select className={cx('select')} >
-                                                                {dataWards.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
-
-                                                        </datalist>
-                                                    </div>
                                                 </div>
-                                                <div className={cx('select-wrapper')} style={{ display: 'flex' }} >
-                                                    <div className={cx('select-container')} >
-                                                        <label className={cx('lable')} >Chọn phường/xã</label>
-                                                        <input list="data-ađdress" />
-                                                        <datalist id="data-ađdress">
 
-                                                            <select className={cx('select')} >
-                                                                {address.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
+                                            </div>
+                                            <div >
+                                                <label className={cx('lable-input')}>Ghi chú khác (nếu có)</label>
+                                                <div> <input className={cx('note-store')} onChange={(e) => setNoteShipping(e.target.value)}></input></div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div style={{ padding: '20px' }} className={cx('store')}>
+                                            <div className={cx('select-wrapper')} >
+                                                <div className={cx('select-container')}>
+                                                    <label className={cx('lable-input')}>TỈNH/THẢNH PHỐ</label>
+                                                    <input onChange={(e) => setCityShop(e.target.value)} />
 
-                                                        </datalist>
-                                                    </div>
-                                                    <div className={cx('select-container')} >
-                                                        <label className={cx('lable')} >Số nhà/tên đường</label>
-                                                        <input list="data-ađdress" />
-                                                        <datalist id="data-ađdress">
+                                                </div>
 
-                                                            <select className={cx('select')} >
-                                                                {address.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
-
-                                                        </datalist>
-                                                    </div>
+                                            </div>
+                                            <div className={cx('select-wrapper')} style={{ display: 'flex', flexDirection: 'column' }} >
+                                                <div className={cx('select-container')} style={{ width: '100%' }}>
+                                                    <label className={cx('lable-input')} >ĐỊA CHỈ CỬA HÀNG</label>
+                                                    <input onChange={(e) => setAddressShop(e.target.value)} />
 
                                                 </div>
                                                 <div >
-                                                    <label style={{ fontWeight: '500', fontSize: '1.2rem' }}>Ghi chú khác (nếu có)</label>
+                                                    <label className={cx('lable-input')}>Ghi chú khác (nếu có)</label>
                                                     <div> <input className={cx('note-store')}></input></div>
                                                 </div>
                                             </div>
-                                        </Tab>
+                                        </div>
+                                    )}
 
-                                    </Tabs>
+
+
+
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -207,30 +221,12 @@ function Pay() {
                             <div className={cx('product-title')}>
                                 <h2>THÔNG TIN ĐƠN HÀNG</h2>
                             </div>
-                            {carts.map((item, index) => {
-                                return (
-                                    <div key={index} className={cx('product-wrapper')} >
 
-                                        <div className={cx('product-img')}>
-                                            <img src={item.src} alt=""></img>
-                                        </div>
-                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <div className={cx('product-name')}>
-                                                <p>{item.uptitle}</p>
-                                            </div>
-                                            <div className={cx('price')}>
-                                                <p className={cx('new-price')}>{item.newprice}</p>
-                                                <p className={cx('old-price')}>{item.oldprice}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })}
                             <div className={cx('total-price')}>
-                                <p>Tổng tạm tính</p>
-                                <p>Phí vận chuyển</p>
-                                <p>Thành tiền</p>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}><button className={cx('btn-pay')}>THANH TOÁN</button></div>
+                                <div className={cx('price')}>    <p>Tổng tạm tính</p> <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(temporaryPrice)}</p></div>
+                                <div className={cx('price')}> <p>Phí vận chuyển</p> <p>30.000 đ</p></div>
+                                <div className={cx('price')}>   <p>Thành tiền</p><p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)}</p></div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }} onClick={handleOrder}><button className={cx('btn-pay', fullName && phone && email && !errorEmail && !errorPhone ? 'active' : '')} disabled={fullName && phone && email && !errorEmail && !errorPhone ? false : true}>THANH TOÁN</button></div>
                             </div>
                         </div>
                     </div>

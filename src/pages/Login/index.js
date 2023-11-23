@@ -26,7 +26,7 @@ function Login() {
 
     useEffect(() => {
 
-        if (user.token) {
+        if (user.id) {
             navigate('/')
         }
     })

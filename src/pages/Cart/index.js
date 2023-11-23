@@ -23,8 +23,8 @@ function Cart() {
     const [itemsPrice, setItemsPrice] = useState(0)
     const [toltalPrice, setTotalPrice] = useState(0)
     const [dataDeleteAll, setDataDeleteAll] = useState('')
-    const [changeAmount, setChangeAmount] = useState(false)
-    const [totalItems, setTotalItems] = useState(0)
+  
+
     const renderCart = async () => {
         if (user.id) {
             let res = await renderCartService(user.id)
@@ -39,43 +39,28 @@ function Cart() {
                 setCarts([])
             }
         }
-
-
     }
     useEffect(() => {
         renderCart()
     }, [user.id])
     const handleClose = () => {
-
         setIsShowModalDelete(false);
         setShowModalLogin(false);
         setIsShowModalDeleteAll(false)
         renderCart()
-
     }
     const handleDeleteItem = (idProduct) => {
-
         setIsShowModalDelete(true);
         setProductDelete({ idCart, idProduct })
-
         renderCart()
-
     }
     const handlePlus = async (idProduct) => {
-        setChangeAmount(true)
         const res = await plustProductService(idCart, idProduct)
-        setTotalItems(res.data.updatedCart.totalItems)
         increaseLength()
         renderCart()
-
     }
     const handleMinus = async (idProduct) => {
-        console.log('idProduct', idProduct)
-        console.log('idCart', idCart)
-        setChangeAmount(true)
         const res = await minusProductService(idCart, idProduct)
-        console.log(res)
-        setTotalItems(res.data.updatedCart.totalItems)
         decreaseLength()
         renderCart()
     }
@@ -83,9 +68,8 @@ function Cart() {
         setIsShowModalDeleteAll(true)
         setDataDeleteAll(idCart)
         renderCart()
-
     }
-    console.log(carts)
+  
     if (carts.length > 0) {
         return (
             <div>
@@ -136,7 +120,7 @@ function Cart() {
                                                             <div className={cx('minus')} onClick={() => handleMinus(item.product)} >
                                                                 <button >-</button>
                                                             </div>
-                                                            <input style={{ textAlign: 'center' }} value={changeAmount ? totalItems : item.amount} onChange={() => { }} className={cx('number')} />
+                                                            <input style={{ textAlign: 'center' }} value={item.amount} onChange={() => { }} className={cx('number')} />
                                                             <div className={cx('plus')} onClick={() => handlePlus(item.product)} >
                                                                 <button>+</button>
                                                             </div>
