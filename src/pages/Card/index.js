@@ -13,7 +13,6 @@ import ModalLoginForBuy from '~/components/Layout/components/ModalLoginForBuy/Mo
 import { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
-import { Link } from 'react-router-dom';
 import { getRecommnedProductService } from '~/Services'
 const cx = classNames.bind(styles)
 

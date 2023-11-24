@@ -43,7 +43,7 @@
     flex: 3;
     padding: 16px;
     background-color: var(--white-background);
-    border-radius: 8px;
+  
 }
 .product-header {
     display: flex;
@@ -117,16 +117,7 @@
 .pay-end {
     font-size: 1.5rem;
 }
-.select-promotion {
-    font-size: 1.4rem;
-    color: #1990ff;
-    cursor: pointer;
-}
-.promotion {
-    padding: 16px;
-}
-.confirm-pay {
-}
+
 .pay-wrapper {
     display: flex;
     padding: 16px;

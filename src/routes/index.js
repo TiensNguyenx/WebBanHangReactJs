@@ -12,6 +12,7 @@ import ProfileNoti from "~/pages/ProfileNoti";
 import ProfileOrder from "~/pages/ProfileOrder";
 import ProfilePassword from "~/pages/ProfilePassWord";
 import ProfileInformation from "~/pages/ProfileInformation";
+import FinishPay from "~/pages/FinishPay";
 const publicRoutes = [
     {
         path: '/',
@@ -80,6 +81,12 @@ const publicRoutes = [
         path: '/information',
         component: ProfileInformation,
         layout: HeaderOnly
+    },
+    {
+        path: '/checkout',
+        component: FinishPay,
+        layout: HeaderOnly
+
     }
 
 ]

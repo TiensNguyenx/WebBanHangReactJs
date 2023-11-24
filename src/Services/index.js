@@ -5,19 +5,11 @@ import axios from 'axios';
 const renderCartService = (userId) => {
     return axios.get(`http://localhost:3002/api/cart/get-details-cart/${userId}`)
 };
-const updateUserService = (userId, name, email, phone) => {
-    return axios.put(`http://localhost:3002/api/user/update-user/${userId}`, {
-        headers: {
-            token: `Bearer ${localStorage.getItem('token')}`
-        },
-        body: {
-            name,
-            email,
-            phone
-        }
-    }
-    )
-}
+
+
+
+    
+
 const deleteProductService = (idCart, idProduct) => {
     return axios.delete(`http://localhost:3002/api/cart/delete-item/${idCart}`, {
         data: {
@@ -44,6 +36,36 @@ const minusProductService = (idCart, idProduct) => {
 const getRecommnedProductService = (page) => {
     return axios.get(`http://localhost:3002/api/product/get-all?page=${page}&limit=5`)
 }
+const getAllCouponService = (method) => {
+
+    return axios.get(`http://localhost:3002/api/coupon/get-all/${method}`)
+
+}
+const getDetailOrderService = (idOrder) => {
+    return axios.get(`http://localhost:3002/api/order/get-details-order/${idOrder}`)
+}
+const createPaymentService = (idOrder, paymentMethod, idPrice, idShipping, isShipping) => {
+    if (isShipping === 'true') {
+        return axios.post(`http://localhost:3002/api/payment/create/${idOrder}`, {
+            paymentMethod,
+            "idCoupon": {
+                idPrice,
+                idShipping
+            },
+            isPaid: false
+        })
+    }
+    else {
+        return axios.post(`http://localhost:3002/api/payment/create/${idOrder}`, {
+            paymentMethod,
+            "idCoupon": {
+                idPrice
+            },
+            isPaid: false
+        })
+    }
+}
+
 const orderProductService = (fullName, addressUser, email, phoneString, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop) => {
     const idUser = localStorage.getItem('idUser')
 
@@ -85,4 +107,11 @@ const orderProductService = (fullName, addressUser, email, phoneString, noteUser
 
 
 }
-export { renderCartService, deleteProductService, deleteAllProductService, plustProductService, minusProductService, orderProductService, updateUserService, getRecommnedProductService }; 
+export {
+    renderCartService, deleteProductService,
+    deleteAllProductService, plustProductService,
+    minusProductService, orderProductService,
+    getRecommnedProductService,
+    getAllCouponService, getDetailOrderService,
+    createPaymentService
+}; 

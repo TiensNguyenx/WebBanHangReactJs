@@ -47,6 +47,7 @@ function ProfileInformation() {
                         setPhone(data.data.phone)
                         localStorage.setItem('phone', data.data.phone)
                         console.log(name)
+                      
                     }
                     else {
                         toast.error('Cập nhật thông tin thất bại', { ...toastCustom })

@@ -9,6 +9,7 @@ import { renderCartService, deleteAllProductService } from "~/Services";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 const cx = classNames.bind(styles)
 
 function Pay() {
@@ -33,6 +34,9 @@ function Pay() {
     const [idCart, setIdCart] = useState('')
     const [loadingApi, setLoadingApi] = useState(false)
     const [checkTerm, setCheckTerm] = useState(false)
+
+
+
     const navigate = useNavigate();
 
     const handleOrder = async () => {
@@ -47,11 +51,11 @@ function Pay() {
         }
         const res = await orderProductService(fullName, addressUser, email, phone, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop)
         if (res.data.status === 'success') {
-            toast.success('Đặt hàng thành công', { ...toastCustom })
-            const res = await deleteAllProductService(idCart)
-            console.log(res)
+            await deleteAllProductService(idCart)
+            let idOrder = (res.data.data._id)
+            console.log(idOrder)
             resetLength()
-            navigate('/')
+            navigate(`/checkout?idOrder=${idOrder}&isShipping=${isShipping}`)
         }
 
     }
@@ -67,7 +71,7 @@ function Pay() {
     const renderCart = async () => {
         if (user.id) {
             const res = await renderCartService(user.id)
-            console.log(res)
+
             if (res.data.status === 'success') {
                 setIdCart(res.data.data._id)
                 setTemporaryPrice(res.data.data.itemsPrice)
@@ -116,7 +120,12 @@ function Pay() {
 
         setPhone(event.target.value);
     }
-    renderCart()
+
+
+  
+    useEffect(() => {
+        renderCart()
+    }, [])
     return (
         <>
             <div className={cx('wrapper')}>
@@ -157,14 +166,7 @@ function Pay() {
                                         <div className={cx('ship-input', 'width-100')}> <label className={cx('lable-input')}>Nhập ghi chú (nếu có) </label>
                                             <input onChange={(e) => setNoteUser(e.target.value)} />
                                         </div>
-                                        <div className={cx('width-100')} style={{ paddingTop: '15px', paddingBottom: '15px', display: 'flex', alignItems: 'center' }} >
-                                            <input type="checkbox" required style={{ width: '16px', height: '16px', marginRight: '5px' }}></input>
-                                            <span style={{ fontSize: '1.3rem', margin: '0px' }} onClick={() => setCheckTerm(true)}>
-                                                Nhấn "Thanh toán" đồng nghĩa với việc bạn đọc và đồng ý tuân theo
-                                                <a href="fb.com" style={{ color: "#3366cc", textDecoration: 'underline' }}  >
-                                                    Điều khoản và Điều kiện</a>
-                                            </span>
-                                        </div>
+
                                     </div>
 
                                 </div>
@@ -217,7 +219,7 @@ function Pay() {
                                             </div>
                                             <div className={cx('select-wrapper')} style={{ display: 'flex', flexDirection: 'column' }} >
                                                 <div className={cx('select-container')} style={{ width: '100%' }}>
-                                                    <label className={cx('lable-input')} >ĐỊA CHỈ CỬA HÀNG</label>
+                                                    <label className={cx('lable-input')} >Địa chỉ cửa hàng</label>
                                                     <input onChange={(e) => setAddressShop(e.target.value)} />
 
                                                 </div>
@@ -243,17 +245,27 @@ function Pay() {
                                 <h2>THÔNG TIN ĐƠN HÀNG</h2>
                             </div>
 
+
                             <div className={cx('total-price')}>
                                 <div className={cx('price')}>    <p>Tổng tạm tính</p> <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(temporaryPrice)}</p></div>
-                                <div className={cx('price')}> <p>Phí vận chuyển</p> <p>30.000 đ</p></div>
+                                <div className={cx('price')}> <p>Phí vận chuyển</p> <p>{isShipping ? '30.000 đ' : ''}</p></div>
                                 <div className={cx('price')}>   <p>Thành tiền</p><p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)}</p></div>
+                                <div className={cx('width-100')} style={{ paddingTop: '15px', paddingBottom: '15px', display: 'flex', alignItems: 'center' }} >
+                                    <input type="checkbox" required style={{ width: '16px', height: '16px', marginRight: '5px' }} onChange={() => setCheckTerm(true)} />
+                                    <span style={{ fontSize: '1.3rem', margin: '0px' }} onClick={() => setCheckTerm(true)}>
+                                        Nhấn "Tiếp tục" đồng nghĩa với việc bạn đọc và đồng ý tuân theo
+                                        <a href="fb.com" style={{ color: "#3366cc", textDecoration: 'underline' }}  >
+                                            Điều khoản và Điều kiện</a>
+                                    </span>
+                                </div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }} onClick={handleOrder}>
                                     <button className={cx('btn-pay', fullName && phone && email && checkTerm && !errorEmail && !errorPhone ? 'active' : '')}
-                                        disabled={fullName && phone && email && !errorEmail && !errorPhone ? false : true}>
+                                        disabled={fullName && phone && checkTerm && email && !errorEmail && !errorPhone ? false : true}>
                                         {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
-                                        THANH TOÁN
+                                        TIẾP TỤC
                                     </button>
                                 </div>
+
                             </div>
                         </div>
                     </div>

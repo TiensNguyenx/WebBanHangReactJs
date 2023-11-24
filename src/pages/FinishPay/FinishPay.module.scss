@@ -1,0 +1,171 @@
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--primary);
+}
+.wrapper {
+    background-color: var(--white-background);
+    width: 40%;
+    margin: 50px 0;
+}
+.user-info {
+    padding: 24px;
+}
+.list-info {
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+.list-col1 {
+    font-weight: 600;
+    max-width: 28%;
+}
+.list-col2 {
+    font-weight: 400;
+    padding-right: 68px;
+    max-width: 72%;
+}
+.title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #333333;
+}
+.promotion {
+    padding: 24px 0;
+    margin: 0 24px;
+    border-top: 1px solid #cfcfcf;
+    border-bottom: 1px solid #cfcfcf;
+}
+.promotion-wrapper {
+    display: flex;
+    justify-content: space-between;
+    p {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+}
+
+.select-promotion {
+    font-size: 1.4rem;
+    color: #1990ff;
+    cursor: pointer;
+}
+
+.coupon-wrapper {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+ 
+    border-radius: 0.125rem;
+    padding: 15px 5px;
+    border: 1px solid var(--primary);
+    box-shadow: var(--vc-template-box-shadow, 0.125rem 0.125rem 0.3125rem rgba(0, 0, 0, 0.07));
+}
+.coupon-check {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+}
+.coupon-img {
+    width: 90px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.coupon-name {
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.coupon-description {
+    font-size: 1.5rem;
+}
+
+.coupon-start {
+    font-size: 1.3rem;
+}
+
+.coupon-end {
+    font-size: 1.3rem;
+}
+.coupon-date {
+    display: flex;
+    justify-content: space-between;
+}
+.user-coupon {
+    position: relative;
+}
+.ship-method {
+    margin-top: 15px;
+    padding: 24px;
+    background-color: var(--white-background);
+}
+.pay-method {
+    padding-top: 24px;
+    margin: 0 24px;
+    background-color: var(--white-background);
+    border-bottom: 1px solid #cfcfcf;
+}
+.pay-method-item {
+    position: relative;
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid var(--primary);
+    box-shadow: var(--vc-template-box-shadow, 0.125rem 0.125rem 0.3125rem rgba(0, 0, 0, 0.07));
+}
+.pay-method-cash {
+    width: 104px;
+    height: 90px;
+}
+.pay-method-paypal {
+    width: 104px;
+    height: 60px;
+}
+.active-select {
+    border: 1px solid var(--background-color-button);
+}
+.checked-icon {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+}
+.pay-method-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+}
+.price {
+    font-size: 2.4rem;
+    color: #e30019;
+    font-weight: 700;
+}
+.total-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+.total-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 0;
+    margin: 0 24px;
+    border-bottom: 1px solid #cfcfcf;
+}
+.total-action {
+    width: 92%;
+    margin: auto;
+}
+.btn-checkout {
+    font-size: 1.8rem;
+    padding: 20px;
+    width: 100%;
+    cursor: pointer;
+    background-color: #e30019;
+    color: var(--white-background);
+    font-weight: 700;
+    border-radius: 5px;
+}
+.total-price {
+    padding-bottom: 24px;
+}

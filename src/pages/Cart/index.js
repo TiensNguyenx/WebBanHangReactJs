@@ -1,7 +1,7 @@
 import styles from './Cart.module.scss'
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { AiOutlineTag } from 'react-icons/ai';
+
 import Footer from '~/components/Layout/components/Footer';
 import ModalConfirmDeleteProduct from '~/components/Layout/components/ModalConfirmDeleteProduct/ModalConfirmDeleteProduct';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,7 @@ function Cart() {
     const [itemsPrice, setItemsPrice] = useState(0)
     const [toltalPrice, setTotalPrice] = useState(0)
     const [dataDeleteAll, setDataDeleteAll] = useState('')
-  
+
 
     const renderCart = async () => {
         if (user.id) {
@@ -55,12 +55,12 @@ function Cart() {
         renderCart()
     }
     const handlePlus = async (idProduct) => {
-        const res = await plustProductService(idCart, idProduct)
+        await plustProductService(idCart, idProduct)
         increaseLength()
         renderCart()
     }
     const handleMinus = async (idProduct) => {
-        const res = await minusProductService(idCart, idProduct)
+        await minusProductService(idCart, idProduct)
         decreaseLength()
         renderCart()
     }
@@ -69,7 +69,7 @@ function Cart() {
         setDataDeleteAll(idCart)
         renderCart()
     }
-  
+
     if (carts.length > 0) {
         return (
             <div>
@@ -140,17 +140,9 @@ function Cart() {
                                 }
                             </div>
                         </div>
-                        <div style={{ marginLeft: ' 16px', marginTop: '50px', flex: '2' }}>
+                        <div style={{ marginLeft: ' 16px', marginTop: '35px', flex: '2' }}>
                             <div className={cx('pay')}>
-                                <div className={cx('promotion')}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                        <p>Khuyến mãi</p>
-                                        <div className={cx('select-promotion')} >
-                                            <AiOutlineTag /> Chọn hoặc nhập mã khuyến mãi
-                                        </div>
-                                    </div>
-                                    <p style={{ fontSize: '1.5rem', color: '#82869e' }}>Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng</p>
-                                </div>
+
 
                             </div>
                             <div style={{ backgroundColor: 'white', borderRadius: '8px' }}>
