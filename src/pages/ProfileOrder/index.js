@@ -26,13 +26,13 @@ function ProfileOrder() {
                             </div>
                             <div className={cx('user-name')}>
                                 <p>Tài khoản của</p>
-                                <p>UserName</p>
+                                <p style={{ textAlign: 'center' }}>{localStorage.getItem('name')}</p>
                             </div>
                         </div>
                         <div className={cx('options')}>
                             <Link to='/information'>
                                 <div className={cx('option-item')}>
-                                    <FaRegCircleUser /> Thông tin tải khoản
+                                    <FaRegCircleUser /> Thông tin tài khoản
                                 </div>
                             </Link >
                             <Link to='/order'>

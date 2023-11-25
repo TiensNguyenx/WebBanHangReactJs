@@ -1,8 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./FinishPay.module.scss";
 import Footer from "~/components/Layout/components/Footer";
-import { getAllCouponService, getDetailOrderService, createPaymentService } from '../../Services'
-import { useEffect, useState } from "react";
+import { getAllCouponService, getDetailOrderService, createPaymentService, deleteAllProductService } from '../../Services'
+import { UserContext } from "~/context/UserContext";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineTag } from 'react-icons/ai';
 import { FaCheck } from 'react-icons/fa';
@@ -10,6 +11,7 @@ import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 function FinishPay() {
     const [coupon, setCoupon] = useState([])
+    const { resetLength } = useContext(UserContext)
     const [selectCash, setSelectCash] = useState(true)
     const [selectPayPal, setSelectPayPal] = useState(false)
     const [userOrder, setUserOrder] = useState({})
@@ -22,6 +24,7 @@ function FinishPay() {
     const isShipping = urlParams.get('isShipping')
     const [idPrice, setIdPrice] = useState('')
     const [idShipping, setIdShipping] = useState('')
+    const idCart = localStorage.getItem('idCart')
     const navigate = useNavigate()
     const handleSelectCash = () => {
         setSelectCash(true)
@@ -36,7 +39,7 @@ function FinishPay() {
         if (isShipping === 'true') {
             let method = 'ship'
             const res = await getAllCouponService(method)
-         
+
             if (res.data.status === 'success') {
                 setCoupon(res.data.data)
                 setIdShipping(res.data.data[0]._id)
@@ -49,7 +52,7 @@ function FinishPay() {
             const res = await getAllCouponService(method)
 
             if (res.data.status === 'success') {
-          
+
                 setCoupon(res.data.data)
                 setIdPrice(res.data.data[0]._id)
 
@@ -75,6 +78,11 @@ function FinishPay() {
             const res = await createPaymentService(idOrder, paymentMethod, idPrice, idShipping, isShipping)
             if (res.data.status === 'success') {
                 toast.success('Thanh toán thành công')
+                await deleteAllProductService(idCart)
+                resetLength()
+                setTimeout(() => {
+                    navigate('/')
+                }, 1500);
             }
             else {
                 toast.error('Thanh toán thất bại')
@@ -85,9 +93,11 @@ function FinishPay() {
             const res = await createPaymentService(idOrder, paymentMethod, idPrice, idShipping, isShipping)
             if (res.data.status === 'success') {
                 toast.success('Thanh toán thành công')
+                await deleteAllProductService(idCart)
+                resetLength()
                 setTimeout(() => {
                     navigate('/')
-                }, 500);
+                }, 1500);
             }
             else {
                 toast.error('Thanh toán thất bại')

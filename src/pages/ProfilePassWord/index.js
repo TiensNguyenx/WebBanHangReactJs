@@ -70,13 +70,13 @@ function ProfilePassword() {
                             </div>
                             <div className={cx('user-name')}>
                                 <p>Tài khoản của</p>
-                                <p>UserName</p>
+                                <p style={{ textAlign: 'center' }}>{localStorage.getItem('name')}</p>
                             </div>
                         </div>
                         <div className={cx('options')}>
                             <Link to='/information'>
                                 <div className={cx('option-item')}>
-                                    <FaRegCircleUser /> Thông tin tải khoản
+                                    <FaRegCircleUser /> Thông tin tài khoản
                                 </div>
                             </Link >
                             <Link to='/order'>
@@ -103,14 +103,14 @@ function ProfilePassword() {
                         </div>
                         <div className={cx('content')}>
                             <div className={cx('user-input')} ><p>Mật khẩu cũ</p>
-                                <input type={isShowOldPassword ? 'text' : 'password'} onChange={(e) => setOldPassword(e.target.value)} />
+                                <input type={isShowOldPassword ? 'text' : 'password'} value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
                                 <div className={cx('icon-eye')}
                                     onClick={() => setIsShowOldPassword(!isShowOldPassword)}>
                                     {isShowOldPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
                                 </div>
                             </div>
                             <div className={cx('user-input')}><p>Mật khẩu mới</p>
-                                <input type={isShowNewPassword ? 'text' : 'password'} onChange={(e) => setPassword(e.target.value)} />
+                                <input type={isShowNewPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
                                 <div className={cx('icon-eye')}
                                     onClick={() => setIsShowNewPassword(!isShowNewPassword)}>
                                     {isShowNewPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
@@ -118,7 +118,7 @@ function ProfilePassword() {
 
                             </div>
                             <div className={cx('user-input')} ><p>Xác nhận mật khẩu mới</p>
-                                <input type={isShowConfirmPassword ? 'text' : 'password'} onChange={handleConfirmPassWord} />
+                                <input type={isShowConfirmPassword ? 'text' : 'password'} value={confirmPassword} onChange={handleConfirmPassWord} />
                                 <div className={cx('icon-eye')}
                                     onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}>
                                     {isShowConfirmPassword ? <AiFillEye /> : <AiFillEyeInvisible />}

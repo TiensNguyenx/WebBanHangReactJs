@@ -19,13 +19,15 @@ function ProfileNoti() {
                             </div>
                             <div className={cx('user-name')}>
                                 <p>Tài khoản của</p>
-                                <p>UserName</p>
+                                <p style={{ textAlign: 'center' }}>{localStorage.getItem('name')}</p>
                             </div>
                         </div>
                         <div className={cx('options')}>
-                            <div className={cx('option-item')}>
-                                <FaRegCircleUser /> Thông tin tải khoản
-                            </div>
+                            <Link to='/information'>
+                                <div className={cx('option-item')}>
+                                    <FaRegCircleUser /> Thông tin tài khoản
+                                </div>
+                            </Link>
                             <Link to='/order'>
                                 <div className={cx('option-item')}>
                                     <BsCalendar2Check />  Quản lý đơn hàng

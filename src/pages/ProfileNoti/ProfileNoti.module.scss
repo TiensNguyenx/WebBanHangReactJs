@@ -6,7 +6,7 @@
 }
 .containner {
     display: flex;
-    padding: 20px 0;
+    padding: 40px 0;
     width: 83.333%;
 }
 .col-1 {
@@ -26,13 +26,14 @@
     padding: 32px;
     align-items: center;
     background-color: rgb(255, 255, 255);
-    margin: 20px 0;
 }
 .user-img {
     width: 44px;
 }
 .user-name {
     margin-left: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
 
     p {
         margin-bottom: 0;

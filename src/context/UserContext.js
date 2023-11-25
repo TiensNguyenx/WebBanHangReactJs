@@ -83,7 +83,7 @@ const UserProvider = ({ children }) => {
         localStorage.removeItem('name');
         localStorage.removeItem('phone');
         localStorage.removeItem('email');
-
+        localStorage.removeItem('idCart');
 
         setUser((user) => ({
             email: '',

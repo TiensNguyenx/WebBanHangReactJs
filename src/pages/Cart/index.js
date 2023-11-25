@@ -33,7 +33,7 @@ function Cart() {
                 setIdCart(res.data.data._id)
                 setItemsPrice(res.data.data.itemsPrice)
                 setTotalPrice(res.data.data.totalPrice)
-
+                localStorage.setItem('idCart', res.data.data._id)
             }
             else {
                 setCarts([])

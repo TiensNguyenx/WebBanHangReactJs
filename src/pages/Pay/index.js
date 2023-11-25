@@ -5,15 +5,14 @@ import Footer from "~/components/Layout/components/Footer";
 import { useState, useContext, useEffect } from "react";
 import { orderProductService } from '../../Services'
 import { UserContext } from "~/context/UserContext";
-import { renderCartService, deleteAllProductService } from "~/Services";
-import { toast } from 'react-toastify';
+import { renderCartService } from "~/Services";
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const cx = classNames.bind(styles)
 
 function Pay() {
-    const { user, toastCustom, resetLength } = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const [fullName, setFullname] = useState('')
     const [addressUser, setAddressUser] = useState('')
     const [email, setEmail] = useState('')
@@ -51,10 +50,7 @@ function Pay() {
         }
         const res = await orderProductService(fullName, addressUser, email, phone, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop)
         if (res.data.status === 'success') {
-            await deleteAllProductService(idCart)
             let idOrder = (res.data.data._id)
-            console.log(idOrder)
-            resetLength()
             navigate(`/checkout?idOrder=${idOrder}&isShipping=${isShipping}`)
         }
 
@@ -122,7 +118,7 @@ function Pay() {
     }
 
 
-  
+
     useEffect(() => {
         renderCart()
     }, [])
@@ -230,13 +226,6 @@ function Pay() {
                                             </div>
                                         </div>
                                     )}
-
-
-
-
-
-
-
                                 </div>
                             </div>
                         </div>
