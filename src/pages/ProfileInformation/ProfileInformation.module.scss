@@ -1,36 +1,11 @@
 .wrapper {
-    background-color: var(--primary);
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    background-color: var(--white-background);
 }
 .containner {
-    display: flex;
-    width: 83.333%;
-    padding: 40px 0;
-}
-.col-1 {
-    width: 20%;
+    padding: 30px;
 }
 .col-2 {
-    padding: 16px;
-    width: 70%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 8px;
-    opacity: 1;
-    border-width: 1px;
-}
-.user-img {
-    width: 44px;
-}
-.user-name {
-    margin-left: 10px;
-    font-size: 1.5rem;
-    font-weight: 700;
-
-    p {
-        margin-bottom: 0;
-    }
+    width: 100%;
 }
 .user-input {
     font-weight: 500;
@@ -52,18 +27,6 @@
         color: -internal-light-dark(rgb(84, 84, 84), rgb(170, 170, 170));
         border-color: rgba(118, 118, 118, 0.3);
     }
-}
-.user-information {
-    display: flex;
-}
-.option-item {
-    font-size: 1.5rem;
-    font-weight: 400;
-    cursor: pointer;
-    padding: 5px 0;
-}
-.options {
-    padding: 10px 0;
 }
 .update-btn {
     margin-top: 10px;

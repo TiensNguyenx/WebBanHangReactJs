@@ -1,11 +1,5 @@
 import classNames from "classnames/bind";
-import Footer from "~/components/Layout/components/Footer";
 import styles from './ProfileInformation.module.scss'
-
-import { FaRegCircleUser } from "react-icons/fa6";
-import { BsCalendar2Check } from "react-icons/bs";
-import { RiLockPasswordLine, RiNotification4Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { toast } from 'react-toastify';
 import { UserContext } from "~/context/UserContext";
@@ -14,18 +8,20 @@ import { UserContext } from "~/context/UserContext";
 const cx = classNames.bind(styles);
 function ProfileInformation() {
 
-    const [name, setName] = useState(localStorage.getItem('name'))
-    const [email, setEmail] = useState(localStorage.getItem('email'))
-    const [phone, setPhone] = useState(localStorage.getItem('phone'))
+
+
     const [onChangeEmail, setOnChangeEmail] = useState(false)
-    const { toastCustom } = useContext(UserContext)
+    const { toastCustom, user, loginContext } = useContext(UserContext)
+    const [name, setName] = useState(user.name)
+    const [email, setEmail] = useState(user.email)
+    const [phone, setPhone] = useState(user.phone)
     const [errorPhone, setErrorPhone] = useState('')
     const [errorEmail, setErrorEmail] = useState('')
-    const userId = localStorage.getItem('idUser')
+
 
     const handleUpdateUser = () => {
         if (!onChangeEmail) {
-            fetch(`http://localhost:3002/api/user/update-user/${userId}`, {
+            fetch(`http://localhost:3002/api/user/update-user/${user.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,16 +33,11 @@ function ProfileInformation() {
             )
                 .then((res) => { return res.json() })
                 .then((data) => {
-                    console.log(data)
+
                     if (data.status === 'success') {
                         toast.success('Cập nhật thông tin thành công', { ...toastCustom })
-                        setEmail(data.data.email)
-                        localStorage.setItem('email', data.data.email)
-                        setName(data.data.name)
-                        localStorage.setItem('name', data.data.name)
-                        setPhone(data.data.phone)
-                        localStorage.setItem('phone', data.data.phone)
-                        console.log(name)
+                        loginContext(localStorage.getItem('token'))
+
                     }
                     else {
                         toast.error('Cập nhật thông tin thất bại', { ...toastCustom })
@@ -54,7 +45,7 @@ function ProfileInformation() {
                 })
         }
         else {
-            fetch(`http://localhost:3002/api/user/update-user/${userId}`, {
+            fetch(`http://localhost:3002/api/user/update-user/${user.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,13 +59,16 @@ function ProfileInformation() {
                 .then((data) => {
                     if (data.data.status === 'success') {
                         toast.success('Cập nhật thành công', { ...toastCustom })
-                        setEmail(data.data.email)
-                        setName(data.data.name)
-                        setPhone(data.data.phone)
+                        loginContext(localStorage.getItem('token'))
+
+                    }
+                    else {
+                        toast.error('Cập nhật thông tin thất bại', { ...toastCustom })
                     }
                 })
 
         }
+
     }
     const handleOnChangEmail = (e) => {
         setOnChangeEmail(true)
@@ -113,39 +107,7 @@ function ProfileInformation() {
 
             <div className={cx('wrapper')}>
                 <div className={cx('containner')}>
-                    <div className={cx('col-1')}>
-                        <div className={cx('user-information')}>
-                            <div >
-                                <img className={cx('user-img')} src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg" alt=""></img>
-                            </div>
-                            <div className={cx('user-name')}>
-                                <p>Tài khoản của</p>
-                                <p style={{ textAlign: 'center' }}>{localStorage.getItem('name')}</p>
-                            </div>
-                        </div>
-                        <div className={cx('options')}>
-                            <Link to='/information'>
-                                <div className={cx('option-item')}>
-                                    <FaRegCircleUser /> Thông tin tài khoản
-                                </div>
-                            </Link >
-                            <Link to='/order'>
-                                <div className={cx('option-item')}>
-                                    <BsCalendar2Check />  Quản lý đơn hàng
-                                </div>
-                            </Link>
-                            <Link to='/password'>
-                                <div className={cx('option-item')}>
-                                    <RiLockPasswordLine />  Đổi mật khẩu
-                                </div>
-                            </Link>
-                            <Link to='/noti'>
-                                <div className={cx('option-item')}>
-                                    <RiNotification4Line /> Thông báo
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
+
                     <div className={cx('col-2')}>
                         <div className={cx('header')}>
                             <h1>Thông tin tài khoản</h1>
@@ -172,7 +134,7 @@ function ProfileInformation() {
                 </div>
 
             </div>
-            <Footer />
+
         </div >
 
     );

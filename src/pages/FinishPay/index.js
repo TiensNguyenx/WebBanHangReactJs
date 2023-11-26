@@ -21,10 +21,11 @@ function FinishPay() {
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const idOrder = urlParams.get('idOrder')
+    const idCart = urlParams.get('idCart')
     const isShipping = urlParams.get('isShipping')
     const [idPrice, setIdPrice] = useState('')
     const [idShipping, setIdShipping] = useState('')
-    const idCart = localStorage.getItem('idCart')
+
     const navigate = useNavigate()
     const handleSelectCash = () => {
         setSelectCash(true)
@@ -77,6 +78,7 @@ function FinishPay() {
             let paymentMethod = 'thanh toan khi nhan hang'
             const res = await createPaymentService(idOrder, paymentMethod, idPrice, idShipping, isShipping)
             if (res.data.status === 'success') {
+                localStorage.setItem('idPayment', res.data.data._id)
                 toast.success('Thanh toán thành công')
                 await deleteAllProductService(idCart)
                 resetLength()
@@ -92,6 +94,7 @@ function FinishPay() {
             let paymentMethod = 'thanh toan bang paypal'
             const res = await createPaymentService(idOrder, paymentMethod, idPrice, idShipping, isShipping)
             if (res.data.status === 'success') {
+                localStorage.setItem('idPayment', res.data.data._id)
                 toast.success('Thanh toán thành công')
                 await deleteAllProductService(idCart)
                 resetLength()

@@ -1,13 +1,7 @@
 import classNames from "classnames/bind";
-import Footer from "~/components/Layout/components/Footer";
 import styles from "./ProfilePassWord.module.scss";
-
 import { UserContext } from "~/context/UserContext";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { BsCalendar2Check } from "react-icons/bs";
-import { RiLockPasswordLine, RiNotification4Line } from "react-icons/ri";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { toast } from 'react-toastify';
 import { useEffect } from "react";
@@ -20,7 +14,7 @@ function ProfilePassword() {
     const [isShowOldPassword, setIsShowOldPassword] = useState(false);
     const [isShowNewPassword, setIsShowNewPassword] = useState(false);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
-    const { toastCustom } = useContext(UserContext)
+    const { toastCustom, user } = useContext(UserContext)
     const handleConfirmPassWord = (e) => {
         setConfirmPassword(e.target.value);
         if (password !== e.target.value) {
@@ -30,7 +24,7 @@ function ProfilePassword() {
             setError('');
         }
     }
-    const userId = localStorage.getItem('idUser');
+    const userId = user.id
     const handleUpdate = () => {
 
         fetch(`http://localhost:3002/api/user/update-user/${userId}`, {
@@ -62,80 +56,44 @@ function ProfilePassword() {
     return (
         <div>
             <div className={cx('wrapper')}>
-                <div className={cx('containner')}>
-                    <div className={cx('col-1')}>
-                        <div className={cx('user-information')}>
-                            <div >
-                                <img className={cx('user-img')} src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg" alt=""></img>
-                            </div>
-                            <div className={cx('user-name')}>
-                                <p>Tài khoản của</p>
-                                <p style={{ textAlign: 'center' }}>{localStorage.getItem('name')}</p>
-                            </div>
-                        </div>
-                        <div className={cx('options')}>
-                            <Link to='/information'>
-                                <div className={cx('option-item')}>
-                                    <FaRegCircleUser /> Thông tin tài khoản
-                                </div>
-                            </Link >
-                            <Link to='/order'>
-                                <div className={cx('option-item')}>
-                                    <BsCalendar2Check />  Quản lý đơn hàng
-                                </div>
-                            </Link>
-                            <Link to='/password'>
-                                <div className={cx('option-item')}>
-                                    <RiLockPasswordLine />  Đổi mật khẩu
-                                </div>
-                            </Link>
-                            <Link to='/noti'>
-                                <div className={cx('option-item')}>
-                                    <RiNotification4Line /> Thông báo
-                                </div>
-                            </Link>
-                        </div>
+                <div className={cx('col-2')}>
+                    <div className={cx('header')}>
+                        <h1>Đổi mật khẩu</h1>
+
                     </div>
-                    <div className={cx('col-2')}>
-                        <div className={cx('header')}>
-                            <h1>Đổi mật khẩu</h1>
+                    <div className={cx('content')}>
+                        <div className={cx('user-input')} ><p>Mật khẩu cũ</p>
+                            <input type={isShowOldPassword ? 'text' : 'password'} value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
+                            <div className={cx('icon-eye')}
+                                onClick={() => setIsShowOldPassword(!isShowOldPassword)}>
+                                {isShowOldPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+                            </div>
+                        </div>
+                        <div className={cx('user-input')}><p>Mật khẩu mới</p>
+                            <input type={isShowNewPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <div className={cx('icon-eye')}
+                                onClick={() => setIsShowNewPassword(!isShowNewPassword)}>
+                                {isShowNewPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+                            </div>
 
                         </div>
-                        <div className={cx('content')}>
-                            <div className={cx('user-input')} ><p>Mật khẩu cũ</p>
-                                <input type={isShowOldPassword ? 'text' : 'password'} value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
-                                <div className={cx('icon-eye')}
-                                    onClick={() => setIsShowOldPassword(!isShowOldPassword)}>
-                                    {isShowOldPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
-                                </div>
+                        <div className={cx('user-input')} ><p>Xác nhận mật khẩu mới</p>
+                            <input type={isShowConfirmPassword ? 'text' : 'password'} value={confirmPassword} onChange={handleConfirmPassWord} />
+                            <div className={cx('icon-eye')}
+                                onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}>
+                                {isShowConfirmPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
                             </div>
-                            <div className={cx('user-input')}><p>Mật khẩu mới</p>
-                                <input type={isShowNewPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
-                                <div className={cx('icon-eye')}
-                                    onClick={() => setIsShowNewPassword(!isShowNewPassword)}>
-                                    {isShowNewPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
-                                </div>
+                            {error && <p style={{ color: 'red' }}>{error}</p>}
 
-                            </div>
-                            <div className={cx('user-input')} ><p>Xác nhận mật khẩu mới</p>
-                                <input type={isShowConfirmPassword ? 'text' : 'password'} value={confirmPassword} onChange={handleConfirmPassWord} />
-                                <div className={cx('icon-eye')}
-                                    onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}>
-                                    {isShowConfirmPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
-                                </div>
-                                {error && <p style={{ color: 'red' }}>{error}</p>}
+                        </div>
 
-                            </div>
-
-                            <div className={cx('update-btn', !error && oldPassword && password && confirmPassword ? 'active' : '')} >
-                                <button disabled={!error && oldPassword && password && confirmPassword ? false : true} onClick={handleUpdate}>Cập nhật</button>
-                            </div>
+                        <div className={cx('update-btn', !error && oldPassword && password && confirmPassword ? 'active' : '')} >
+                            <button disabled={!error && oldPassword && password && confirmPassword ? false : true} onClick={handleUpdate}>Cập nhật</button>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <Footer />
         </div>
     );
 }

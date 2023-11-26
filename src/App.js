@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { ToastContainer, } from 'react-toastify';
 import { UserContext } from "./context/UserContext";
+import DefalutInformation from "./components/Layout/components/DefaultInformation";
 function App() {
   const { loginContext } = useContext(UserContext)
 
@@ -28,9 +29,13 @@ function App() {
               let Layout = route.layout || DefaultLayout
 
               if (route.layout) {
+
                 Layout = route.layout;
               } else if (route.layout === null) {
                 Layout = Fragment;
+              }
+              if (route.layout === DefalutInformation) {
+                Layout = DefalutInformation
               }
               return (
                 <Route

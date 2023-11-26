@@ -38,10 +38,7 @@ const UserProvider = ({ children }) => {
                                 id: data.data._id,
                                 phone: data.data.phone,
                             }));
-                            localStorage.setItem('idUser', data.data._id)
-                            localStorage.setItem('name', data.data.name)
-                            localStorage.setItem('phone', data.data.phone)
-                            localStorage.setItem('email', data.data.email)
+
 
                         }
                     })
@@ -79,11 +76,7 @@ const UserProvider = ({ children }) => {
     }
     const logout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('idUser');
-        localStorage.removeItem('name');
-        localStorage.removeItem('phone');
-        localStorage.removeItem('email');
-        localStorage.removeItem('idCart');
+        localStorage.removeItem('idPayment');
 
         setUser((user) => ({
             email: '',

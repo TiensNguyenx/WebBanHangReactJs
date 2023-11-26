@@ -3,7 +3,7 @@ import Product from "~/pages/Card";
 import Cart from "~/pages/Cart";
 import Login from "~/pages/Login";
 import Pay from "~/pages/Pay";
-import { HeaderOnly } from "~/components/Layout";
+import { DefaultLayout, HeaderOnly } from "~/components/Layout";
 import Register from "~/pages/Register";
 import News from "~/pages/News/News";
 import Chat from "~/pages/Chat";
@@ -12,6 +12,7 @@ import ProfileOrder from "~/pages/ProfileOrder";
 import ProfilePassword from "~/pages/ProfilePassWord";
 import ProfileInformation from "~/pages/ProfileInformation";
 import FinishPay from "~/pages/FinishPay";
+import DefalutInformation from "~/components/Layout/components/DefaultInformation";
 const publicRoutes = [
     {
         path: '/',
@@ -55,31 +56,36 @@ const publicRoutes = [
     {
         path: '/noti',
         component: ProfileNoti,
-        layout: HeaderOnly
+        layout: DefalutInformation
 
     },
     {
         path: '/order',
         component: ProfileOrder,
-        layout: HeaderOnly
+        layout: DefalutInformation
 
     },
     {
         path: '/password',
         component: ProfilePassword,
-        layout: HeaderOnly
+        layout: DefalutInformation
 
     },
     {
         path: '/information',
         component: ProfileInformation,
-        layout: HeaderOnly
+        layout: DefalutInformation
     },
     {
         path: '/checkout',
         component: FinishPay,
         layout: HeaderOnly
 
+    },
+    {
+        path: '/defalutInformation',
+        component: DefalutInformation,
+        layout: HeaderOnly
     }
 
 ]

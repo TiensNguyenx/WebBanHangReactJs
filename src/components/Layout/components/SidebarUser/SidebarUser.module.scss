@@ -1,0 +1,31 @@
+.col-1 {
+    width: 100%;
+    position: relative;
+}
+
+.user-img {
+    width: 44px;
+}
+.user-name {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.bold {
+    font-weight: bold;
+}
+.user-information {
+    display: flex;
+}
+.options {
+    margin-top: 14px;
+}
+.option-item {
+    font-size: 1.5rem;
+    padding: 5px 0;
+}

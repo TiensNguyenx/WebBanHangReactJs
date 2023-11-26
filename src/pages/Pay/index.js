@@ -48,10 +48,10 @@ function Pay() {
             shippingMethod = 'nhan tai cua hang'
 
         }
-        const res = await orderProductService(fullName, addressUser, email, phone, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop)
+        const res = await orderProductService(user.id, fullName, addressUser, email, phone, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop)
         if (res.data.status === 'success') {
             let idOrder = (res.data.data._id)
-            navigate(`/checkout?idOrder=${idOrder}&isShipping=${isShipping}`)
+            navigate(`/checkout?idOrder=${idOrder}&isShipping=${isShipping}&idCart=${idCart}`)
         }
 
     }

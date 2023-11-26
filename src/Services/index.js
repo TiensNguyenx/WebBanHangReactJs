@@ -8,7 +8,7 @@ const renderCartService = (userId) => {
 
 
 
-    
+
 
 const deleteProductService = (idCart, idProduct) => {
     return axios.delete(`http://localhost:3002/api/cart/delete-item/${idCart}`, {
@@ -44,6 +44,11 @@ const getAllCouponService = (method) => {
 const getDetailOrderService = (idOrder) => {
     return axios.get(`http://localhost:3002/api/order/get-details-order/${idOrder}`)
 }
+const getDetailPaymentService = () => {
+    if (localStorage.getItem('idPayment')) {
+        return axios.get(`http://localhost:3002/api/payment/get-details-payment/${localStorage.getItem('idPayment')}`)
+    }
+}
 const createPaymentService = (idOrder, paymentMethod, idPrice, idShipping, isShipping) => {
     if (isShipping === 'true') {
         return axios.post(`http://localhost:3002/api/payment/create/${idOrder}`, {
@@ -66,8 +71,8 @@ const createPaymentService = (idOrder, paymentMethod, idPrice, idShipping, isShi
     }
 }
 
-const orderProductService = (fullName, addressUser, email, phoneString, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop) => {
-    const idUser = localStorage.getItem('idUser')
+const orderProductService = (idUser, fullName, addressUser, email, phoneString, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop) => {
+
 
     const phone = parseInt(phoneString, 10)
 
@@ -113,5 +118,5 @@ export {
     minusProductService, orderProductService,
     getRecommnedProductService,
     getAllCouponService, getDetailOrderService,
-    createPaymentService
+    createPaymentService, getDetailPaymentService
 }; 

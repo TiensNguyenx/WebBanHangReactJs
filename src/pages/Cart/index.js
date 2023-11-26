@@ -29,11 +29,12 @@ function Cart() {
         if (user.id) {
             let res = await renderCartService(user.id)
             if (res.data.status === 'success') {
+                console.log(res)
                 setCarts(res.data.data.orderItems)
                 setIdCart(res.data.data._id)
                 setItemsPrice(res.data.data.itemsPrice)
                 setTotalPrice(res.data.data.totalPrice)
-                localStorage.setItem('idCart', res.data.data._id)
+
             }
             else {
                 setCarts([])
@@ -159,7 +160,7 @@ function Cart() {
                                         <div><p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(toltalPrice)}</p></div>
                                     </div>
                                 </div>
-                                <Link to="/pay" className={cx('btn-wrapper')}>    <button className={cx('btn-ctn')}>TIẾP TỤC</button></Link>
+                                <Link to={`/pay?&idCart=${idCart}`} className={cx('btn-wrapper')}>    <button className={cx('btn-ctn')}>TIẾP TỤC</button></Link>
                             </div>
                         </div>
                     </div>
