@@ -19,7 +19,7 @@ function ModalFeedBack({ show, handleClose, itemId }) {
     const navigate = useNavigate()
     const getDetailItem = async () => {
         const res = await getDetailProductService(itemId)
-        console.log(res.data.data)
+      
         setDetailProduct(res.data.data)
     }
     const handleSubmit = async () => {

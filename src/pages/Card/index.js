@@ -3,6 +3,7 @@ import styles from './Card.module.scss'
 import Sidebar from '~/components/Layout/components/Sidebar';
 
 import { AiFillStar } from 'react-icons/ai'
+import { LuPencil } from "react-icons/lu";
 import Product from '~/components/Layout/components/Product';
 import Footer from '~/components/Layout/components/Footer';
 import { useState } from 'react';
@@ -11,47 +12,79 @@ import ModalLoginForAddCart from '~/components/Layout/components/ModalLoginForAd
 import ModalConfirmAddCart from '~/components/Layout/components/ModalConfirmAddCart/ModalConfirmAddCart';
 import ModalLoginForBuy from '~/components/Layout/components/ModalLoginForBuy/ModalLoginForBuy';
 import { useEffect, useContext } from 'react';
+import ModalDeleteFeedBack from '~/components/Layout/components/ModalDeleteFeedBack';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
-import { getRecommnedProductService } from '~/Services'
+import { getRecommnedProductService, getDetailProductService, deleteFeedbackService } from '~/Services'
+import { toast } from 'react-toastify';
 const cx = classNames.bind(styles)
 
 function Card() {
     const { user } = useContext(UserContext);
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
+    const location = useLocation();
     const id = urlParams.get('id');
     const [product, setProduct] = useState({})
     const [recommends, setRecommends] = useState([])
     const [isShowModalLoginForBuy, setIsShowModalLoginForBuy] = useState(false);
     const [isShowModalAddCart, setIsShowModalAddCart] = useState(false);
     const [isShowModalLogin, setIsShowModalLogin] = useState(false);
-    const location = useLocation();
-
+    const [feedbacks, setFeedbacks] = useState([])
+    const [totalRate, setTotalRate] = useState(0)
+    const userId = localStorage.getItem('userId')
+    const [isShowModalDeleteFeedBack, setIsShowModalDeleteFeedBack] = useState(false)
+    const [idRating, setIdRating] = useState('')
     useEffect(() => {
 
     }, [location]);
-    useEffect(() => {
-        fetch(`http://localhost:3002/api/product/get-details/${id}`)
-            .then(res => res.json())
-            .then(data => setProduct(data.data))
+    function formatVietnameseDateTime(dateTimeString) {
 
-    }, [id])
+        const date = new Date(dateTimeString);
 
+        // Định dạng thời gian với múi giờ Việt Nam
+        const formattedDate = new Intl.DateTimeFormat('vi-VN', {
+            timeZone: 'Asia/Ho_Chi_Minh',
+            month: 'numeric',
+            year: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+
+        }).format(date);
+
+        return formattedDate;
+    }
+    const getDetailProduct = async () => {
+        const res = await getDetailProductService(id)
+        console.log(res)
+        setProduct(res.data.data)
+        setFeedbacks(res.data.data.comments)
+        setTotalRate(res.data.data.total_rate)
+
+    }
+    console.log(feedbacks)
     const handleClose = () => {
         setIsShowModalAddCart(false);
         setIsShowModalLogin(false);
         setIsShowModalLoginForBuy(false);
-
-
+        setIsShowModalDeleteFeedBack(false)
     }
     const renderRecoomend = async () => {
         const res = await getRecommnedProductService(1)
-        console.log(res.data.data)
+
         setRecommends(res.data.data)
+    }
+    const startArray = Array.from({ length: totalRate }, (_, index) => index);
+    function renderStartUser(rate) {
+        const startArrayUser = Array.from({ length: rate }, (_, index) => index);
+        return startArrayUser.map((item) => (
+            <AiFillStar key={item} style={{ color: '#c8191f' }} />
+        ))
     }
     useEffect(() => {
         renderRecoomend()
+        getDetailProduct()
     }, [])
     const handleAddCart = () => {
         if (user.id) {
@@ -71,6 +104,12 @@ function Card() {
         //     setIsShowModalLoginForBuy(true);
         // }
     }
+    const handleDeleteFeedBack = (idRating) => {
+        setIdRating(idRating)
+        setIsShowModalDeleteFeedBack(true)
+    }
+
+
     return (
         <div >
             <div className={cx('container')}>
@@ -81,7 +120,14 @@ function Card() {
                         <div className={cx('header')}>
                             <div className={cx('title')}>{`${product.name}${product.description}`}</div>
                             <div className={cx('status')}>
-                                <div className={cx('rate')}><AiFillStar /><AiFillStar /><AiFillStar /><AiFillStar /><AiFillStar /></div>
+                                <div className={cx('fb-start')} >
+
+                                    <div className={cx('fb-result')}>
+                                        <span>{startArray.map((item) => (
+                                            <AiFillStar key={item} style={{ color: '#c8191f' }} />
+                                        ))} </span>
+                                    </div>
+                                </div>
                                 <div className={cx('storage')} >Tình Trạng: Còn Hàng</div>
                                 <div className={cx('warranty')}>Bảo Hành: 12 Tháng</div>
                             </div>
@@ -143,13 +189,41 @@ function Card() {
                                 </ul>
                                 <img className={cx('map')} src='https://scontent.fdad3-6.fna.fbcdn.net/v/t1.15752-9/368391529_357314930194969_3860221427633991811_n.png?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=a9UwEZ1wFWcAX--eiLw&_nc_ht=scontent.fdad3-6.fna&oh=03_AdQmLUHEtAywHLISZJf-_sE8mNuqchsa1vh5Hiu9hWlJ2Q&oe=6569B647' alt='' />
                             </div>
+                        </div>
+                    </div>
+                    <div className={cx('feedback-container')}>
+                        <div className={cx('feedback-content')}>
+                            <div className={cx('fb-header')}>Đánh giá và nhận xét về {product.name}</div>
+
+                            <div className={cx('fb-cmt')}>
+
+                                {feedbacks.length > 0 ? (
+                                    feedbacks.map((item, index) => (
+
+                                        <div key={index}>
+                                            <div>
+                                                <div className={cx('fb-col-c')}>
+                                                    <img className={cx('fb-avatar')} src='https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png' alt=''></img>
+                                                    <div className={cx('fb-col-r')}>
+                                                        <span className={cx('fb-user-name')}>{item.name}</span>
+                                                        <span>{renderStartUser(item.rate)}</span>
+                                                        <span className={cx('fb-time')}>{formatVietnameseDateTime(item.time_create)}</span>
+                                                        <span className={cx('fb-content')}>{item.content}</span>
+                                                    </div>
+                                                    <div onClick={() => handleDeleteFeedBack(item.rating_id)} className={cx('fb-edit')}>{userId === item.user ? <LuPencil /> : ''}</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className={cx('fb-empty')}><img src='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/shoprating/7d900d4dc402db5304b2090a184404cb.png' alt=''></img><span>Chưa có đánh giá nào</span></div>
+                                )}
+                            </div>
+
 
                         </div>
-
-
-
                     </div>
-
 
                     <div className={cx('re-container')}>
                         <div className={cx('recommend-wrap')}>
@@ -185,6 +259,7 @@ function Card() {
                         <div className={cx('comment')}></div>
                     </div>
 
+
                 </div>
 
             </div>
@@ -202,6 +277,13 @@ function Card() {
                 show={isShowModalLoginForBuy}
                 handleClose={handleClose}
             />
+            <ModalDeleteFeedBack
+                show={isShowModalDeleteFeedBack}
+                handleClose={handleClose}
+                idRating={idRating}
+                getDetailProduct={getDetailProduct}
+            />
+
         </div>
 
 

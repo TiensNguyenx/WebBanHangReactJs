@@ -60,6 +60,9 @@ const createFeedbackService = (idUser, productId, rate, content) => {
     })
 
 }
+const deleteFeedbackService = (idRating) => {
+    return axios.delete(`http://localhost:3002/api/rating/delete-rating/${idRating}`)
+}
 const createPaymentService = (idOrder, paymentMethod, idPrice, idShipping, isShipping) => {
     if (isShipping === 'true') {
         return axios.post(`http://localhost:3002/api/payment/create/${idOrder}`, {
@@ -133,5 +136,5 @@ export {
     getAllCouponService, getDetailOrderService,
     createPaymentService, getDetailPaymentService,
     createFeedbackService, getAllPaymentService,
-    getDetailProductService
+    getDetailProductService, deleteFeedbackService
 }; 
