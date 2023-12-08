@@ -9,7 +9,7 @@ import { useContext } from 'react';
 
 const cx = classNames.bind()
 function ModalConfirmAddCart({ show, handleClose }) {
-    const { user, handleAddCartContext, increaseLength, toastCustom } = useContext(UserContext);
+    const { user, handleAddCartContext, increaseLength, } = useContext(UserContext);
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const productID = urlParams.get('id')
@@ -18,15 +18,14 @@ function ModalConfirmAddCart({ show, handleClose }) {
         let res = await handleAddCartContext(user.id, productID)
 
         if (res.data.status === 'success') {
-            toast.success('Thêm vào giỏ hàng thành công', {
-                ...toastCustom
-            })
+            toast.success('Thêm vào giỏ hàng thành công', 
+            )
             handleClose()
             increaseLength()
 
         }
         else {
-            toast.error('Thêm vào giỏ hàng thất bại, vui lòng thử lại', { ...toastCustom })
+            toast.error('Thêm vào giỏ hàng thất bại, vui lòng thử lại')
             handleClose()
         }
 

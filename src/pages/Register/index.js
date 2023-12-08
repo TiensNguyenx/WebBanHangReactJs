@@ -28,7 +28,7 @@ function Register() {
     const [isShowConfirmPassWord, setIsShowConfirmPassword] = useState(false);
     const [errorEmail, setErrorEmail] = useState('');
     const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
-    const { loginContext, toastCustom, user } = useContext(UserContext);
+    const { loginContext, user } = useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -53,12 +53,12 @@ function Register() {
                 .then((data) => {
 
                     if (data.status === 'success') {
-                        toast.success('Đăng ký thành công', { ...toastCustom })
+                        toast.success('Đăng ký thành công')
                         navigate('/')
 
                     }
                     else {
-                        toast.error(data.message, { ...toastCustom })
+                        toast.error(data.message)
                     }
                 })
         } catch (error) {

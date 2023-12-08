@@ -11,7 +11,7 @@ function ProfileInformation() {
 
 
     const [onChangeEmail, setOnChangeEmail] = useState(false)
-    const { toastCustom, user, loginContext } = useContext(UserContext)
+    const {user, loginContext } = useContext(UserContext)
     const [name, setName] = useState(user.name)
     const [email, setEmail] = useState(user.email)
     const [phone, setPhone] = useState(user.phone)
@@ -35,12 +35,12 @@ function ProfileInformation() {
                 .then((data) => {
 
                     if (data.status === 'success') {
-                        toast.success('Cập nhật thông tin thành công', { ...toastCustom })
+                        toast.success('Cập nhật thông tin thành công')
                         loginContext(localStorage.getItem('token'))
 
                     }
                     else {
-                        toast.error('Cập nhật thông tin thất bại', { ...toastCustom })
+                        toast.error('Cập nhật thông tin thất bại')
                     }
                 })
         }
@@ -58,12 +58,12 @@ function ProfileInformation() {
                 .then((res) => { return res.json() })
                 .then((data) => {
                     if (data.data.status === 'success') {
-                        toast.success('Cập nhật thành công', { ...toastCustom })
+                        toast.success('Cập nhật thành công')
                         loginContext(localStorage.getItem('token'))
 
                     }
                     else {
-                        toast.error('Cập nhật thông tin thất bại', { ...toastCustom })
+                        toast.error('Cập nhật thông tin thất bại')
                     }
                 })
 

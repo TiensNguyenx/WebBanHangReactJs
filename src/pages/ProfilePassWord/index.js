@@ -14,7 +14,7 @@ function ProfilePassword() {
     const [isShowOldPassword, setIsShowOldPassword] = useState(false);
     const [isShowNewPassword, setIsShowNewPassword] = useState(false);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
-    const { toastCustom, user } = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const handleConfirmPassWord = (e) => {
         setConfirmPassword(e.target.value);
         if (password !== e.target.value) {
@@ -40,10 +40,10 @@ function ProfilePassword() {
             .then((res) => { return res.json() })
             .then((data) => {
                 if (data.data.message === 'error') {
-                    toast.error(data.message.message, { ...toastCustom })
+                    toast.error(data.message.message)
                 }
                 else {
-                    toast.success('Cập nhật mật khẩu thành công', { ...toastCustom })
+                    toast.success('Cập nhật mật khẩu thành công')
                     setOldPassword('')
                     setPassword('')
                     setConfirmPassword('')

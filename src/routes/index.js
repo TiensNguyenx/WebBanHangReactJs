@@ -3,7 +3,7 @@ import Product from "~/pages/Card";
 import Cart from "~/pages/Cart";
 import Login from "~/pages/Login";
 import Pay from "~/pages/Pay";
-import { DefaultLayout, HeaderOnly } from "~/components/Layout";
+import { HeaderOnly } from "~/components/Layout";
 import Register from "~/pages/Register";
 import News from "~/pages/News/News";
 import Chat from "~/pages/Chat";
@@ -86,7 +86,8 @@ const publicRoutes = [
         path: '/defalutInformation',
         component: DefalutInformation,
         layout: HeaderOnly
-    }
+    },
+
 
 ]
 const privateRoutes = [

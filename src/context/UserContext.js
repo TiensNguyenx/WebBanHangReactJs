@@ -39,7 +39,7 @@ const UserProvider = ({ children }) => {
                                 phone: data.data.phone,
                             }));
 
-
+                            localStorage.setItem('userId', data.data._id)
                         }
                     })
             }
@@ -77,24 +77,15 @@ const UserProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('idPayment');
-
+        localStorage.removeItem('userId');
         setUser((user) => ({
             email: '',
             auth: false,
         }));
     };
-    const toastCustom = {
-        position: "top-right",
-        autoClose: 300,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    }
+  
     return (
-        <UserContext.Provider value={{ user, loginContext, logout, setUser, handleAddCartContext, lengthCart, getLengthCartContext, decreaseLength, increaseLength, resetLength, toastCustom }}>
+        <UserContext.Provider value={{ user, loginContext, logout, setUser, handleAddCartContext, lengthCart, getLengthCartContext, decreaseLength, increaseLength, resetLength, }}>
             {children}
         </UserContext.Provider>
     );

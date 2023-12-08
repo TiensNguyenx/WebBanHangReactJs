@@ -3,6 +3,9 @@
 
     justify-content: center;
 }
+.content {
+    background-color: var(--white-background);
+}
 .containner {
     display: flex;
     padding: 40px 0;
@@ -14,10 +17,10 @@
 }
 .info {
     padding: 30px;
-    background-color: var(--white-background);
 }
 .body {
     display: flex;
+    align-items: center;
 }
 .header {
     display: flex;
@@ -25,13 +28,12 @@
 }
 
 .img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 60px;
 }
 .price {
     display: flex;
     width: 100%;
-    margin-top: 26px;
     justify-content: space-between;
 }
 .old-price {
@@ -42,7 +44,7 @@
     flex-direction: column;
     align-items: flex-end;
     border-top: solid 1px rgba(0, 0, 0, 0.09);
-    padding-top: 25px;
+    padding: 25px;
     button {
         color: var(--white-background);
         padding: 8px 10px;
@@ -78,5 +80,27 @@
     img {
         width: 200px;
         height: 200px;
+    }
+}
+.info-left {
+    margin-left: 8px;
+    div {
+        font-size: 1.4rem;
+    }
+}
+.evaluate {
+    display: flex;
+    justify-content: end;
+    button {
+        color: var(--white-background);
+        padding: 8px 10px;
+        font-weight: 400;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.26);
+
+        min-width: 150px;
+        min-height: 40px;
+        margin-left: 10px;
     }
 }

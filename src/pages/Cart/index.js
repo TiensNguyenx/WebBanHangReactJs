@@ -29,7 +29,7 @@ function Cart() {
         if (user.id) {
             let res = await renderCartService(user.id)
             if (res.data.status === 'success') {
-                console.log(res)
+            
                 setCarts(res.data.data.orderItems)
                 setIdCart(res.data.data._id)
                 setItemsPrice(res.data.data.itemsPrice)
@@ -98,7 +98,7 @@ function Cart() {
                                                 <div className={cx('info')}>
 
                                                     <div className={cx('item-name')}>
-                                                        <div style={{ border: '1px solid #f0f0f0', width: '80px', height: '80px' }}>
+                                                        <div style={{ border: '1px solid #f0f0f0' }}>
                                                             <img src={item.image} alt=''>
 
                                                             </img>

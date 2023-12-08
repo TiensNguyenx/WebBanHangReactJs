@@ -49,6 +49,17 @@ const getDetailPaymentService = () => {
         return axios.get(`http://localhost:3002/api/payment/get-details-payment/${localStorage.getItem('idPayment')}`)
     }
 }
+const getAllPaymentService = (idUser) => {
+    return axios.get(`http://localhost:3002/api/payment/get-all-payment/${localStorage.getItem('userId')}`)
+}
+const createFeedbackService = (idUser, productId, rate, content) => {
+    return axios.post(`http://localhost:3002/api/rating/create/${idUser}`, {
+        productId,
+        rate,
+        content
+    })
+
+}
 const createPaymentService = (idOrder, paymentMethod, idPrice, idShipping, isShipping) => {
     if (isShipping === 'true') {
         return axios.post(`http://localhost:3002/api/payment/create/${idOrder}`, {
@@ -70,7 +81,9 @@ const createPaymentService = (idOrder, paymentMethod, idPrice, idShipping, isShi
         })
     }
 }
-
+const getDetailProductService = (idProduct) => {
+    return axios.get(`http://localhost:3002/api/product/get-details/${idProduct}`)
+}
 const orderProductService = (idUser, fullName, addressUser, email, phoneString, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop) => {
 
 
@@ -118,5 +131,7 @@ export {
     minusProductService, orderProductService,
     getRecommnedProductService,
     getAllCouponService, getDetailOrderService,
-    createPaymentService, getDetailPaymentService
+    createPaymentService, getDetailPaymentService,
+    createFeedbackService, getAllPaymentService,
+    getDetailProductService
 }; 

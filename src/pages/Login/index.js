@@ -22,7 +22,7 @@ function Login() {
     const [error, setError] = useState('');
     const [loadingApi, setLoadingApi] = useState(false);
     const navigate = useNavigate();
-    const { loginContext, user, toastCustom } = useContext(UserContext);
+    const { loginContext, user, } = useContext(UserContext);
 
     useEffect(() => {
 
@@ -45,7 +45,7 @@ function Login() {
     function handleLogin(event) {
 
         if (!email || !password) {
-            toast.error('Vui lòng nhập đầy đủ thông tin', { ...toastCustom })
+            toast.error('Vui lòng nhập đầy đủ thông tin')
             return
         }
         setLoadingApi(true);
@@ -71,16 +71,14 @@ function Login() {
                     loginContext(data.access_token);
                     setTimeout(() => {
 
-                        toast.success('Đăng nhập thành công', {
-                            ...toastCustom
-                        });
+                        toast.success('Đăng nhập thành công');
                         setLoadingApi(false);
                         navigate("/");
                     }, 1000)
                 }
                 else {
                     setTimeout(() => {
-                        toast.error(data.message, { ...toastCustom });
+                        toast.error(data.message);
                         setLoadingApi(false);
                     }, 1000)
                 }
@@ -113,7 +111,10 @@ function Login() {
                             <label><input type='checkbox' />Lưu mật khẩu</label>
                             <div>     <a href='/'> Quên mật khẩu</a></div>
                         </div>
-                        <button style={{ marginTop: '20px' }} type='submit' className={cx('btn', email && password && !error ? 'active' : '')} disabled={email && password && !error ? false : true} onClick={handleLogin}>   {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />} &nbsp; Đăng Nhập</button>
+                        <button style={{ marginTop: '20px' }} type='submit' className={cx('btn', email && password && !error ? 'active' : '')}
+                            disabled={email && password && !error ? false : true} onClick={handleLogin}>
+                            {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
+                            &nbsp; Đăng Nhập</button>
                         <div className={cx('register-link')}>
                             <p style={{ marginRight: '5px', cursor: 'pointer' }}>Chưa có tài khoản?
                             </p>

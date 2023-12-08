@@ -5,7 +5,7 @@ import { getAllCouponService, getDetailOrderService, createPaymentService, delet
 import { UserContext } from "~/context/UserContext";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineTag } from 'react-icons/ai';
+import { AiOutlineTag, AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { FaCheck } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
@@ -25,7 +25,7 @@ function FinishPay() {
     const isShipping = urlParams.get('isShipping')
     const [idPrice, setIdPrice] = useState('')
     const [idShipping, setIdShipping] = useState('')
-
+    const [loadingApi, setLoadingApi] = useState(false)
     const navigate = useNavigate()
     const handleSelectCash = () => {
         setSelectCash(true)
@@ -73,7 +73,7 @@ function FinishPay() {
 
 
     const handleCheckout = async () => {
-
+        setLoadingApi(true);
         if (selectCash) {
             let paymentMethod = 'thanh toan khi nhan hang'
             const res = await createPaymentService(idOrder, paymentMethod, idPrice, idShipping, isShipping)
@@ -178,7 +178,10 @@ function FinishPay() {
                 </div>
                 <div className={cx('total-price')}>
                     <div className={cx('total-container')}> <p className={cx('total-title')}>Tổng tiền: </p><p className={cx('price')}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(userOrder.totalPrice)}</p></div>
-                    <div className={cx('total-action')}><button className={cx('btn-checkout')} onClick={handleCheckout}>THANH TOÁN NGAY</button></div>
+                    <div className={cx('total-action')}><button className={cx('btn-checkout')} onClick={handleCheckout}>
+                        {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
+                        &nbsp; THANH TOÁN NGAY
+                    </button></div>
                 </div>
             </div>
             <Footer />
