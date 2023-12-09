@@ -43,7 +43,7 @@ function Search() {
             })
     }, [debounced])
     return (
-        <div>
+        <div style={{ width: '100%' }}>
             <HeadlessTippy
                 placement='bottom-start'
                 interactive
@@ -72,7 +72,7 @@ function Search() {
                 onClickOutside={() => setShowResult(false)}
             >
                 <div className={cx('search')} >
-                    <input style={{ height: '100%', width: '100%' }}
+                    <input style={{ height: '100%' }}
                         ref={inputRef}
                         onChange={(e) => setSearchValue(e.target.value)}
                         placeholder='Nhập tên sản phẩm, mã sản phẩm, từ khóa cần tìm kiếm...'

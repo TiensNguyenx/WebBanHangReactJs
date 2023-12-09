@@ -39,6 +39,7 @@
     text-align: center;
 }
 .btn-list {
+    position: absolute;
     padding: 8px 21px;
     display: flex;
     align-items: center;
@@ -48,11 +49,14 @@
     background-color: var(--white-background);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    left: -170px;
 }
 .input {
     display: flex;
     position: relative;
     border-radius: 20px;
+    width: 40%;
+    margin-left: 170px;
 }
 .list-item {
     display: flex;

@@ -31,7 +31,6 @@
     cursor: pointer;
 }
 .search {
-    width: 500px;
     height: 38.5px;
     margin-left: -7px;
     border-top-right-radius: 5px;
@@ -39,6 +38,7 @@
     overflow: hidden;
     input {
         font-size: 1.4rem;
+        width: 100%;
     }
 }
 .search-result {
