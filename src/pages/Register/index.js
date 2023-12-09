@@ -39,7 +39,7 @@ function Register() {
 
     function handleRegister(event) {
         try {
-            fetch('http://localhost:3002/api/user/sign-up', {
+            fetch('https://be-web-mn5x.onrender.com/api/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function Register() {
             console.error('Lỗi đăng ký:', error.message);
         }
         setTimeout(() => {
-            fetch('http://localhost:3002/api/user/sign-in', {
+            fetch('https://be-web-mn5x.onrender.com/api/user/sign-in', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
