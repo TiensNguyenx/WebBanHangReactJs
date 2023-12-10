@@ -18,7 +18,7 @@ function Cart() {
     const [productDelete, setProductDelete] = useState({})
     const [showModalLogin, setShowModalLogin] = useState(true);
     const [isShowModalDeleteAll, setIsShowModalDeleteAll] = useState(false);
-    const { user, decreaseLength, increaseLength } = useContext(UserContext);
+    const { user, decreaseLength, increaseLength, lengthCart, resetLength } = useContext(UserContext);
     const [idCart, setIdCart] = useState('')
     const [itemsPrice, setItemsPrice] = useState(0)
     const [toltalPrice, setTotalPrice] = useState(0)
@@ -29,7 +29,7 @@ function Cart() {
         if (user.id) {
             let res = await renderCartService(user.id)
             if (res.data.status === 'success') {
-            
+
                 setCarts(res.data.data.orderItems)
                 setIdCart(res.data.data._id)
                 setItemsPrice(res.data.data.itemsPrice)
@@ -62,7 +62,12 @@ function Cart() {
     }
     const handleMinus = async (idProduct) => {
         await minusProductService(idCart, idProduct)
-        decreaseLength()
+        if (lengthCart === 0) {
+            resetLength()
+        }
+        else {
+            decreaseLength()
+        }
         renderCart()
     }
     function handleDeleteAll(idCart) {

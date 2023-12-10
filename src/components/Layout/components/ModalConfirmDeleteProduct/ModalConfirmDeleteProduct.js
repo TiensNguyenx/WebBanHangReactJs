@@ -10,7 +10,7 @@ import { useContext } from 'react';
 const cx = classNames.bind()
 
 function ModalConfirmDeleteProduct({ show, handleClose, dataDelete }) {
-    const { decreaseLength, } = useContext(UserContext);
+    const { decreaseLength, lengthCart, resetLength } = useContext(UserContext);
     const handleDeleteItem = async () => {
 
         let res = await deleteProductService(dataDelete.idCart, dataDelete.idProduct)
@@ -23,7 +23,12 @@ function ModalConfirmDeleteProduct({ show, handleClose, dataDelete }) {
             toast.error('Xóa sản phẩm thất bại, vui lòng thử lại')
             handleClose()
         }
-        decreaseLength()
+        if (lengthCart > 1) {
+            resetLength()
+        }
+        else {
+            decreaseLength()
+        }
     }
     return (
         <>
