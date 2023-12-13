@@ -39,7 +39,7 @@ function Register() {
 
     function handleRegister(event) {
         try {
-            fetch('https://be-web-mn5x.onrender.com/api/user/sign-up', {
+            fetch('http://localhost:3002/api/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function Register() {
             console.error('Lỗi đăng ký:', error.message);
         }
         setTimeout(() => {
-            fetch('https://be-web-mn5x.onrender.com/api/user/sign-in', {
+            fetch('http://localhost:3002/api/user/sign-in', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ function Register() {
             <div className={cx('wrapper')}>
                 <div className={cx('form')}>
                     <form action=''>
-                        <h1 style={{ textAlign: 'center' }}>Đăng ký</h1>
+                        <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Đăng ký</h1>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
                             <input type='text' placeholder='Họ tên' required onChange={(e) => setName(e.target.value)} />
                             <FaUserAlt className={cx('icon')} />

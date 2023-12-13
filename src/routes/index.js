@@ -12,6 +12,8 @@ import ProfileOrder from "~/pages/ProfileOrder";
 import ProfilePassword from "~/pages/ProfilePassWord";
 import ProfileInformation from "~/pages/ProfileInformation";
 import FinishPay from "~/pages/FinishPay";
+import ForgotPassword from "~/pages/ForgotPassword";
+import ResetPassword from "~/pages/ResetPassword";
 import DefalutInformation from "~/components/Layout/components/DefaultInformation";
 const publicRoutes = [
     {
@@ -36,6 +38,16 @@ const publicRoutes = [
     {
         path: '/register',
         component: Register,
+        layout: HeaderOnly
+    },
+    {
+        path: '/forgotpassword',
+        component: ForgotPassword,
+        layout: HeaderOnly
+    },
+    {
+        path: '/resetpassword',
+        component: ResetPassword,
         layout: HeaderOnly
     },
     {

@@ -251,7 +251,7 @@ function Pay() {
                                     <button className={cx('btn-pay', fullName && phone && email && checkTerm && !errorEmail && !errorPhone ? 'active' : '')}
                                         disabled={fullName && phone && checkTerm && email && !errorEmail && !errorPhone ? false : true}>
                                         {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
-                                        TIẾP TỤC
+                                        &nbsp; TIẾP TỤC
                                     </button>
                                 </div>
 

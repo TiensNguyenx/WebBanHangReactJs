@@ -49,7 +49,7 @@ function Login() {
             return
         }
         setLoadingApi(true);
-        fetch('https://be-web-mn5x.onrender.com/api/user/sign-in', {
+        fetch('http://localhost:3002/api/user/sign-in', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ function Login() {
             <div className={cx('wrapper')}>
                 <div className={cx('form')}>
                     <form action=''>
-                        <h1 style={{ textAlign: 'center' }}>Đăng Nhập</h1>
+                        <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Đăng Nhập</h1>
                         <div className={cx('input-box')} style={{ marginTop: '10px' }}>
                             <input id='email' type='email' placeholder='Email' required value={email} onChange={handleChange} />
                             {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -109,7 +109,7 @@ function Login() {
                         </div>
                         <div className={cx('remember-forgot')}>
                             <label><input type='checkbox' />Lưu mật khẩu</label>
-                            <div>     <a href='/'> Quên mật khẩu</a></div>
+                            <div> <Link to='/forgotpassword'> Quên mật khẩu</Link></div>
                         </div>
                         <button style={{ marginTop: '20px' }} type='submit' className={cx('btn', email && password && !error ? 'active' : '')}
                             disabled={email && password && !error ? false : true} onClick={handleLogin}>

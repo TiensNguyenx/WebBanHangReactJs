@@ -23,7 +23,7 @@ function Home() {
 
     useEffect(() => {
 
-        fetch(`https://be-web-mn5x.onrender.com/api/product/get-all?page=${page}&limit=10`)
+        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=10`)
             .then(response => response.json())
             .then((data) => {
 
@@ -42,7 +42,7 @@ function Home() {
     const handleSort = (sortBy, sortType, sortActive) => {
         setSortBy(sortBy)
         setSortType(sortType)
-        fetch(`https://be-web-mn5x.onrender.com/api/product/get-all?page=${page}&limit=10&sort=${sortType}&sort=${sortBy}`)
+        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=10&sort=${sortType}&sort=${sortBy}`)
             .then(response => response.json())
             .then((data) => {
 

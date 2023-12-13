@@ -1,30 +1,39 @@
 import classNames from "classnames/bind";
 import styles from "./FinishPay.module.scss";
 import Footer from "~/components/Layout/components/Footer";
-import { getAllCouponService, getDetailOrderService, createPaymentService, deleteAllProductService } from '../../Services'
+import {
+    getAllCouponService, getDetailOrderService, createPaymentService,
+    deleteAllProductService, checkedCouponService
+} from '../../Services'
 import { UserContext } from "~/context/UserContext";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineTag, AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { FaCheck } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+
 const cx = classNames.bind(styles);
 function FinishPay() {
-    const [coupon, setCoupon] = useState([])
+    const [coupons, setCoupons] = useState([])
     const { resetLength } = useContext(UserContext)
     const [selectCash, setSelectCash] = useState(true)
     const [selectPayPal, setSelectPayPal] = useState(false)
     const [userOrder, setUserOrder] = useState({})
-    const [checkedCoupon, setCheckedCoupon] = useState(false)
+    const [couponShip, setCouponShip] = useState('')
+    const [renderPriceShip, setRenderPriceShip] = useState(false)
     const [displayCoupon, setDisplayCoupon] = useState(false)
-    const [idCoupon, setIdCoupon] = useState({})
+    const [idCouponsPrice, setIdCouponsPrice] = useState([])
+    const [idCouponsShip, setIdCouponsShip] = useState([])
+    const [idCoupons, setIdCoupons] = useState([])
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const idOrder = urlParams.get('idOrder')
     const idCart = urlParams.get('idCart')
     const isShipping = urlParams.get('isShipping')
-    const [idPrice, setIdPrice] = useState('')
-    const [idShipping, setIdShipping] = useState('')
+    const [arrayCouponShip, setArrayCouponShip] = useState([])
+    const [arrayCouponPrice, setArrayCouponPrice] = useState([])
+    const [priceAfterCoupon, setPriceAfterCoupon] = useState('')
+    const [renderAfterCoupon, setRenderAfterCoupon] = useState(false)
     const [loadingApi, setLoadingApi] = useState(false)
     const navigate = useNavigate()
     const handleSelectCash = () => {
@@ -35,48 +44,83 @@ function FinishPay() {
         setSelectPayPal(true)
         setSelectCash(false)
     }
-    const handleAddCoupon = async () => {
-        setDisplayCoupon(!displayCoupon)
+    const handleRenderCoupon = async () => {
+        setDisplayCoupon(!displayCoupon);
+        let method;
         if (isShipping === 'true') {
-            let method = 'ship'
-            const res = await getAllCouponService(method)
-
-            if (res.data.status === 'success') {
-                setCoupon(res.data.data)
-                setIdShipping(res.data.data[0]._id)
-                setIdPrice(res.data.data[1]._id)
-            }
-
+            method = 'ship';
+        } else {
+            method = 'store';
         }
-        else {
-            let method = 'store'
-            const res = await getAllCouponService(method)
 
-            if (res.data.status === 'success') {
+        const res = await getAllCouponService(method);
 
-                setCoupon(res.data.data)
-                setIdPrice(res.data.data[0]._id)
+        if (res.data.status === 'success') {
+            setCoupons(res.data.data);
 
-            }
+            // Lọc và đặt vào mảng tương ứng
+            const shipCoupons = res.data.data.filter((item) => item.methodDiscount === 'ship');
+            const priceCoupons = res.data.data.filter((item) => item.methodDiscount !== 'ship');
 
+            setArrayCouponShip(shipCoupons);
+            setArrayCouponPrice(priceCoupons);
         }
-    }
+    };
+
+
+
+
     const getDetailOder = async (idOrder) => {
         const res = await getDetailOrderService(idOrder)
         setUserOrder(res.data.data)
     }
-    const handleCheckCoupon = async (idCoupon) => {
-        setCheckedCoupon(!checkedCoupon)
-        setIdCoupon(idCoupon)
 
+    const handleCheckCouponShip = async (idCoupon) => {
+        setIdCouponsShip((prevCoupons) => {
+            const couponExists = prevCoupons.includes(idCoupon);
+            if (couponExists) {
+                return [];
+            } else {
+
+                return [idCoupon];
+            }
+        });
+
+    };
+
+    const handleCheckCouponPrice = async (idCoupon) => {
+        setIdCouponsPrice((prevCoupons) => {
+            const couponExists = prevCoupons.includes(idCoupon);
+            if (couponExists) {
+                return [];
+            } else {
+
+                return [idCoupon];
+            }
+        });
     }
+    useEffect(() => {
+        console.log(idCouponsPrice);
+        updatePriceAfterSelectCoupon();
+        setIdCoupons([...idCouponsPrice, ...idCouponsShip]);
+    }, [idCouponsPrice, idCouponsShip]);
 
 
+    const updatePriceAfterSelectCoupon = async () => {
+        console.log([...idCouponsPrice, ...idCouponsShip])
+        const res = await checkedCouponService(idOrder, [...idCouponsPrice, ...idCouponsShip])
+        console.log(res)
+        setCouponShip(res.data.data.valueShippingCoupon)
+        setRenderPriceShip(true)
+        setPriceAfterCoupon(res.data.data.total_price)
+        setRenderAfterCoupon(true)
+    }
     const handleCheckout = async () => {
         setLoadingApi(true);
         if (selectCash) {
             let paymentMethod = 'thanh toan khi nhan hang'
-            const res = await createPaymentService(idOrder, paymentMethod, idPrice, idShipping, isShipping)
+            const res = await createPaymentService(idOrder, paymentMethod, idCoupons, isShipping)
+            console.log(res)
             if (res.data.status === 'success') {
                 localStorage.setItem('idPayment', res.data.data._id)
                 toast.success('Thanh toán thành công')
@@ -92,7 +136,8 @@ function FinishPay() {
         }
         else {
             let paymentMethod = 'thanh toan bang paypal'
-            const res = await createPaymentService(idOrder, paymentMethod, idPrice, idShipping, isShipping)
+            const res = await createPaymentService(idOrder, paymentMethod, idCoupons, isShipping)
+            console.log(res)
             if (res.data.status === 'success') {
                 localStorage.setItem('idPayment', res.data.data._id)
                 toast.success('Thanh toán thành công')
@@ -131,37 +176,76 @@ function FinishPay() {
                             <p>{userOrder.email}</p>
                             <p>{userOrder.addressUser}</p>
                             <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(userOrder.itemsPrice)}</p>
-                            <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(userOrder.shippingPrice)}</p>
-                            <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(userOrder.totalPrice)}</p>
+                            <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(idCouponsShip.length > 0 ? 0 : userOrder.shippingPrice)}</p>
+                            <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceAfterCoupon ? priceAfterCoupon : userOrder.totalPrice)}</p>
                         </div>
                     </div>
                 </div>
                 <div className={cx('promotion')}>
                     <div className={cx('promotion-wrapper')}>
                         <p>Khuyến mãi</p>
-                        <div className={cx('select-promotion')} onClick={handleAddCoupon}>
+                        <div className={cx('select-promotion')} onClick={handleRenderCoupon}>
                             <AiOutlineTag /> Chọn hoặc nhập mã khuyến mãi
                         </div>
                     </div>
                     <div className={cx('coupon-container')}>
-                        {coupon.map((item, index) => {
-                            return (
-                                displayCoupon && (
-                                    <div className={cx('coupon-wrapper', checkedCoupon ? 'active-select' : '')} style={coupon.length > 1 ? { marginBottom: '10px' } : { marginBottom: '0px' }} key={index} onClick={() => handleCheckCoupon(item._id)}>
-                                        <img className={cx('coupon-img')} src={item.image} alt="" />
-                                        <div className={cx('info-coupon')}>
-                                            <div className={cx('coupon-name')}>{item.name}</div>
-                                            <div className={cx('coupon-description')}>{item.description}</div>
-                                            <div className={cx('coupon-date')}>
-                                                <div className={cx('coupon-start')}>Bắt đầu từ {item.dateStart}</div>
+                        <div>
+                            {displayCoupon && <h3>Mã giảm giá</h3>}
+                            {arrayCouponPrice.length > 0 &&
+                                (
 
-                                            </div>
-                                        </div>
-                                        <div className={cx('use-coupon')} >{checkedCoupon ? <FaCheck className={cx('coupon-check')} /> : ''}</div>
-                                    </div>
+                                    arrayCouponPrice.map((item, index) => {
+                                        return (
+
+                                            displayCoupon && (
+                                                <div className={cx('coupon-wrapper', idCouponsPrice.includes(item._id) ? 'active-select' : '')}
+
+                                                    style={arrayCouponPrice.length > 1 ? { marginBottom: '10px' } : { marginBottom: '0px' }} key={index} onClick={() => handleCheckCouponPrice(item._id)}>
+
+                                                    <img className={cx('coupon-img')} src={item.image} alt="" />
+
+                                                    <div className={cx('info-coupon')}>
+                                                        <div className={cx('coupon-name')}>{item.name}</div>
+                                                        <div className={cx('coupon-description')}>{item.description}</div>
+                                                        <div className={cx('coupon-date')}>
+                                                            <div className={cx('coupon-start')}>Bắt đầu từ {item.dateStart}</div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className={cx('use-coupon')} >{idCouponsPrice.includes(item._id) ? <FaCheck className={cx('coupon-check')} /> : ''}</div>
+                                                </div>
+                                            )
+                                        )
+                                    })
+
                                 )
-                            )
-                        })}
+                            }
+                        </div>
+                        <div>{displayCoupon && <h3>Mã giảm giá vận chuyển</h3>}
+                            {arrayCouponShip.length > 0 && (
+
+                                arrayCouponShip.map((item, index) => {
+                                    return (
+                                        displayCoupon && (
+                                            <div className={cx('coupon-wrapper', idCouponsShip.includes(item._id) ? 'active-select' : '')}
+                                                style={arrayCouponShip.length > 1 ? { marginBottom: '10px' } : { marginBottom: '0px' }} key={index} onClick={() => handleCheckCouponShip(item._id, item.methodDiscount)}>
+                                                <img className={cx('coupon-img')} src={item.image} alt="" />
+                                                <div className={cx('info-coupon')}>
+                                                    <div className={cx('coupon-name')}>{item.name}</div>
+                                                    <div className={cx('coupon-description')}>{item.description}</div>
+                                                    <div className={cx('coupon-date')}>
+
+                                                        <div className={cx('coupon-start')}>Bắt đầu từ {item.dateStart}</div>
+
+                                                    </div>
+                                                </div>
+                                                <div className={cx('use-coupon')} >{idCouponsShip.includes(item._id) ? <FaCheck className={cx('coupon-check')} /> : ''}</div>
+                                            </div>
+                                        )
+                                    )
+                                })
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -177,15 +261,18 @@ function FinishPay() {
                         Thanh toán bằng Paypal</div>
                 </div>
                 <div className={cx('total-price')}>
-                    <div className={cx('total-container')}> <p className={cx('total-title')}>Tổng tiền: </p><p className={cx('price')}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(userOrder.totalPrice)}</p></div>
-                    <div className={cx('total-action')}><button className={cx('btn-checkout')} onClick={handleCheckout}>
-                        {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
-                        &nbsp; THANH TOÁN NGAY
-                    </button></div>
+                    <div className={cx('total-container')}> <p className={cx('total-title')}>Tổng tiền: </p><p className={cx('price')}>
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceAfterCoupon ? priceAfterCoupon : userOrder.totalPrice)}</p></div>
+                    <div className={cx('total-action')}>
+                        <button className={cx('btn-checkout')} onClick={handleCheckout}>
+                            {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
+                            &nbsp; THANH TOÁN NGAY
+                        </button>
+                    </div>
                 </div>
             </div>
             <Footer />
-        </div>
+        </div >
     );
 }
 

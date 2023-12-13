@@ -147,7 +147,6 @@
     margin-bottom: 15px;
 }
 .total-price {
-    margin-top: 15px;
     background-color: var(--white-background);
     padding: 20px;
 }
@@ -155,6 +154,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: center;
     text-align: center;
     background-color: var(disabled-btn);
     color: white;
