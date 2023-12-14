@@ -1,14 +1,13 @@
 import React from 'react';
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
-// @function  UserContext
+
 const UserContext = React.createContext({ email: '', auth: false });
 
-// @function  UserProvider
-// Create function to provide UserContext
 const UserProvider = ({ children }) => {
     const [user, setUser] = React.useState({ email: '', auth: false });
     const [lengthCart, setLengthCart] = React.useState(0);
+
     const loginContext = (token) => {
 
         localStorage.setItem('token', token)
@@ -37,7 +36,9 @@ const UserProvider = ({ children }) => {
                                 name: data.data.name,
                                 id: data.data._id,
                                 phone: data.data.phone,
+                                isAuthEmail: data.data.isAuth
                             }));
+
 
                             localStorage.setItem('userId', data.data._id)
                         }
@@ -45,8 +46,6 @@ const UserProvider = ({ children }) => {
             }
         }
     };
-
-
     const getLengthCartContext = async () => {
         if (user.id) {
             axios.get(`http://localhost:3002/api/cart/get-details-cart/${user.id}`)
@@ -85,7 +84,7 @@ const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, loginContext, logout, setUser, handleAddCartContext, lengthCart, getLengthCartContext, decreaseLength, increaseLength, resetLength, }}>
+        <UserContext.Provider value={{ user, loginContext, logout, setUser, handleAddCartContext, lengthCart, getLengthCartContext, decreaseLength, increaseLength, resetLength }}>
             {children}
         </UserContext.Provider>
     );

@@ -15,6 +15,7 @@ import { GrTechnology } from 'react-icons/gr';
 import { GiVendingMachine } from 'react-icons/gi';
 import { BiCctv } from 'react-icons/bi';
 import { BsList } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles)
 
 function Sidebar() {
@@ -45,9 +46,9 @@ function Sidebar() {
 
 
 
-                <div className={cx('subside')}> SẮM LAPTOP TỰU TRƯỜNG</div>
-                <div className={cx('subside')}>MÀN HÌNH SAMSUNG GIÁ CHẤT</div>
-                <div className={cx('subside')}> BUILD PC NHẬN PC</div>
+                <Link to='Laptop' className={cx('subside')}>  <div > SẮM LAPTOP TỰU TRƯỜNG</div></Link>
+                <Link to='Screen' className={cx('subside')}> <div >MÀN HÌNH SAMSUNG GIÁ CHẤT</div></Link>
+                <Link to='Pc' className={cx('subside')}>  <div > BUILD PC NHẬN PC</div></Link>
 
 
             </aside>

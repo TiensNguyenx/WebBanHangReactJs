@@ -5,7 +5,15 @@ import axios from 'axios';
 const renderCartService = (userId) => {
     return axios.get(`http://localhost:3002/api/cart/get-details-cart/${userId}`)
 };
-
+const getDetailUserService = (id) => {
+    return axios.get(`http://localhost:3002/api/user/get-detail/${id}`,
+        {
+            'headers': {
+                token: `Beare ${localStorage.getItem('token')}`
+            }
+        }
+    )
+}
 
 
 
@@ -144,6 +152,12 @@ const ResetPasswordService = (idUser, password) => {
 
     })
 }
+const authEmail = (email) => {
+    return axios.post('http://localhost:3002/api/auth-email/create-token', {
+        email
+    })
+}
+
 export {
     renderCartService, deleteProductService,
     deleteAllProductService, plustProductService,
@@ -154,5 +168,6 @@ export {
     createFeedbackService, getAllPaymentService,
     getDetailProductService, deleteFeedbackService,
     checkedCouponService, createAuthForgotPasswordService,
-    authCodeForgotPasswordService, ResetPasswordService
+    authCodeForgotPasswordService, ResetPasswordService,
+    authEmail, getDetailUserService
 }; 

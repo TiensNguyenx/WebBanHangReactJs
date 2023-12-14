@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useEffect, useContext } from 'react';
 import { UserContext } from '~/context/UserContext';
+import SidebarProduct from '~/components/Layout/components/ProductSlider';
 
 const cx = classNames.bind(styles)
 
@@ -123,6 +124,7 @@ function Login() {
                     </form>
                 </div>
             </div >
+
             <Footer></Footer>
         </div >
     )

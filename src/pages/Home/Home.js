@@ -1,11 +1,13 @@
 import classNames from "classnames/bind";
 import styles from './Home.module.scss'
-import Product from "~/components/Layout/components/Product";
+
 
 import { useState, useEffect } from "react";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import ReactPaginate from 'react-paginate';
 import './pagination.css'
+
+import ProductSlider from "~/components/Layout/components/ProductSlider";
 const cx = classNames.bind(styles)
 
 function Home() {
@@ -68,35 +70,13 @@ function Home() {
                     </ul>
                 </div>
             </div>
-            <div className={cx('container')}>
-                {
-                    products.map((item, index) => {
-                        return (
 
-
-                            <Product
-                                key={index}
-                                id={item._id}
-                                uptitle={item.name}
-                                downtitle={item.description}
-                                oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.old_price)}
-                                newprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.new_price)}
-                                src={item.image}
-                            // cpu={item.cpu}
-                            // ram={item.ram}
-                            // disk={item.disk}
-                            // operation={item.operation}
-                            // screen={item.screen}
-                            // vga={item.vga}
-
-                            />
-
-                        )
-                    })
-
-                }
+            <div className={cx('container')} >
+                <ProductSlider products={products} />
 
             </div>
+
+
             <div className={cx('pagination')}>
 
                 <ReactPaginate

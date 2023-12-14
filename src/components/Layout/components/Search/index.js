@@ -32,7 +32,7 @@ function Search() {
 
         }
         setLoading(true);
-        fetch(`http://localhost:3002/api/product/get-all?filter=name&filter=${encodeURIComponent(debounced)}`)
+        fetch(`http://localhost:3002/api/product/search?searchName=${encodeURIComponent(debounced)}`)
             .then(res => res.json())
             .then(data => {
                 setSearchResult(data.data)
