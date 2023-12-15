@@ -6,7 +6,6 @@ import Pay from "~/pages/Pay";
 import { HeaderOnly } from "~/components/Layout";
 import Register from "~/pages/Register";
 import News from "~/pages/News/News";
-import Chat from "~/pages/Chat";
 import ProfileNoti from "~/pages/ProfileNoti";
 import ProfileOrder from "~/pages/ProfileOrder";
 import ProfilePassword from "~/pages/ProfilePassWord";
@@ -14,6 +13,7 @@ import ProfileInformation from "~/pages/ProfileInformation";
 import FinishPay from "~/pages/FinishPay";
 import ForgotPassword from "~/pages/ForgotPassword";
 import ResetPassword from "~/pages/ResetPassword";
+import SeeAllProduct from "~/pages/SeeAllProduct";
 import DefalutInformation from "~/components/Layout/components/DefaultInformation";
 const publicRoutes = [
     {
@@ -60,11 +60,7 @@ const publicRoutes = [
         component: News,
         layout: HeaderOnly
     },
-    {
-        path: '/chat',
-        component: Chat,
-        layout: HeaderOnly
-    },
+
     {
         path: '/noti',
         component: ProfileNoti,
@@ -91,6 +87,12 @@ const publicRoutes = [
     {
         path: '/checkout',
         component: FinishPay,
+        layout: HeaderOnly
+
+    },
+    {
+        path: '/product',
+        component: SeeAllProduct,
         layout: HeaderOnly
 
     },

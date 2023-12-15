@@ -157,7 +157,9 @@ const authEmail = (email) => {
         email
     })
 }
-
+const getProductByNameService = (name) => {
+    return axios.get(`http://localhost:3002/api/product/get-all?filter=name&filter=${name}`)
+}
 export {
     renderCartService, deleteProductService,
     deleteAllProductService, plustProductService,
@@ -169,5 +171,5 @@ export {
     getDetailProductService, deleteFeedbackService,
     checkedCouponService, createAuthForgotPasswordService,
     authCodeForgotPasswordService, ResetPasswordService,
-    authEmail, getDetailUserService
+    authEmail, getDetailUserService, getProductByNameService
 }; 

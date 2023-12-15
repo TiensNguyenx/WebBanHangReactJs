@@ -3,8 +3,9 @@ import styles from './Home.module.scss'
 
 
 import { useState, useEffect } from "react";
-import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import ReactPaginate from 'react-paginate';
+import { FaAngleDoubleRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { getProductByNameService } from '~/Services'
 import './pagination.css'
 
 import ProductSlider from "~/components/Layout/components/ProductSlider";
@@ -20,22 +21,36 @@ function Home() {
     const [sortBy, setSortBy] = useState('')
     const [sortType, setSortType] = useState('')
     const [saveSort, setSaveSort] = useState('')
-
+    const [logitechProduct, setLogitechProduct] = useState([])
+    const [razerProduct, setRazerProduct] = useState([])
+    const [corsairProduct, setCorsairProduct] = useState([])
+    const navigate = useNavigate()
 
 
     useEffect(() => {
+        renderProductLogitech()
+        renderProductRazer()
+        renderProductCorSair()
 
-        fetch(`http://localhost:3002/api/product/get-all?page=${page}&limit=10`)
-            .then(response => response.json())
-            .then((data) => {
-
-                setTotalProduct(data.total)
-                setTotalPage(data.totalPage)
-                setProducts(data.data)
-            })
-
-    }, [page])
-
+    }, [])
+    const renderProductLogitech = async () => {
+        const resLogitech = await getProductByNameService('logitech')
+        if (resLogitech.data.status === 'success') {
+            setLogitechProduct(resLogitech.data.data)
+        }
+    }
+    const renderProductRazer = async () => {
+        const resRazer = await getProductByNameService('razer')
+        if (resRazer.data.status === 'success') {
+            setRazerProduct(resRazer.data.data)
+        }
+    }
+    const renderProductCorSair = async () => {
+        const resCorsair = await getProductByNameService('corsair')
+        if (resCorsair.data.status === 'success') {
+            setCorsairProduct(resCorsair.data.data)
+        }
+    }
     const handlePageClick = (event) => {
         setPage(+event.selected)
 
@@ -54,10 +69,12 @@ function Home() {
             })
         setSaveSort(sortActive)
     }
+    const handleSeeAll = (category) => {
+        navigate(`/product?type=${category}`)
+    }
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('header')}>
-                <div id="sp" className={cx('titleProduct')}>SẢN PHẨM KHUYẾN MÃI HOT NHẤT</div>
+            {/* <div className={cx('header')}>
                 <div className={cx('sort')}>
                     <div className={cx('sort-title')}>Sắp xếp theo <i className={cx('fa-solid fa-sort-down ', 'icon-sort')} style={{ color: '#c8191f' }}></i></div>
                     <ul className={cx('sort-list')}>
@@ -69,14 +86,25 @@ function Home() {
 
                     </ul>
                 </div>
-            </div>
+            </div> */}
 
+            <div id="sp" className={cx('titleProduct')}>BÀN PHÍM LOGITECH</div>
             <div className={cx('container')} >
-                <ProductSlider products={products} />
-
+                <div className={cx('header')} onClick={() => handleSeeAll('laptopmsi')}>Xem tất cả <FaAngleDoubleRight style={{ color: '#a22327' }} /></div>
+                <ProductSlider products={logitechProduct} />
+            </div>
+            <div id="sp" className={cx('titleProduct')}>BÀN PHÍM RAZER </div>
+            <div className={cx('container')} >
+                <div className={cx('header')} onClick={() => handleSeeAll('laptopdell')}>Xem tất cả <FaAngleDoubleRight style={{ color: '#a22327' }} /></div>
+                <ProductSlider products={razerProduct} />
+            </div>
+            <div id="sp" className={cx('titleProduct')}>BÀN PHÍM COSAIR </div>
+            <div className={cx('container')} >
+                <div className={cx('header')} onClick={() => handleSeeAll('laptopdell')}>Xem tất cả <FaAngleDoubleRight style={{ color: '#a22327' }} /></div>
+                <ProductSlider products={corsairProduct} />
             </div>
 
-
+            {/* 
             <div className={cx('pagination')}>
 
                 <ReactPaginate
@@ -103,7 +131,7 @@ function Home() {
                 />
 
 
-            </div>
+            </div> */}
         </div >
     );
 }

@@ -19,15 +19,15 @@ const ProductSlider = ({ products }) => {
   };
 
   return (
-    <div className={cx('container')} >
+    <div className='container' >
       <Slider {...settings} >
 
         {products.map((item, index) => (
           <Product
             key={index}
             id={item._id}
-            uptitle={item.name}
-            downtitle={item.description}
+            name={item.name}
+            description={item.description.name_description}
             oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.old_price)}
             newprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.new_price)}
             src={item.image}

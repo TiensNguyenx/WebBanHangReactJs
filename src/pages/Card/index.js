@@ -33,6 +33,7 @@ function Card() {
     const [feedbacks, setFeedbacks] = useState([])
     const [totalRate, setTotalRate] = useState(0)
     const userId = localStorage.getItem('userId')
+    const [description, setDescription] = useState({})
     const [isShowModalDeleteFeedBack, setIsShowModalDeleteFeedBack] = useState(false)
     const [idRating, setIdRating] = useState('')
     useEffect(() => {
@@ -41,8 +42,6 @@ function Card() {
     function formatVietnameseDateTime(dateTimeString) {
 
         const date = new Date(dateTimeString);
-
-        // Định dạng thời gian với múi giờ Việt Nam
         const formattedDate = new Intl.DateTimeFormat('vi-VN', {
             timeZone: 'Asia/Ho_Chi_Minh',
             month: 'numeric',
@@ -59,11 +58,12 @@ function Card() {
         const res = await getDetailProductService(id)
         console.log(res)
         setProduct(res.data.data)
+        setDescription(res.data.data.description)
         setFeedbacks(res.data.data.comments)
         setTotalRate(res.data.data.total_rate)
 
     }
-    console.log(feedbacks)
+
     const handleClose = () => {
         setIsShowModalAddCart(false);
         setIsShowModalLogin(false);
@@ -108,7 +108,7 @@ function Card() {
         setIdRating(idRating)
         setIsShowModalDeleteFeedBack(true)
     }
-
+    console.log(description.name_description)
 
     return (
         <div >
@@ -118,7 +118,8 @@ function Card() {
 
                     <div className={cx('product-container')}>
                         <div className={cx('header')}>
-                            <div className={cx('title')}>{`${product.name}${product.description}`}</div>
+
+                            <div className={cx('title')}>{`${product.name}${description.name_description}`}</div>
                             <div className={cx('status')}>
                                 <div className={cx('fb-start')} >
 
@@ -139,14 +140,14 @@ function Card() {
                                 </div>
                                 <div className={cx('col')}>
                                     <div className={cx('col-left')}>
-                                        <li className={cx('cpu')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>CPU: </span>{ } </li>
-                                        <li className={cx('hard-disk')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>Ổ cứng:</span> { } </li>
-                                        <li className={cx('monitor')}><span style={{ fontWeight: '700' }}>Màn hình: </span  >{ }</li>
+                                        <li className={cx('cpu')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>Mã sản phẩm: </span>{description.product_code} </li>
+                                        <li className={cx('hard-disk')} style={{ marginBottom: '5px' }}> <span style={{ fontWeight: '700' }}>Loại sản phẩm:</span> {description.product_type} </li>
+                                        <li className={cx('monitor')}><span style={{ fontWeight: '700' }}>Cổng kết nối: </span  >{description.connection}</li>
                                     </div>
                                     <div className={cx('col-right')}>
-                                        <li className={cx('ram')} style={{ marginBottom: '5px' }} ><span style={{ fontWeight: '700' }}>RAM: </span>{ }</li>
-                                        <li className={cx('vga')} style={{ marginBottom: '5px' }}><span style={{ fontWeight: '700' }}>VGA: </span>{ }</li>
-                                        <li className={cx('operating')} ><span style={{ fontWeight: '700' }}>Hệ Điều Hành: </span> { }</li>
+                                        <li className={cx('ram')} style={{ marginBottom: '5px' }} ><span style={{ fontWeight: '700' }}>Keyswitch: </span>{description.switch_type}</li>
+                                        <li className={cx('vga')} style={{ marginBottom: '5px' }}><span style={{ fontWeight: '700' }}>Độ bền Switch: </span>{description.durability}</li>
+                                        <li className={cx('operating')} ><span style={{ fontWeight: '700' }}>Dạng bàn phím: </span> {description.format}</li>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +184,7 @@ function Card() {
                                 </ul>
                                 <ul>
                                     <h4>Địa chỉ mua hàng: </h4>
-                                    <li>52 Nguyễn Văn Linh, Hải Châu, TP. Đà Nẵngg </li>
+                                    <li>52 Nguyễn Văn Linh, Hải Châu, TP. Đà Nẵng </li>
                                     <li>48 Hùng Vương, Phú Nhuận, TP. Huế</li>
 
                                 </ul>

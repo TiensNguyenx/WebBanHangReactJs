@@ -14,11 +14,12 @@
     font-size: 1.6rem;
     position: relative;
     display: flex;
+    align-items: center;
 }
 .list-item {
     display: none;
     position: absolute;
-    top: 38px;
+    top: 48px;
     left: 0;
     width: 100%;
     background-color: var(--white-background);

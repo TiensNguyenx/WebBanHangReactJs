@@ -1,9 +1,9 @@
 .wrapper {
     background-color: var(--primary);
-
     width: 83.333%;
 }
 .titleProduct {
+    position: relative;
     height: 44px;
     background-color: #c8191f;
     border-radius: 10px 10px 0px 0px;
@@ -12,22 +12,27 @@
     font-weight: 700;
     width: 368px;
     margin-top: 20px;
-    margin-left: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 10px;
 }
+
 .container {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 30px;
+    position: absolute;
+    top: -36px;
+    right: 10px;
+    color: #a22327;
+    font-weight: bold;
+    font-size: 1.8rem;
+    cursor: pointer;
 }
 .sort {
     position: relative;
@@ -77,4 +82,12 @@
 .active-sort {
     color: red;
     font-weight: 700;
+}
+@media all and (min-width: 1900px) {
+    .titleProduct {
+        margin-left: 145px;
+    }
+    .header {
+        right: 145px;
+    }
 }
