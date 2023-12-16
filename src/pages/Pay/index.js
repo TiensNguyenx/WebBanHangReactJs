@@ -51,7 +51,7 @@ function Pay() {
         const res = await orderProductService(user.id, fullName, addressUser, email, phone, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop)
         if (res.data.status === 'success') {
             let idOrder = (res.data.data._id)
-            navigate(`/checkout?idOrder=${idOrder}&isShipping=${isShipping}&idCart=${idCart}`)
+            navigate(`/checkout?idOrder=${idOrder}&isShipping=${isShipping}&idCart=${idCart}&isPaid=false`)
         }
 
     }

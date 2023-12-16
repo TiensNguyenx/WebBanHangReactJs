@@ -14,7 +14,7 @@ function Footer() {
                     <div style={{ flex: '2' }} className={cx('footer-col')}>
                         <div className={cx('col-title')}>Thông tin chung</div>
 
-                        <a href='/' className={cx('col-item')}>Giới thiệu về Phi Long</a >
+                        <a href='/' className={cx('col-item')}>Giới thiệu về TB Shop</a >
                         <a href='/' className={cx('col-item')}>Tin tuyển dụng</a >
                         <a href='/' className={cx('col-item')}>Tin tức</a >
                         <a href='/' className={cx('col-item')}>Tin khuyến mãi</a >
@@ -34,7 +34,7 @@ function Footer() {
                     </div>
 
                     <div style={{ flex: '3', marginRight: '45px' }} className={cx('footer-col')}>
-                        <div className={cx('col-title')}><span style={{ color: 'red' }}>Phi Long</span> Đà Nẵng</div>
+                        <div className={cx('col-title')}><span style={{ color: 'red' }}>TB Shop</span> Đà Nẵng</div>
 
                         <a href='/' className={cx('col-item')}><span style={{ fontWeight: '700' }}>Thời gian làm việc:</span> 07h30 - 20h30</a >
                         <a href='/' className={cx('col-item')}><span style={{ fontWeight: '700' }}>Showroom 1:</span> 152 Hàm Nghi, Quận Thanh Khê, Đà Nẵng</a >
@@ -42,7 +42,7 @@ function Footer() {
                         <a href='/' className={cx('col-item')}><span style={{ fontWeight: '700' }}>Email:</span> danang@philong.com.vn</a >
                         <a href='/' className={cx('col-item')}><span style={{ fontWeight: '700' }}>Showroom 2:</span> 52 Nguyễn Văn Linh, Quận Hải Châu, Đà Nẵng</a >
                         <a href='/' className={cx('col-item')}> <span style={{ fontWeight: '700' }}>Email:</span> danang@philong.com.vn</a >
-                        <div className={cx('col-title')}><span style={{ color: 'red' }}>Phi Long</span> Huế</div>
+                        <div className={cx('col-title')}><span style={{ color: 'red' }}>TB Shop</span> Huế</div>
 
                         <a href='/' className={cx('col-item')}> <span style={{ fontWeight: '700' }}>Thời gian làm việc:</span> 07h30 - 20h30</a >
                         <a href='/' className={cx('col-item')}><span style={{ fontWeight: '700' }}>Địa chỉ:</span>48 Hùng Vương, TP.Huế, Thừa Thiên Huế </a >

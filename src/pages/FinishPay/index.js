@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineTag, AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { FaCheck } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-// import { PayPalButton } from "react-paypal-button-v2";
+import PaypalButton from "~/components/Layout/components/PaypalButton";
 const cx = classNames.bind(styles);
 function FinishPay() {
     const [coupons, setCoupons] = useState([])
@@ -29,6 +29,7 @@ function FinishPay() {
     const urlParams = new URLSearchParams(queryString);
     const idOrder = urlParams.get('idOrder')
     const idCart = urlParams.get('idCart')
+    const isPaid = urlParams.get('isPaid')
     const isShipping = urlParams.get('isShipping')
     const [arrayCouponShip, setArrayCouponShip] = useState([])
     const [arrayCouponPrice, setArrayCouponPrice] = useState([])
@@ -36,7 +37,7 @@ function FinishPay() {
     const [renderAfterCoupon, setRenderAfterCoupon] = useState(false)
     const [loadingApi, setLoadingApi] = useState(false)
     const [sdkReady, setSdkReady] = useState(false)
-    const [isPaid, setIsPaid] = useState(false)
+
     const [totalPaypal, setTotalPaypal] = useState('')
     const navigate = useNavigate()
     const handleSelectCash = () => {
@@ -118,6 +119,7 @@ function FinishPay() {
     }
     const handleCheckout = async () => {
         setLoadingApi(true);
+
         if (selectCash) {
             let paymentMethod = 'thanh toan khi nhan hang'
             const res = await createPaymentService(idOrder, paymentMethod, idCoupons, isShipping, isPaid)
@@ -153,30 +155,10 @@ function FinishPay() {
             }
         }
     }
-    // const addPaypalScript = async () => {
-    //     const res = await getConfigService()
-    //     console.log(res.data.data);
-    //     const script = document.createElement('script')
-    //     script.type = 'text/javascript'
-    //     script.src = `https://www.paypal.com/sdk/js?client-id=${res.data.data}`
-    //     script.async = true
-    //     script.onload = () => {
-    //         setSdkReady(true)
-    //     }
-    //     document.body.appendChild(script)
-    // }
-    // const onSuccessPayapal = (details, data) => {
-    //     setIsPaid(true)
-    // }
+
     useEffect(() => {
         getDetailOder(idOrder)
-        // if (!window.paypal) {
-        //     addPaypalScript()
-        // }
-        // else {
-        //     setSdkReady(true)
-        // }
-        // addPaypalScript()
+
     }, [])
     return (
         <div className={cx('container')}>
@@ -283,18 +265,13 @@ function FinishPay() {
                         <img className={cx('pay-method-paypal')} src="https://i.pcmag.com/imagery/reviews/068BjcjwBw0snwHIq0KNo5m-15..v1602794215.png" alt="" />
                         Thanh toán bằng Paypal</div>
                 </div>
-                {/* {selectPayPal && sdkReady ?
+                {selectPayPal ?
                     (
                         <div className={cx('paypal')}>
-                            <PayPalButton
-                                amount={Math.round((priceAfterCoupon ? priceAfterCoupon : userOrder.totalPrice) / 23000)}
-                                // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                                onSuccess={onSuccessPayapal}
-                                onError={(err) => { toast.error('Thanh toán thất bại') }}
-                            />
+                            <PaypalButton product={priceAfterCoupon ? priceAfterCoupon : userOrder.totalPrice} idOrder={idOrder} isShipping={isShipping} idCart={idCart} />
                         </div>
                     ) : ''
-                } */}
+                }
                 <div className={cx('total-price')}>
                     <div className={cx('total-container')}> <p className={cx('total-title')}>Tổng tiền: </p><p className={cx('price')}>
                         {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceAfterCoupon ? priceAfterCoupon : userOrder.totalPrice)}</p></div>

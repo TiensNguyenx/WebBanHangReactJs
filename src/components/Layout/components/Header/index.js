@@ -39,7 +39,7 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div >
-                    <Link to="/"><img className={cx('logo')} src='https://philong.com.vn/media/banner/logo_philong11.png' alt=''></img></Link>
+                    <Link to="/"><img className={cx('logo')} src={require('../../../../assets/images/logoShop.png')} alt=''></img></Link>
                 </div>
                 <div className={cx('input')} >
 

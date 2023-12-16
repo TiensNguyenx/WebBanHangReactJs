@@ -89,7 +89,7 @@ function Cart() {
                             <div className={cx('product')}>
                                 <div className={cx('lable')}>
                                     <p style={{ fontWeight: '700' }}>
-                                        CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ PHI LONG
+                                        CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ TB Shop
                                     </p>
                                     <div style={{ width: '78.63px', textAlign: 'center' }}>Đơn giá</div>
                                     <div style={{ width: '78.24px', textAlign: 'center' }}>Số lượng</div>
