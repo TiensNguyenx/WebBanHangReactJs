@@ -23,7 +23,7 @@ function ProfileInformation() {
 
     const handleUpdateUser = () => {
         if (!onChangeEmail) {
-            fetch(`http://localhost:3002/api/user/update-user/${user.id}`, {
+            fetch(`https://be-web-mn5x.onrender.com/api/user/update-user/${user.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ function ProfileInformation() {
                 })
         }
         else {
-            fetch(`http://localhost:3002/api/user/update-user/${user.id}`, {
+            fetch(`https://be-web-mn5x.onrender.com/api/user/update-user/${user.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

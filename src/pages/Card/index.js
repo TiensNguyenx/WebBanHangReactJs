@@ -15,12 +15,12 @@ import { useEffect, useContext } from 'react';
 import ModalDeleteFeedBack from '~/components/Layout/components/ModalDeleteFeedBack';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
-import { getRecommnedProductService, getDetailProductService, deleteFeedbackService } from '~/Services'
-import { toast } from 'react-toastify';
+import { getRecommnedProductService, getDetailProductService } from '~/Services'
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles)
 
 function Card() {
-    const { user } = useContext(UserContext);
+    const { user, handleAddCartContext, increaseLength } = useContext(UserContext);
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const location = useLocation();
@@ -36,6 +36,7 @@ function Card() {
     const [description, setDescription] = useState({})
     const [isShowModalDeleteFeedBack, setIsShowModalDeleteFeedBack] = useState(false)
     const [idRating, setIdRating] = useState('')
+    const navigate = useNavigate();
     useEffect(() => {
 
     }, [location]);
@@ -74,6 +75,7 @@ function Card() {
         const res = await getRecommnedProductService(1)
 
         setRecommends(res.data.data)
+
     }
     const startArray = Array.from({ length: totalRate }, (_, index) => index);
     function renderStartUser(rate) {
@@ -95,14 +97,18 @@ function Card() {
         }
 
     }
-    const handleBuy = () => {
+    const handleBuy = async () => {
         if (!user.id) {
             setIsShowModalLoginForBuy(true);
+        }
+        else {
+            let res = await handleAddCartContext(user.id, id)
+            if (res.data.status === 'success') {
+                increaseLength()
+                navigate('/cart')
+            }
 
         }
-        // else {
-        //     setIsShowModalLoginForBuy(true);
-        // }
     }
     const handleDeleteFeedBack = (idRating) => {
         setIdRating(idRating)
@@ -163,7 +169,10 @@ function Card() {
                                     <p className={cx('content-gift')} >Trả góp lãi suất ưu đãi thông qua cổng MPOS áp dụng cho thẻ tín dụng: Citibank, Eximbank, HSBC, MSB, Techcombank, Nam Á, Shinhan bank, TP bank, Seabank, Kiên Long bank, OCB, VIB, ACB, MB, Vietcombank, SHB...</p>
                                 </div>
                                 <div className={cx('buy')}>
-                                    <button className={cx('add-btn')} onClick={() => handleAddCart()}><div ><BsCartPlus style={{ width: '22px', height: '25px' }} /></div>Thêm vào giỏ hàng</button>
+                                    <button className={cx('add-btn')} onClick={() => handleAddCart()}>
+                                        <div ><BsCartPlus style={{ width: '22px', height: '25px' }} />
+                                        </div>Thêm vào giỏ hàng
+                                    </button>
 
                                     <button className={cx('buy-btn')} onClick={handleBuy}>Mua Ngay</button>
                                 </div>
@@ -232,13 +241,11 @@ function Card() {
                             <div className={cx('recommend')}>
                                 {recommends.map((item, index) => {
                                     return (
-
-
                                         <div style={{ width: '20%' }} key={index}>
                                             <Product key={index}
                                                 id={item._id}
-                                                uptitle={item.name}
-                                                downtitle={item.description}
+                                                name={item.name}
+                                                description={item.description.name_description}
                                                 oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.old_price)}
                                                 newprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.new_price)}
                                                 // vga={item.vga}

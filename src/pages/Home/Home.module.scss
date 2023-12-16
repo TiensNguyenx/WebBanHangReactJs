@@ -34,55 +34,9 @@
     font-size: 1.8rem;
     cursor: pointer;
 }
-.sort {
-    position: relative;
-    &::after {
-        content: '';
-        position: absolute;
-        top: 19px;
-        z-index: 2;
-        width: 169px;
-        height: 24px;
-        right: -56px;
-        cursor: pointer;
-    }
-    &:hover .sort-list {
-        display: block;
-    }
-}
-.sort-list {
-    position: absolute;
-    top: 30px;
-    background-color: var(--white-background);
-    width: 170px;
-    display: none;
-    cursor: pointer;
-    z-index: 3;
-    padding: 15px 10px;
-    border-radius: 5px;
-}
-.sort-title {
-    font-size: 1.7rem;
-    font-weight: 700;
-    cursor: pointer;
-}
 
-.sort-item {
-    padding: 5px;
-    &:hover {
-        background-color: var(--primary);
-    }
-}
-.icon-sort {
-    position: absolute;
-    right: -16px;
-    top: 1px;
-    cursor: pointer;
-}
-.active-sort {
-    color: red;
-    font-weight: 700;
-}
+
+
 @media all and (min-width: 1900px) {
     .titleProduct {
         margin-left: 145px;

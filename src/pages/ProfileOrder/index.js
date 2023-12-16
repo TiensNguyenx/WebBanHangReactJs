@@ -11,6 +11,7 @@ function ProfileOrder() {
     const [detailPayment, setDetailPayment] = useState([])
     const [getLength, setGetLength] = useState(0)
     const [total, setTotal] = useState(0)
+    const [isPaid, setIsPaid] = useState(false)
     const [show, setShow] = useState(false);
     const [itemId, setItemId] = useState('')
     const getDetailPayment = async () => {
@@ -18,7 +19,9 @@ function ProfileOrder() {
         setDetailPayment(res.data.data[0].orderItems)
         setGetLength(res.data.data.length)
         setTotal(res.data.data[0].totalPrice)
+        setIsPaid(res.data.data[0].isPaid)
     }
+    console.log(isPaid)
     const handleFeedBack = (itemId) => {
         setShow(true)
         setItemId(itemId)
@@ -44,7 +47,6 @@ function ProfileOrder() {
                         getLength > 0 ? (
                             <div>
                                 {
-
                                     detailPayment.map((item, index) => {
 
                                         return (
@@ -52,7 +54,7 @@ function ProfileOrder() {
                                                 <div className={cx('header')}>
                                                     <div className={cx('shop-name')}>PHILONG TECHNOLOGY</div>
                                                     <div className={('status')}>
-                                                        <div className={cx('status-payment')}>Đã thanh toán</div>
+                                                        <div className={cx('status-payment')}>{isPaid ? 'Đã thanh toán' : 'Chưa thanh toán'}</div>
                                                     </div>
                                                 </div>
 

@@ -172,7 +172,11 @@
 .spinner {
     animation: spin infinite 1s linear;
 }
-
+.paypal {
+    margin: auto;
+    width: 92%;
+    margin-top: 20px;
+}
 @keyframes spin {
     from {
         transform: rotate(0deg);

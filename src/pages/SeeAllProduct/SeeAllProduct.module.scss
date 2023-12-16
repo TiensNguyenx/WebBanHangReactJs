@@ -1,7 +1,108 @@
 .wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--primary);
 }
 .containner {
     width: 83.333%;
+    position: relative;
+    margin-top: 20px;
+    background-color: var(--white-background);
+}
+.header {
+    position: absolute;
+    top: 32px;
+    right: 46px;
+
+    font-weight: bold;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+.title {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 98%;
+        height: 1.5px;
+        background-color: #c8191f;
+        top: 64px;
+        transform: translateX(1%);
+    }
+}
+.sort {
+    position: relative;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 19px;
+        z-index: 2;
+        width: 169px;
+        height: 24px;
+        right: -64px;
+        cursor: pointer;
+    }
+    &:hover .sort-list {
+        display: block;
+    }
+}
+.sort-list {
+    position: absolute;
+    top: 30px;
+    background-color: var(--white-background);
+    width: 170px;
+    display: none;
+    cursor: pointer;
+    z-index: 3;
+    padding: 15px 10px;
+    border-radius: 5px;
+    right: -40px;
+}
+.sort-title {
+    color: #a22327;
+    font-size: 1.7rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sort-item {
+    padding: 5px;
+    &:hover {
+        background-color: var(--primary);
+    }
+}
+.icon-sort {
+    position: absolute;
+    right: -16px;
+    top: 1px;
+    cursor: pointer;
+}
+.active-sort {
+    color: red;
+    font-weight: 700;
+}
+.titleProduct {
+    position: relative;
+    height: 44px;
+    background-color: #c8191f;
+    border-radius: 10px 10px 0px 0px;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    width: 368px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 28px;
+}
+.product-wrapper {
+    width: 20%;
 }

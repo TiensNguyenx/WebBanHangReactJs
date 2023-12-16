@@ -3,10 +3,10 @@ import axios from 'axios';
 
 
 const renderCartService = (userId) => {
-    return axios.get(`http://localhost:3002/api/cart/get-details-cart/${userId}`)
+    return axios.get(`https://be-web-mn5x.onrender.com/api/cart/get-details-cart/${userId}`)
 };
 const getDetailUserService = (id) => {
-    return axios.get(`http://localhost:3002/api/user/get-detail/${id}`,
+    return axios.get(`https://be-web-mn5x.onrender.com/api/user/get-detail/${id}`,
         {
             'headers': {
                 token: `Beare ${localStorage.getItem('token')}`
@@ -19,7 +19,7 @@ const getDetailUserService = (id) => {
 
 
 const deleteProductService = (idCart, idProduct) => {
-    return axios.delete(`http://localhost:3002/api/cart/delete-item/${idCart}`, {
+    return axios.delete(`https://be-web-mn5x.onrender.com/api/cart/delete-item/${idCart}`, {
         data: {
             productId: idProduct
         }
@@ -27,46 +27,46 @@ const deleteProductService = (idCart, idProduct) => {
 
 };
 const deleteAllProductService = (idCart) => {
-    return axios.delete(`http://localhost:3002/api/cart/delete-cart/${idCart}`)
+    return axios.delete(`https://be-web-mn5x.onrender.com/api/cart/delete-cart/${idCart}`)
 }
 const plustProductService = (idCart, idProduct) => {
-    return axios.put(`http://localhost:3002/api/cart/increase-amount/${idCart}`, {
+    return axios.put(`https://be-web-mn5x.onrender.com/api/cart/increase-amount/${idCart}`, {
         productId: idProduct
     })
 }
 const minusProductService = (idCart, idProduct) => {
-    return axios.delete(`http://localhost:3002/api/cart/decrease-amount/${idCart}`, {
+    return axios.delete(`https://be-web-mn5x.onrender.com/api/cart/decrease-amount/${idCart}`, {
         data: {
             productId: idProduct
         }
     })
 };
 const getRecommnedProductService = (page) => {
-    return axios.get(`http://localhost:3002/api/product/get-all?page=${page}&limit=5`)
+    return axios.get(`https://be-web-mn5x.onrender.com/api/product/get-all?page=${page}&limit=5`)
 }
 const getAllCouponService = (method) => {
 
-    return axios.get(`http://localhost:3002/api/coupon/get-all/${method}`)
+    return axios.get(`https://be-web-mn5x.onrender.com/api/coupon/get-all/${method}`)
 
 }
 const checkedCouponService = (idOrder, idCoupon) => {
-    return axios.post(`http://localhost:3002/api/coupon/increase/${idOrder}`, {
+    return axios.post(`https://be-web-mn5x.onrender.com/api/coupon/increase/${idOrder}`, {
         idCoupon: idCoupon
     })
 }
 const getDetailOrderService = (idOrder) => {
-    return axios.get(`http://localhost:3002/api/order/get-details-order/${idOrder}`)
+    return axios.get(`https://be-web-mn5x.onrender.com/api/order/get-details-order/${idOrder}`)
 }
 const getDetailPaymentService = () => {
     if (localStorage.getItem('idPayment')) {
-        return axios.get(`http://localhost:3002/api/payment/get-details-payment/${localStorage.getItem('idPayment')}`)
+        return axios.get(`https://be-web-mn5x.onrender.com/api/payment/get-details-payment/${localStorage.getItem('idPayment')}`)
     }
 }
 const getAllPaymentService = (idUser) => {
-    return axios.get(`http://localhost:3002/api/payment/get-all-payment/${localStorage.getItem('userId')}`)
+    return axios.get(`https://be-web-mn5x.onrender.com/api/payment/get-all-payment/${localStorage.getItem('userId')}`)
 }
 const createFeedbackService = (idUser, productId, rate, content) => {
-    return axios.post(`http://localhost:3002/api/rating/create/${idUser}`, {
+    return axios.post(`https://be-web-mn5x.onrender.com/api/rating/create/${idUser}`, {
         productId,
         rate,
         content
@@ -74,26 +74,26 @@ const createFeedbackService = (idUser, productId, rate, content) => {
 
 }
 const deleteFeedbackService = (idRating) => {
-    return axios.delete(`http://localhost:3002/api/rating/delete-rating/${idRating}`)
+    return axios.delete(`https://be-web-mn5x.onrender.com/api/rating/delete-rating/${idRating}`)
 }
-const createPaymentService = (idOrder, paymentMethod, idCoupons, isShipping) => {
+const createPaymentService = (idOrder, paymentMethod, idCoupons, isShipping, isPaid) => {
     if (isShipping === 'true') {
-        return axios.post(`http://localhost:3002/api/payment/create/${idOrder}`, {
+        return axios.post(`https://be-web-mn5x.onrender.com/api/payment/create/${idOrder}`, {
             paymentMethod,
             "idCoupon": idCoupons,
-            isPaid: false
+            isPaid
         })
     }
     else {
-        return axios.post(`http://localhost:3002/api/payment/create/${idOrder}`, {
+        return axios.post(`https://be-web-mn5x.onrender.com/api/payment/create/${idOrder}`, {
             paymentMethod,
             "idCoupon": idCoupons,
-            isPaid: false
+            isPaid
         })
     }
 }
 const getDetailProductService = (idProduct) => {
-    return axios.get(`http://localhost:3002/api/product/get-details/${idProduct}`)
+    return axios.get(`https://be-web-mn5x.onrender.com/api/product/get-details/${idProduct}`)
 }
 const orderProductService = (idUser, fullName, addressUser, email, phoneString, noteUser, shippingMethod, addressShipping, cityShipping, noteShipping, addressShop, cityShop) => {
 
@@ -102,7 +102,7 @@ const orderProductService = (idUser, fullName, addressUser, email, phoneString, 
 
     if (addressShipping === '') {
 
-        return axios.post(`http://localhost:3002/api/order/create/${idUser}`,
+        return axios.post(`https://be-web-mn5x.onrender.com/api/order/create/${idUser}`,
 
             {
                 fullName,
@@ -118,7 +118,7 @@ const orderProductService = (idUser, fullName, addressUser, email, phoneString, 
     }
     else {
 
-        return axios.post(`http://localhost:3002/api/order/create/${idUser}`,
+        return axios.post(`https://be-web-mn5x.onrender.com/api/order/create/${idUser}`,
             {
                 fullName,
                 phone,
@@ -137,28 +137,31 @@ const orderProductService = (idUser, fullName, addressUser, email, phoneString, 
 
 }
 const createAuthForgotPasswordService = (email) => {
-    return axios.post('http://localhost:3002/api/forgot-pass/create-code', {
+    return axios.post('https://be-web-mn5x.onrender.com/api/forgot-pass/create-code', {
         email
     })
 }
 const authCodeForgotPasswordService = (idCode, code) => {
-    return axios.post(`http://localhost:3002/api/forgot-pass/check-code/${idCode}`, {
+    return axios.post(`https://be-web-mn5x.onrender.com/api/forgot-pass/check-code/${idCode}`, {
         code
     })
 }
 const ResetPasswordService = (idUser, password) => {
-    return axios.post(`http://localhost:3002/api/user/change-password/${idUser}`, {
+    return axios.post(`https://be-web-mn5x.onrender.com/api/user/change-password/${idUser}`, {
         password
 
     })
 }
 const authEmail = (email) => {
-    return axios.post('http://localhost:3002/api/auth-email/create-token', {
+    return axios.post('https://be-web-mn5x.onrender.com/api/auth-email/create-token', {
         email
     })
 }
 const getProductByNameService = (name) => {
-    return axios.get(`http://localhost:3002/api/product/get-all?filter=name&filter=${name}`)
+    return axios.get(`https://be-web-mn5x.onrender.com/api/product/get-all?filter=name&filter=${name}`)
+}
+const getConfigService = () => {
+    return axios.get('https://be-web-mn5x.onrender.com/api/payment/config')
 }
 export {
     renderCartService, deleteProductService,
@@ -171,5 +174,5 @@ export {
     getDetailProductService, deleteFeedbackService,
     checkedCouponService, createAuthForgotPasswordService,
     authCodeForgotPasswordService, ResetPasswordService,
-    authEmail, getDetailUserService, getProductByNameService
+    authEmail, getDetailUserService, getProductByNameService, getConfigService
 }; 
