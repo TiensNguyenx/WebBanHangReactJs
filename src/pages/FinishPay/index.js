@@ -36,9 +36,9 @@ function FinishPay() {
     const [priceAfterCoupon, setPriceAfterCoupon] = useState('')
     const [renderAfterCoupon, setRenderAfterCoupon] = useState(false)
     const [loadingApi, setLoadingApi] = useState(false)
-    const [sdkReady, setSdkReady] = useState(false)
 
-    const [totalPaypal, setTotalPaypal] = useState('')
+
+
     const navigate = useNavigate()
     const handleSelectCash = () => {
         setSelectCash(true)
@@ -278,7 +278,7 @@ function FinishPay() {
                     <div className={cx('total-action')}>
                         <button className={cx('btn-checkout')} onClick={handleCheckout}>
                             {loadingApi && <AiOutlineLoading3Quarters icon="spinner" className={cx('spinner')} />}
-                            &nbsp; THANH TOÁN NGAY
+                            &nbsp; {isPaid ? 'HOÀN THÀNH ' : 'THANH TOÁN'}
                         </button>
                     </div>
                 </div>

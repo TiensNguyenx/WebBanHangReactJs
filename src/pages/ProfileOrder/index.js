@@ -16,12 +16,15 @@ function ProfileOrder() {
     const [itemId, setItemId] = useState('')
     const getDetailPayment = async () => {
         const res = await getAllPaymentService()
-        setDetailPayment(res.data.data[0].orderItems)
-        setGetLength(res.data.data.length)
-        setTotal(res.data.data[0].totalPrice)
-        setIsPaid(res.data.data[0].isPaid)
+
+        if (res.data.data.length > 0) {
+            setDetailPayment(res.data.data[0].orderItems)
+            setGetLength(res.data.data.length)
+            setTotal(res.data.data[0].totalPrice)
+            setIsPaid(res.data.data[0].isPaid)
+        }
     }
-    console.log(isPaid)
+ 
     const handleFeedBack = (itemId) => {
         setShow(true)
         setItemId(itemId)
@@ -52,7 +55,7 @@ function ProfileOrder() {
                                         return (
                                             <div className={cx('info')} key={index}>
                                                 <div className={cx('header')}>
-                                                    <div className={cx('shop-name')}>PHILONG TECHNOLOGY</div>
+                                                    <div className={cx('shop-name')}>TB TECHNOLOGY</div>
                                                     <div className={('status')}>
                                                         <div className={cx('status-payment')}>{isPaid ? 'Đã thanh toán' : 'Chưa thanh toán'}</div>
                                                     </div>

@@ -125,7 +125,7 @@ function Card() {
                     <div className={cx('product-container')}>
                         <div className={cx('header')}>
 
-                            <div className={cx('title')}>{`${product.name}${description.name_description}`}</div>
+                            <div className={cx('title')}>{product.name}</div>
                             <div className={cx('status')}>
                                 <div className={cx('fb-start')} >
 
@@ -136,7 +136,7 @@ function Card() {
                                     </div>
                                 </div>
                                 <div className={cx('storage')} >Tình Trạng: Còn Hàng</div>
-                                <div className={cx('warranty')}>Bảo Hành: 12 Tháng</div>
+                                <div className={cx('warranty')}>Bảo Hành: {product.guarantee}</div>
                             </div>
                         </div>
                         <div className={cx('info')}>
