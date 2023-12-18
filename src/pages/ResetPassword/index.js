@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { FaLock } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { ResetPasswordService } from '~/Services';
+import  {ResetPasswordService} from '~/Services/UserServices';
 import { toast } from "react-toastify";
 const cx = classNames.bind(styles);
 function ResetPassword() {

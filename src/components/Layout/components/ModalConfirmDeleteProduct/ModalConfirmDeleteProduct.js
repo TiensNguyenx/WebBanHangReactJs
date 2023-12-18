@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classNames from 'classnames/bind';
 import { toast } from 'react-toastify';
-import { deleteProductService } from '../../../../Services'
+import { deleteProductService } from '~/Services/ProductServices';
 import { UserContext } from '~/context/UserContext';
 import { useContext } from 'react';
 const cx = classNames.bind()

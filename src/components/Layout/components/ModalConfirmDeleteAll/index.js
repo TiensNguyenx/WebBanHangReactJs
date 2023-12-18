@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import classNames from 'classnames/bind';
 import { useContext } from 'react';
 import { UserContext } from '~/context/UserContext';
-import { deleteAllProductService } from '~/Services';
+import { deleteAllProductService } from '~/Services/ProductServices/';
 import { toast } from 'react-toastify'
 const cx = classNames.bind()
 function ModalConfirmDeleteAll({ show, handleClose, dataDelete }) {

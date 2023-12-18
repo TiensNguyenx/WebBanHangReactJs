@@ -5,7 +5,7 @@ import { MdEmail } from 'react-icons/md';
 import Footer from '~/components/Layout/components/Footer';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { createAuthForgotPasswordService, authCodeForgotPasswordService } from "~/Services";
+import { createAuthForgotPasswordService, authCodeForgotPasswordService } from "~/Services/UserServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const cx = classNames.bind(styles)

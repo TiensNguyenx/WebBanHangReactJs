@@ -5,7 +5,7 @@ import styles from './Home.module.scss'
 import { useState, useEffect } from "react";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { getProductByNameService } from '~/Services'
+import { getProductByNameService } from "~/Services/ProductServices";
 
 
 import ProductSlider from "~/components/Layout/components/ProductSlider";

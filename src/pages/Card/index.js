@@ -15,7 +15,8 @@ import { useEffect, useContext } from 'react';
 import ModalDeleteFeedBack from '~/components/Layout/components/ModalDeleteFeedBack';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '~/context/UserContext';
-import { getRecommnedProductService, getDetailProductService } from '~/Services'
+// import { getRecommnedProductService, getDetailProductService } from '~';
+import { getRecommnedProductService, getDetailProductService } from '~/Services/ProductServices';
 import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles)
 
@@ -62,16 +63,14 @@ function Card() {
         setDescription(res.data.data.description)
         setFeedbacks(res.data.data.comments)
         setTotalRate(res.data.data.total_rate)
-
     }
-
     const handleClose = () => {
         setIsShowModalAddCart(false);
         setIsShowModalLogin(false);
         setIsShowModalLoginForBuy(false);
         setIsShowModalDeleteFeedBack(false)
     }
-    const renderRecoomend = async () => {
+    const renderRecommend = async () => {
         const res = await getRecommnedProductService(1)
 
         setRecommends(res.data.data)
@@ -85,9 +84,9 @@ function Card() {
         ))
     }
     useEffect(() => {
-        renderRecoomend()
+        renderRecommend()
         getDetailProduct()
-    }, [])
+    }, [id])
     const handleAddCart = () => {
         if (user.id) {
             setIsShowModalAddCart(true);
@@ -107,14 +106,13 @@ function Card() {
                 increaseLength()
                 navigate('/cart')
             }
-
         }
     }
     const handleDeleteFeedBack = (idRating) => {
         setIdRating(idRating)
         setIsShowModalDeleteFeedBack(true)
     }
-    console.log(description.name_description)
+
 
     return (
         <div >

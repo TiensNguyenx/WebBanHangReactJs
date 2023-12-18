@@ -4,20 +4,18 @@ import ReactPaginate from 'react-paginate';
 import { useState, useEffect } from "react";
 import Footer from "~/components/Layout/components/Footer";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import { getProductByNameService } from '~/Services'
+import {getProductByNameService} from "~/Services/ProductServices";
 import Product from '~/components/Layout/components/Product'
 import './pagination.css'
 const cx = classNames.bind(styles)
 function SeeAllProduct() {
     const [page, setPage] = useState(0)
-    const [sortBy, setSortBy] = useState('')
-    const [sortType, setSortType] = useState('')
+
     const [saveSort, setSaveSort] = useState('')
     const [products, setProducts] = useState([])
     const [totalProduct, setTotalProduct] = useState(0)
     const [toltalPage, setTotalPage] = useState(0)
 
-    const [description, setDescription] = useState([])
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const type = urlParams.get('type')
@@ -26,8 +24,7 @@ function SeeAllProduct() {
         setPage(+event.selected)
     }
     const handleSort = (sortBy, sortType, sortActive) => {
-        setSortBy(sortBy)
-        setSortType(sortType)
+
         fetch(`https://be-web-mn5x.onrender.com/api/product/get-all?page=${page}&limit=10&sort=${sortType}&sort=${sortBy}`)
             .then(response => response.json())
             .then((data) => {
@@ -38,13 +35,16 @@ function SeeAllProduct() {
             })
         setSaveSort(sortActive)
     }
-    console.log(toltalPage)
+    const handleSortNew = (sortActive) => {
+        renderProduct()
+        setSaveSort(sortActive)
+    }
     const renderProduct = async () => {
         const res = await getProductByNameService(type)
         console.log(res)
         if (res.data.status === 'success') {
             setProducts(res.data.data)
-            setDescription(res.data.data.description)
+
         }
     }
     useEffect(() => {
@@ -61,7 +61,7 @@ function SeeAllProduct() {
                     <div className={cx('sort')}>
                         <div className={cx('sort-title')}>Sắp xếp theo <i className={cx('fa-solid fa-sort-down ', 'icon-sort')} style={{ color: '#c8191f' }}></i></div>
                         <ul className={cx('sort-list')}>
-                            <li className={cx('sort-item')}>Mới nhất</li>
+                            <li className={cx('sort-item', saveSort === 'sortNew' && 'active-sort')} onClick={() => handleSortNew('sortNew')} >Mới nhất</li>
                             <li className={cx('sort-item', saveSort === 'sortPriceAsc' && 'active-sort')} onClick={() => handleSort('new_price', 'asc', 'sortPriceAsc')}>Giá tăng dần</li>
                             <li className={cx('sort-item', saveSort === 'sortPriceDesc' && 'active-sort')} onClick={() => handleSort('new_price', 'desc', 'sortPriceDesc')}>Giá giảm dần</li>
                             <li className={cx('sort-item', saveSort === 'sortNameAsc' && 'active-sort')} onClick={() => handleSort('name', 'asc', 'sortNameAsc')}>Tên từ A-Z</li>
@@ -76,12 +76,12 @@ function SeeAllProduct() {
 
                         {products.map((item, index) => {
                             return (
-                                <div className={cx('product-wrapper')}>
+                                <div className={cx('product-wrapper')} key={index}>
                                     <Product
-                                        key={index}
+
                                         id={item._id}
                                         name={item.name}
-                                        // description={}
+                                        description={item.description.name_description}
                                         oldprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.old_price)}
                                         newprice={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.new_price)}
                                         src={item.image}

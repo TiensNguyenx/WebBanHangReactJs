@@ -1,10 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "./FinishPay.module.scss";
 import Footer from "~/components/Layout/components/Footer";
-import {
-    getAllCouponService, getDetailOrderService, createPaymentService,
-    deleteAllProductService, checkedCouponService, getConfigService
-} from '../../Services'
+
+import { getAllCouponService, checkedCouponService } from '../../Services/CouponServices'
+import { getDetailOrderService } from '../../Services/OrderServices'
+import { createPaymentService } from '../../Services/PaymentServices'
+import { deleteAllProductService } from '../../Services/ProductServices'
 import { UserContext } from "~/context/UserContext";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";

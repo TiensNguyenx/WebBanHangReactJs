@@ -3,7 +3,7 @@ import styles from './ProfileInformation.module.scss'
 import { useState, useContext, useEffect } from "react";
 import { toast } from 'react-toastify';
 import { UserContext } from "~/context/UserContext";
-import { authEmail, getDetailUserService } from '~/Services'
+import { authEmail, getDetailUserService } from "~/Services/UserServices";
 
 const cx = classNames.bind(styles);
 function ProfileInformation() {

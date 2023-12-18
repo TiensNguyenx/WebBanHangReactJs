@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classNames from 'classnames/bind';
-import { deleteFeedbackService } from '~/Services'
+import { deleteFeedbackService } from '~/Services/FeedbackServices';
 import { toast } from 'react-toastify';
 const cx = classNames.bind()
 function ModalDeleteFeedBack({ show, handleClose, idRating, getDetailProduct }) {

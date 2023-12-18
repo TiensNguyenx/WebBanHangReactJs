@@ -3,9 +3,9 @@ import styles from './Pay.module.scss'
 import Footer from "~/components/Layout/components/Footer";
 
 import { useState, useContext, useEffect } from "react";
-import { orderProductService } from '../../Services'
+import { orderProductService } from '../../Services/OrderServices'
 import { UserContext } from "~/context/UserContext";
-import { renderCartService } from "~/Services";
+import { renderCartService } from "~/Services/CartServices";
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 

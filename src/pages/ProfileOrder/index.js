@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileOrder.module.scss";
 import { useEffect, useState } from "react";
-import { getAllPaymentService, getDetailProductService } from "~/Services";
+import { getAllPaymentService } from "~/Services/PaymentServices";
 
 import ModalFeedBack from "~/components/Layout/components/ModalFeedBack";
 

@@ -6,7 +6,8 @@ import Modal from 'react-bootstrap/Modal';
 import classNames from 'classnames/bind';
 import styles from './ModalFeedBack.module.scss'
 import ReactStars from "react-rating-stars-component";
-import { createFeedbackService, getDetailProductService } from '~/Services';
+import {getDetailProductService}  from '~/Services/ProductServices';
+import {createFeedbackService} from '~/Services/FeedbackServices';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles)
