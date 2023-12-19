@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getAllPaymentService } from "~/Services/PaymentServices";
 
 import ModalFeedBack from "~/components/Layout/components/ModalFeedBack";
-
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 function ProfileOrder() {
@@ -77,21 +77,23 @@ function ProfileOrder() {
                                                         </div>
                                                     </div>
 
-                                                    <div className={cx('body')}>
-                                                        <img className={cx('img')} src={item.orderItems[0].image} alt=""></img>
-                                                        <div className={cx('price')}>
-                                                            <div className={cx('info-left')}>
-                                                                <div className={cx('name')}>{item.orderItems[0].name}</div>
-                                                                <div className={cx('amount')}>Số lượng: {item.orderItems[0].amount}</div>
+                                                    <Link to={`/card?id=${item.orderItems[0].product}`}>
+                                                        <div className={cx('body')}>
+                                                            <img className={cx('img')} src={item.orderItems[0].image} alt=""></img>
+                                                            <div className={cx('price')}>
+                                                                <div className={cx('info-left')}>
+                                                                    <div className={cx('name')}>{item.orderItems[0].name}</div>
+                                                                    <div className={cx('amount')}>Số lượng: {item.orderItems[0].amount}</div>
+
+                                                                </div>
+                                                                <div className={cx('info-right')}>
+                                                                    <div className={cx('old-price')}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.orderItems[0].old_price)}</div>
+                                                                    <div className={cx('new-price')}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.orderItems[0].new_price)}</div>
+                                                                </div>
 
                                                             </div>
-                                                            <div className={cx('info-right')}>
-                                                                <div className={cx('old-price')}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.orderItems[0].old_price)}</div>
-                                                                <div className={cx('new-price')}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.orderItems[0].new_price)}</div>
-                                                            </div>
-
                                                         </div>
-                                                    </div>
+                                                    </Link>
                                                     <div className={cx('evaluate')}>
                                                         <div className={cx('infor-order')}>
                                                             <div>Ngày mua hàng: {formatVietnameseDateTime(item.createdAt)}</div>
