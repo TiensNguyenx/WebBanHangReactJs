@@ -29,12 +29,12 @@ function Search() {
         if (!debounced.trim()) {
             setSearchResult([]);
             return;
-
         }
         setLoading(true);
         fetch(`https://be-web-mn5x.onrender.com/api/product/search?searchName=${encodeURIComponent(debounced)}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 setSearchResult(data.data)
                 setLoading(false);
             })
@@ -58,12 +58,10 @@ function Search() {
                             {serachResult.map((data, index) => {
                                 return (
                                     <div onClick={() => setCheck(!check)} key={index}>
-                                        <SearchResult key={data._id} data={data} />
-
+                                        <SearchResult data={data} />
                                     </div>
                                 )
                             })}
-
                         </PopperWrapper>
 
                     </div>

@@ -32,3 +32,6 @@ export const getDetailProductService = (idProduct) => {
 export const getProductByNameService = (name) => {
     return request.get(`product/get-all?filter=name&filter=${name}`)
 }
+export const getAllProductService = (page, limit) => {
+    return request.get(`product/get-all?page=${page}&limit=${limit}`)
+}

@@ -32,10 +32,11 @@ function Sidebar() {
                     <input className={cx('input')} type="checkbox" />
                     <Menu className={cx('list-item')}>
                         <MenuItem title="Bàn phím Logitech" href={'#logitech'} icon={<SiLogitech />} />
-                        <MenuItem title="Bàn phím Razer"  href={'#razer'} icon={<SiRazer />} />
-                        <MenuItem title="Bàn phím Corsair"  href={'#corsair'} icon={<SiCorsair />} />
-                        <MenuItem title="Bàn phím Steelseries"  href={'#steelseries'} icon={<SiSteelseries />} />
-                        <MenuItem title="Bàn phím Ducky"  href={'#ducky'} icon={<img src={logoDucky} alt='' style={{ width: '18px', height: '18px' }} ></img>} />
+                        <MenuItem title="Bàn phím Razer" href={'#razer'} icon={<SiRazer />} />
+                        <MenuItem title="Bàn phím Corsair" href={'#corsair'} icon={<SiCorsair />} />
+                        <MenuItem title="Bàn phím Steelseries" href={'#steelseries'} icon={<SiSteelseries />} />
+                        <MenuItem title="Bàn phím Ducky" href={'#ducky'} icon={<img src={logoDucky} alt='' style={{ width: '18px', height: '18px' }} ></img>} />
+                        <Link className={cx('menu-item')} to='/product?type=all'><FaRegKeyboard /><div>Xem tất cả bàn phim</div></Link>
                         {/* <MenuItem title="Phím, chuột, Gaming Gear" to="" icon={<FaRegKeyboard />} />
                         <MenuItem title="Loa, tai nghe, Webcam" to="" icon={<LuHeadphones />} />
                         <MenuItem title="Phụ kiện công nghệ " to="" icon={<GrTechnology />} />

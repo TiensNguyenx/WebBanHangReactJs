@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { useState, useEffect } from "react";
 import Footer from "~/components/Layout/components/Footer";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import {getProductByNameService} from "~/Services/ProductServices";
+import { getProductByNameService, getAllProductService } from "~/Services/ProductServices";
 import Product from '~/components/Layout/components/Product'
 import './pagination.css'
 const cx = classNames.bind(styles)
@@ -16,21 +16,22 @@ function SeeAllProduct() {
     const [totalProduct, setTotalProduct] = useState(0)
     const [toltalPage, setTotalPage] = useState(0)
 
+    const [lableProduct, setLableProduct] = useState('')
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString);
     const type = urlParams.get('type')
     console.log(type)
     const handlePageClick = (event) => {
         setPage(+event.selected)
+
     }
     const handleSort = (sortBy, sortType, sortActive) => {
-
-        fetch(`https://be-web-mn5x.onrender.com/api/product/get-all?page=${page}&limit=10&sort=${sortType}&sort=${sortBy}`)
+        fetch(`https://be-web-mn5x.onrender.com/api/product/get-all?page=${page}&limit=15&sort=${sortType}&sort=${sortBy}`)
             .then(response => response.json())
             .then((data) => {
                 console.log(data)
                 setTotalProduct(data.total)
-                setTotalPage(data.totalPage)
+
                 setProducts(data.data)
             })
         setSaveSort(sortActive)
@@ -40,22 +41,48 @@ function SeeAllProduct() {
         setSaveSort(sortActive)
     }
     const renderProduct = async () => {
-        const res = await getProductByNameService(type)
-        console.log(res)
-        if (res.data.status === 'success') {
-            setProducts(res.data.data)
+        if (type === 'all') {
+            const res = await getAllProductService(page, 15)
+            if (res.data.status === 'success') {
+                setProducts(res.data.data)
+                setTotalPage(res.data.totalPage)
+            }
+        }
+        else {
+            const res = await getProductByNameService(type)
+            if (res.data.status === 'success') {
+                setProducts(res.data.data)
+            }
+        }
 
+        if (type === 'logitech') {
+            setLableProduct('BÀN PHÍM LOGITECH')
+        }
+        else if (type === 'razer') {
+            setLableProduct('BÀN PHÍM RAZER')
+        }
+        else if (type === 'corsair') {
+            setLableProduct('BÀN PHÍM CORSAIR')
+        }
+        else if (type === 'steelseries') {
+            setLableProduct('BÀN PHÍM STEELSERIES')
+        }
+        else if (type === 'ducky') {
+            setLableProduct('BÀN PHÍM DUCKY')
+        }
+        else {
+            setLableProduct('TẤT CẢ SẢN PHẨM')
         }
     }
     useEffect(() => {
         renderProduct()
-    }, [])
+    }, [page])
     return (
         <div className={cx('wrapper')}>
             <div className={cx('containner')}>
                 <div className={cx('title')}>
 
-                    <div id="sp" className={cx('titleProduct')}>BÀN PHÍM LOGITECH</div>
+                    <div id="sp" className={cx('titleProduct')}>{lableProduct}</div>
                 </div>
                 <div className={cx('header')}>
                     <div className={cx('sort')}>
