@@ -49,9 +49,9 @@ function Sidebar() {
 
 
 
-                <Link to='Laptop' className={cx('subside')}>  <div > SẮM BÀN PHÍM MỚI</div></Link>
-                <Link to='Screen' className={cx('subside')}> <div >BÀN PHÍM GAMING CHẤT</div></Link>
-                <Link to='Pc' className={cx('subside')}>  <div > MUA BÀN PHÍM NHẬN QUÀ NGAY</div></Link>
+                <div className={cx('subside')}>  <div > SẮM BÀN PHÍM MỚI</div></div>
+                <div className={cx('subside')}> <div >BÀN PHÍM GAMING CHẤT</div></div>
+                <div className={cx('subside')}>  <div > MUA BÀN PHÍM NHẬN QUÀ NGAY</div></div>
 
 
             </aside>
