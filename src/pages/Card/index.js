@@ -179,7 +179,7 @@ function Card() {
                                 <ul>
                                     <h4> Trợ giúp:</h4>
                                     <li>Hướng dẫn mua hàng nhanh chóng </li>
-                                    <li>Chính sách bảo hành tại TB Shop</li>
+                                    <li>Chính sách bảo hành tại TB Technology</li>
                                     <li>Chính sách đổi hàng</li>
                                 </ul>
                                 <ul>
