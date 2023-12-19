@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContext } from '~/context/UserContext';
 import { useContext } from 'react';
 import ModalConfirmDeleteAll from '~/components/Layout/components/ModalConfirmDeleteAll';
-import { renderCartService} from '~/Services/CartServices';
-import {plustProductService, minusProductService } from '~/Services/ProductServices';
+import { renderCartService } from '~/Services/CartServices';
+import { plustProductService, minusProductService } from '~/Services/ProductServices';
 const cx = classNames.bind(styles)
 function Cart() {
     const [carts, setCarts] = useState([])
@@ -42,6 +42,7 @@ function Cart() {
             }
         }
     }
+
     useEffect(() => {
         renderCart()
     }, [user.id])

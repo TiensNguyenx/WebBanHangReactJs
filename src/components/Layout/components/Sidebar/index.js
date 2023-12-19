@@ -49,9 +49,9 @@ function Sidebar() {
 
 
 
-                <Link to='Laptop' className={cx('subside')}>  <div > SẮM LAPTOP TỰU TRƯỜNG</div></Link>
-                <Link to='Screen' className={cx('subside')}> <div >MÀN HÌNH SAMSUNG GIÁ CHẤT</div></Link>
-                <Link to='Pc' className={cx('subside')}>  <div > BUILD PC NHẬN PC</div></Link>
+                <Link to='Laptop' className={cx('subside')}>  <div > SẮM BÀN PHÍM MỚI</div></Link>
+                <Link to='Screen' className={cx('subside')}> <div >BÀN PHÍM GAMING CHẤT</div></Link>
+                <Link to='Pc' className={cx('subside')}>  <div > MUA BÀN PHÍM NHẬN QUÀ NGAY</div></Link>
 
 
             </aside>
