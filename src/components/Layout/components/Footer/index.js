@@ -47,12 +47,9 @@ function Footer() {
                         <div className={cx('col-item')}><span style={{ fontWeight: '700' }}>Địa chỉ:</span>48 Hùng Vương, TP.Huế, Thừa Thiên Huế </div >
                         <div className={cx('col-item')}> <span style={{ fontWeight: '700' }}>Tel:</span> (0234) 3 977 000 - Fax: (0234) 3 3935 468</div >
                         <div className={cx('col-item')}><span style={{ fontWeight: '700' }}>Email:</span> hue@tbshop.com.vn</div >
-
                     </div>
                     <div style={{ flex: '3' }} className={cx('footer-col')}>
                         <div className={cx('col-title')}>Customer's Care</div>
-
-
                         <div className={cx('col-item')}><span style={{ fontWeight: '700' }}> Trung tâm Bảo Hành và Sửa chữa: </span>Tầng 3 - 152 Hàm Nghi, Đà Nẵng (Giờ LV: 7:30 - 11:30 và 13:30 - 17:30 )</div >
                         <div className={cx('col-item')}> <span style={{ fontWeight: '700' }}>Tel: </span></div >
                         <div className={cx('col-item')}><span style={{ fontWeight: '700' }}>Gọi sửa chữa: </span>(0236)3 655 000 </div >

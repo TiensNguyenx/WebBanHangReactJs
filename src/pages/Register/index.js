@@ -55,7 +55,31 @@ function Register() {
                     if (data.status === 'success') {
                         toast.success('Đăng ký thành công')
                         navigate('/')
+                        setTimeout(() => {
+                            fetch('https://be-web-mn5x.onrender.com/api/user/sign-in', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ email, password }),
+                            })
+                                .then((res) => {
+                                    if (res.status === 200) {
 
+                                        return res.json()
+                                    }
+                                }
+                                )
+                                .then((data) => {
+                                    if (data.status === "success") {
+                                        localStorage.setItem('token', data.access_token)
+
+                                        loginContext(data.access_token);
+
+                                    }
+
+                                })
+                        }, 1000)
                     }
                     else {
                         toast.error(data.message)
@@ -64,31 +88,7 @@ function Register() {
         } catch (error) {
             console.error('Lỗi đăng ký:', error.message);
         }
-        setTimeout(() => {
-            fetch('https://be-web-mn5x.onrender.com/api/user/sign-in', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            })
-                .then((res) => {
-                    if (res.status === 200) {
 
-                        return res.json()
-                    }
-                }
-                )
-                .then((data) => {
-                    if (data.status === "success") {
-                        localStorage.setItem('token', data.access_token)
-
-                        loginContext(data.access_token);
-
-                    }
-
-                })
-        }, 1000)
         event.preventDefault();
 
 
