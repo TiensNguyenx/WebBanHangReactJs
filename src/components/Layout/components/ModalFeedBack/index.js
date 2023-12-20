@@ -6,8 +6,8 @@ import Modal from 'react-bootstrap/Modal';
 import classNames from 'classnames/bind';
 import styles from './ModalFeedBack.module.scss'
 import ReactStars from "react-rating-stars-component";
-import {getDetailProductService}  from '~/Services/ProductServices';
-import {createFeedbackService} from '~/Services/FeedbackServices';
+import { getDetailProductService } from '~/Services/ProductServices';
+import { createFeedbackService } from '~/Services/FeedbackServices';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles)
@@ -20,7 +20,7 @@ function ModalFeedBack({ show, handleClose, itemId }) {
     const navigate = useNavigate()
     const getDetailItem = async () => {
         const res = await getDetailProductService(itemId)
-      
+
         setDetailProduct(res.data.data)
     }
     const handleSubmit = async () => {
@@ -47,7 +47,7 @@ function ModalFeedBack({ show, handleClose, itemId }) {
             getDetailItem()
         }
     }, [show])
-
+    console.log(detailProduct)
     const handleRate = (newRating) => {
         setRate(newRating)
 

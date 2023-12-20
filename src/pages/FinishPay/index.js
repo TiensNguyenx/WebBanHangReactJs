@@ -227,7 +227,7 @@ function FinishPay() {
                                 )
                             }
                         </div>
-                        <div>{displayCoupon && <h3>Mã giảm giá vận chuyển</h3>}
+                        <div>{isShipping === 'true' && displayCoupon && <h3>Mã giảm giá vận chuyển</h3>}
                             {arrayCouponShip.length > 0 && (
 
                                 arrayCouponShip.map((item, index) => {

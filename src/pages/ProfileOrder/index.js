@@ -66,7 +66,7 @@ function ProfileOrder() {
                             <div>
                                 {
                                     detailPayment.map((item, index) => {
-
+                                        console.log(item)
                                         return (
                                             <div key={index} className={cx('item')}>
                                                 <div className={cx('info')} >
@@ -100,7 +100,7 @@ function ProfileOrder() {
                                                             <div>Phương thức thanh toán: {item.paymentMethod === 'thanh toan bang paypal' ? 'Ví điện tử Paypal' : 'Thanh toán khi nhận hàng'}</div>
                                                             <div>Hình thức nhận hàng: {item.shippingMethod === 'nhan tai cua hang' ? 'Nhận tại của hàng' : 'Giao hàng tận nơi'}</div>
                                                         </div>
-                                                        <button onClick={() => handleFeedBack(item.product)} style={{ backgroundColor: 'var(--background-color-button' }}>Đánh Giá</button>
+                                                        <button onClick={() => handleFeedBack(item.orderItems[0].product)} style={{ backgroundColor: 'var(--background-color-button' }}>Đánh Giá</button>
                                                     </div>
 
                                                 </div>
