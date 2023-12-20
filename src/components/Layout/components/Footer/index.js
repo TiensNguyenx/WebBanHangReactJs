@@ -36,7 +36,7 @@ function Footer() {
                     <div style={{ flex: '3', marginRight: '45px' }} className={cx('footer-col')}>
                         <div className={cx('col-title')}><span style={{ color: 'red' }}>TB Technology</span> Đà Nẵng</div>
 
-                        <didiv className={cx('col-item')}><span style={{ fontWeight: '700' }}>Thời gian làm việc:</span> 07h30 - 20h30</didiv >
+                        <div className={cx('col-item')}><span style={{ fontWeight: '700' }}>Thời gian làm việc:</span> 07h30 - 20h30</div >
                         <div className={cx('col-item')}><span style={{ fontWeight: '700' }}>Showroom 1:</span> 152 Hàm Nghi, Quận Thanh Khê, Đà Nẵng</div >
                         <div className={cx('col-item')}><span style={{ fontWeight: '700' }}>Tel:</span> (0236) 3 888 000 Mobile: (84) 0903 555 310</div >
                         <div className={cx('col-item')}><span style={{ fontWeight: '700' }}>Email:</span> danang@tbshop.com.vn</div >

@@ -39,7 +39,8 @@ function ProfilePassword() {
         )
             .then((res) => { return res.json() })
             .then((data) => {
-                if (data.data.message === 'error') {
+                console.log(data)
+                if (data.message.status === 'error') {
                     toast.error(data.message.message)
                 }
                 else {
