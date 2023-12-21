@@ -3,11 +3,11 @@ import styles from './Card.module.scss'
 import Sidebar from '~/components/Layout/components/Sidebar';
 
 import { AiFillStar } from 'react-icons/ai'
-import { LuPencil } from "react-icons/lu";
 import Product from '~/components/Layout/components/Product';
 import Footer from '~/components/Layout/components/Footer';
 import { useState } from 'react';
 import { BsCartPlus } from 'react-icons/bs';
+import { MdDeleteForever } from "react-icons/md";
 import ModalLoginForAddCart from '~/components/Layout/components/ModalLoginForAddCart/ModalLoginForAddCart';
 import ModalConfirmAddCart from '~/components/Layout/components/ModalConfirmAddCart/ModalConfirmAddCart';
 import ModalLoginForBuy from '~/components/Layout/components/ModalLoginForBuy/ModalLoginForBuy';
@@ -218,7 +218,7 @@ function Card() {
                                                         <span className={cx('fb-time')}>{formatVietnameseDateTime(item.time_create)}</span>
                                                         <span className={cx('fb-content')}>{item.content}</span>
                                                     </div>
-                                                    <div onClick={() => handleDeleteFeedBack(item.rating_id)} className={cx('fb-edit')}>{userId === item.user ? <LuPencil /> : ''}</div>
+                                                    <div onClick={() => handleDeleteFeedBack(item.rating_id)} className={cx('fb-edit')}>{userId === item.user ? <MdDeleteForever /> : ''}</div>
                                                 </div>
 
                                             </div>
