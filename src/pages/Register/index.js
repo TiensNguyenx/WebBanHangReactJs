@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import 'react-phone-number-input/style.css'
 import { useContext } from 'react';
 import { UserContext } from '~/context/UserContext';
+import bcrypt from 'bcryptjs';
 const cx = classNames.bind(styles)
 
 
@@ -38,13 +39,15 @@ function Register() {
     })
 
     function handleRegister(event) {
+        const hashPassword =  bcrypt.hash(password, 10);
+        const hashConfirmPassword =  bcrypt.hash(confirmPassword, 10);
         try {
             fetch('https://be-web-mn5x.onrender.com/api/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, password, confirmPassword, phone }),
+                body: JSON.stringify({ name, email, hashPassword, hashConfirmPassword, phone }),
             })
                 .then((res) => {
                     return res.json()

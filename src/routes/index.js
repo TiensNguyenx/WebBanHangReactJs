@@ -14,6 +14,7 @@ import FinishPay from "~/pages/FinishPay";
 import ForgotPassword from "~/pages/ForgotPassword";
 import ResetPassword from "~/pages/ResetPassword";
 import SeeAllProduct from "~/pages/SeeAllProduct";
+import Chat from "~/pages/Chat";
 import DefalutInformation from "~/components/Layout/components/DefaultInformation";
 const publicRoutes = [
     {
@@ -101,7 +102,11 @@ const publicRoutes = [
         component: DefalutInformation,
         layout: HeaderOnly
     },
-
+    {
+        path: '/chat',
+        component: Chat,
+        layout: HeaderOnly
+    },
 
 ]
 const privateRoutes = [

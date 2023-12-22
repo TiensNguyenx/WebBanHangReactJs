@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useEffect, useContext } from 'react';
 import { UserContext } from '~/context/UserContext';
-
+import bcrypt from 'bcryptjs';
 
 const cx = classNames.bind(styles)
 
@@ -24,7 +24,7 @@ function Login() {
     const [loadingApi, setLoadingApi] = useState(false);
     const navigate = useNavigate();
     const { loginContext, user, } = useContext(UserContext);
-
+    
     useEffect(() => {
 
         if (user.id) {
@@ -49,13 +49,14 @@ function Login() {
             toast.error('Vui lòng nhập đầy đủ thông tin')
             return
         }
+        const hashPassword =  bcrypt.hash(password, 10);
         setLoadingApi(true);
         fetch('https://be-web-mn5x.onrender.com/api/user/sign-in', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ email, hashPassword }),
         })
             .then((res) => {
                 if (res.status === 200) {
