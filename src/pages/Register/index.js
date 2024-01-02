@@ -39,15 +39,14 @@ function Register() {
     })
 
     function handleRegister(event) {
-        const hashPassword =  bcrypt.hash(password, 10);
-        const hashConfirmPassword =  bcrypt.hash(confirmPassword, 10);
+
         try {
             fetch('https://be-web-mn5x.onrender.com/api/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, hashPassword, hashConfirmPassword, phone }),
+                body: JSON.stringify({ name, email, password, confirmPassword, phone }),
             })
                 .then((res) => {
                     return res.json()
