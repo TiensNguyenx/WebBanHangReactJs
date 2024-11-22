@@ -41,7 +41,7 @@ function Register() {
     function handleRegister(event) {
 
         try {
-            fetch('https://be-web-mn5x.onrender.com/api/user/sign-up', {
+            fetch('https://be-pbl3-commerce-web.onrender.com/api/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ function Register() {
                         toast.success('Đăng ký thành công')
                         navigate('/')
                         setTimeout(() => {
-                            fetch('https://be-web-mn5x.onrender.com/api/user/sign-in', {
+                            fetch('https://be-pbl3-commerce-web.onrender.com/api/user/sign-in', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',

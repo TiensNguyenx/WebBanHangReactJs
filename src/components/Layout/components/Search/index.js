@@ -31,7 +31,7 @@ function Search() {
             return;
         }
         setLoading(true);
-        fetch(`https://be-web-mn5x.onrender.com/api/product/search?searchName=${encodeURIComponent(debounced)}`)
+        fetch(`https://be-pbl3-commerce-web.onrender.com/api/product/search?searchName=${encodeURIComponent(debounced)}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)

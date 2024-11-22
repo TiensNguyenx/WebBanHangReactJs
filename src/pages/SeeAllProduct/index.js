@@ -26,7 +26,7 @@ function SeeAllProduct() {
 
     }
     const handleSort = (sortBy, sortType, sortActive) => {
-        fetch(`https://be-web-mn5x.onrender.com/api/product/get-all?page=${page}&limit=15&sort=${sortType}&sort=${sortBy}`)
+        fetch(`https://be-pbl3-commerce-web.onrender.com/api/product/get-all?page=${page}&limit=15&sort=${sortType}&sort=${sortBy}`)
             .then(response => response.json())
             .then((data) => {
                 console.log(data)

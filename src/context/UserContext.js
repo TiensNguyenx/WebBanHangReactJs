@@ -14,7 +14,7 @@ const UserProvider = ({ children }) => {
         if (token) {
             const decoded = jwtDecode(token);
             if (decoded.payload?.id) {
-                fetch(`https://be-web-mn5x.onrender.com/api/user/get-detail/${decoded.payload.id}`, {
+                fetch(`https://be-pbl3-commerce-web.onrender.com/api/user/get-detail/${decoded.payload.id}`, {
                     headers: {
                         token: `Beare ${token}`
                     },
@@ -48,7 +48,7 @@ const UserProvider = ({ children }) => {
     };
     const getLengthCartContext = async () => {
         if (user.id) {
-            axios.get(`https://be-web-mn5x.onrender.com/api/cart/get-details-cart/${user.id}`)
+            axios.get(`https://be-pbl3-commerce-web.onrender.com/api/cart/get-details-cart/${user.id}`)
                 .then((res) => {
                     if (res.data.status === 'success') {
                         setLengthCart(res.data.data.totalItems)
@@ -66,7 +66,7 @@ const UserProvider = ({ children }) => {
         setLengthCart(0)
     }
     const handleAddCartContext = (idUser, idProduct) => {
-        return axios.post(`https://be-web-mn5x.onrender.com/api/cart/add-to-cart`, {
+        return axios.post(`https://be-pbl3-commerce-web.onrender.com/api/cart/add-to-cart`, {
             newCart: {
                 userID: idUser,
                 productID: idProduct,

@@ -27,7 +27,7 @@ function ProfilePassword() {
     const userId = user.id
     const handleUpdate = () => {
 
-        fetch(`https://be-web-mn5x.onrender.com/api/user/update-user/${userId}`, {
+        fetch(`https://be-pbl3-commerce-web.onrender.com/api/user/update-user/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
