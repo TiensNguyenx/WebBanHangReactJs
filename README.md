@@ -29,7 +29,7 @@ Bao gồm các chức năng:
 + Phân trang sản phẩm
 
 Deploy: https://web-ban-hang-react-js.vercel.app/
-(Đợi 5giây sever load sản phẩm)
+(Đợi 5giây server load sản phẩm)
 
 
 
