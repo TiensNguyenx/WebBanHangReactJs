@@ -13,6 +13,7 @@ Bao gồm các chức năng:
      - Đăng ký, đăng nhập, đăng xuất tài khoản người dùng.​
      - Quản lý thông tin cá nhân và lịch sử mua hàng.​
      - Cập nhật thông tin cá nhân, mật khẩu.
+     - Quên mật khẩu, email xác nhận.
 + Giỏ hàng và thanh toán:​
      - Thêm sản phẩm, xóa sản phẩm, tăng số lượng, giảm số lượng sản phẩm ở giỏ hàng.
      - Hiển thị tổng giá trị đơn hàng.​
@@ -27,7 +28,8 @@ Bao gồm các chức năng:
      - Hiển thị giá giảm sau khi áp dụng khuyến mãi.
 + Phân trang sản phẩm
 
-
+Deploy: https://web-ban-hang-react-js.vercel.app/
+(Đợi 5giây sever load sản phẩm)
 
 
 
