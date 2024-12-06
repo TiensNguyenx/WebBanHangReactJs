@@ -31,6 +31,6 @@ Bao gồm các chức năng:
 Deploy: https://web-ban-hang-react-js.vercel.app/
 (Đợi 5giây server load sản phẩm)
 
-![CHEESE!](![image](https://github.com/user-attachments/assets/f03f542a-5e4f-4bd8-abce-30d5d1fadc23)
-)
+![image](https://github.com/user-attachments/assets/aa099526-4e7d-427d-86db-581e3bd4a50f)
+
 
