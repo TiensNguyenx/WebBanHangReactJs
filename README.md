@@ -14,10 +14,12 @@ Bao gồm các chức năng:
      - Quản lý thông tin cá nhân và lịch sử mua hàng.​
      - Cập nhật thông tin cá nhân, mật khẩu.
      - Quên mật khẩu, email xác nhận.
+     - Chat với admin (Socket.io).
 + Giỏ hàng và thanh toán:​
      - Thêm sản phẩm, xóa sản phẩm, tăng số lượng, giảm số lượng sản phẩm ở giỏ hàng.
      - Hiển thị tổng giá trị đơn hàng.​
      - Lựa chọn phương thức thanh toán (thẻ tín dụng, chuyển khoản, thanh toán khi nhận hàng).
+     - Thêm mã giảm giá.
 + Quản lý đơn hàng:
      - Xem và theo dõi trạng thái đơn hàng.​
      - Gửi thông báo cho người dùng về tình trạng đơn hàng.
@@ -27,7 +29,9 @@ Bao gồm các chức năng:
      - Áp dụng mã giảm giá hoặc chương trình khuyến mãi.
      - Hiển thị giá giảm sau khi áp dụng khuyến mãi.
 + Phân trang sản phẩm
-
++ Đối với Admin
+     - Quản lý sản phẩm, người dùng.
+     - Thống kê giao dịch.
 Deploy: https://web-ban-hang-react-js.vercel.app/
 (Đợi 5giây server load sản phẩm)
 
